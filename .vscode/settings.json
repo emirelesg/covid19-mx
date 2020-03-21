@@ -1,0 +1,23 @@
+{
+  "vetur.format.defaultFormatter.html": "prettyhtml",
+  "vetur.format.defaultFormatter.js": "prettier",
+  "vetur.format.defaultFormatterOptions": {
+    "prettyhtml": {
+      "printWidth": 80,
+      "singleQuote": false,
+      "wrapAttributes": false,
+      "sortAttributes": false
+    },
+    "prettier": {
+      "singleQuote": true,
+      "jsxSingleQuote": true
+    }
+  },
+  "vetur.validation.template": false,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleQuote": true
+}
