@@ -1,9 +1,8 @@
 <template>
   <v-app>
     <v-app-bar app color="indigo" dark>
-      <v-toolbar-title>COVID-19 en México</v-toolbar-title>
+      <v-toolbar-title>COVID-19</v-toolbar-title>
     </v-app-bar>
-
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -16,8 +15,8 @@ export default {
 
   components: {},
 
-  data: () => ({
-    //
-  })
+  data() {
+    return {};
+  }
 };
 </script>
