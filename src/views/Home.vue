@@ -15,28 +15,28 @@
     </v-row>
     <disclaimer/>
     <v-row>
-      <v-col sm="6" md="3">
+      <v-col cols="12" sm="6" md="3">
         <value-card
           title="Confirmados"
           color="red"
           v-bind:value="stats.confirmed"
         />
       </v-col>
-      <v-col sm="6" md="3">
+      <v-col cols="12" sm="6" md="3">
         <value-card
           title="Sospechosos"
           color="orange"
           v-bind:value="stats.suspected"
         />
       </v-col>
-      <v-col sm="6" md="3">
+      <v-col cols="12" sm="6" md="3">
         <value-card
           title="Recuperados"
           color="green"
           v-bind:value="stats.recovered"
         />
       </v-col>
-      <v-col sm="6" md="3">
+      <v-col cols="12" sm="6" md="3">
         <value-card
           title="Fallecidos"
           color="blueGrey"
@@ -44,10 +44,12 @@
           v-bind:value="stats.deaths"
         />
       </v-col>
-      <v-col sm="12" md="6">
+    </v-row>
+    <v-row>
+      <v-col cols="12" md="6">
         <map-card/>
       </v-col>
-      <v-col sm="12" md="6">
+      <v-col cols="12" md="6">
         <total-cases-chart/>
       </v-col>
     </v-row>

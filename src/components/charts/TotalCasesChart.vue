@@ -10,7 +10,7 @@
           <v-tab>Logarítmico</v-tab>
         </v-tabs>
         <v-row no-gutters>
-          <v-col cols="12" class>
+          <v-col cols="12">
             <line-chart
               ref="lineChart"
               :chart-data="data"
@@ -71,6 +71,9 @@ export default {
           xAxes: [
             {
               type: 'time',
+              time: {
+                tooltipFormat: 'LL'
+              },
               scaleLabel: {
                 display: true,
                 labelString: 'Fecha'
