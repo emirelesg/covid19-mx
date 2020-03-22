@@ -7,7 +7,7 @@
     <v-list-item two-line class="text-center">
       <v-list-item-content>
         <v-list-item-title
-          class="display-2 mb-2"
+          class="display-1 mb-2"
           :style="{ color: textColor }"
         >{{ value }}</v-list-item-title>
         <v-list-item-subtitle class="text-uppercase subtitle-2">{{ title }}</v-list-item-subtitle>
@@ -35,7 +35,7 @@ export default {
       return colors[this.color][this.shade || 'base'];
     },
     borderColor: function() {
-      return colors[this.color].lighten3;
+      return colors[this.color].lighten2;
     }
   }
 };
