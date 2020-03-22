@@ -1,0 +1,197 @@
+{
+  "suspected": 606,
+  "states": {
+    "AG": {
+      "name": "Aguascalientes",
+      "confirmed": 4,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "BC": {
+      "name": "Baja California",
+      "confirmed": 4,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "BS": {
+      "name": "Baja California Sur",
+      "confirmed": 0,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "CM": {
+      "name": "Campeche",
+      "confirmed": 0,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "CDMX": {
+      "name": "Ciudad de México",
+      "confirmed": 31,
+      "recovered": 0,
+      "deaths": 1
+    },
+    "CS": {
+      "name": "Chiapas",
+      "confirmed": 2,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "CH": {
+      "name": "Chihuahua",
+      "confirmed": 2,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "CO": {
+      "name": "Coahuila",
+      "confirmed": 1,
+      "recovered": 1,
+      "deaths": 0
+    },
+    "CL": {
+      "name": "Colima",
+      "confirmed": 1,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "DG": {
+      "name": "Durango",
+      "confirmed": 4,
+      "recovered": 0,
+      "deaths": 1
+    },
+    "MX": {
+      "name": "México",
+      "confirmed": 14,
+      "recovered": 1,
+      "deaths": 0
+    },
+    "GJ": {
+      "name": "Guanajuato",
+      "confirmed": 4,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "GR": {
+      "name": "Guerrero",
+      "confirmed": 4,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "HG": {
+      "name": "Hidalgo",
+      "confirmed": 2,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "JA": {
+      "name": "Jalisco",
+      "confirmed": 28,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "MI": {
+      "name": "Michoacán",
+      "confirmed": 0,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "MO": {
+      "name": "Morelos",
+      "confirmed": 2,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "NA": {
+      "name": "Nayarit",
+      "confirmed": 0,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "NL": {
+      "name": "Nuevo León",
+      "confirmed": 29,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "OA": {
+      "name": "Oaxaca",
+      "confirmed": 2,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "PU": {
+      "name": "Puebla",
+      "confirmed": 14,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "QT": {
+      "name": "Querétaro",
+      "confirmed": 11,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "QR": {
+      "name": "Quintana Roo",
+      "confirmed": 11,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "SL": {
+      "name": "San Luis Potosí",
+      "confirmed": 7,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "SI": {
+      "name": "Sinaloa",
+      "confirmed": 3,
+      "recovered": 1,
+      "deaths": 0
+    },
+    "SO": {
+      "name": "Sonora",
+      "confirmed": 2,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "TB": {
+      "name": "Tabasco",
+      "confirmed": 2,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "TM": {
+      "name": "Tamaulipas",
+      "confirmed": 2,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "TL": {
+      "name": "Tlaxcala",
+      "confirmed": 0,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "VE": {
+      "name": "Veracruz",
+      "confirmed": 4,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "YU": {
+      "name": "Yucatán",
+      "confirmed": 13,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "ZA": {
+      "name": "Zacatecas",
+      "confirmed": 0,
+      "recovered": 0,
+      "deaths": 0
+    }
+  }
+}
