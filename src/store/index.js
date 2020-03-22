@@ -2,39 +2,78 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment';
 
-import { timeseries } from '@/assets/MexicoTimeSeries.json';
-import { states, suspected } from '@/assets/MexicoCases.json';
+// import { states, suspected } from '@/assets/MexicoCases.json';
+// // 2d array with all states. Sorted by least to most cases.
 
-// 2d array with all states. Sorted by least to most cases.
-const sortedStates = Object.entries(states).sort(
-  (a, b) => a[1].confirmed - b[1].confirmed
-);
-
-// Calculate the total confirmed, recovered, and deceased cases.
 const add = (a, o) => a + o;
-const confirmed = sortedStates.map(([, data]) => data.confirmed).reduce(add);
-const recovered = sortedStates.map(([, data]) => data.recovered).reduce(add);
-const deaths = sortedStates.map(([, data]) => data.deaths).reduce(add);
-
-// Get the key of the state with the most and least cases.
-const maxConfirmedByState = sortedStates[sortedStates.length - 1][1].confirmed;
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    lastUpdated: moment().format('LL'),
-    statsByState: states,
+    timeseries: null,
+    lastUpdated: null,
+    loaded: false,
     stats: {
-      maxConfirmedByState,
-      confirmed,
-      recovered,
-      deaths,
-      suspected
+      loaded: false,
+      byState: null,
+      maxConfirmedByState: null,
+      confirmed: null,
+      recovered: null,
+      deaths: null,
+      suspected: null
     },
-    timeseries
+    geojson: null
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    SET_LOADED(state, loaded) {
+      state.loaded = loaded;
+    },
+    SET_GEOJSON(state, geojson) {
+      state.geojson = geojson;
+    },
+    SET_STATS(state, { timeseries, states, suspected }) {
+      // Set the stats object.
+      const sortedStates = Object.entries(states).sort(
+        (a, b) => a[1].confirmed - b[1].confirmed
+      );
+      state.stats.byState = states;
+      state.stats.maxConfirmedByState =
+        sortedStates[sortedStates.length - 1][1].confirmed;
+      state.stats.confirmed = sortedStates
+        .map(([, data]) => data.confirmed)
+        .reduce(add);
+      state.stats.recovered = sortedStates
+        .map(([, data]) => data.recovered)
+        .reduce(add);
+      state.stats.deaths = sortedStates
+        .map(([, data]) => data.deaths)
+        .reduce(add);
+      state.stats.suspected = suspected;
+
+      // Set the timeseries data.
+      state.timeseries = timeseries;
+      state.timeseries.forEach(t => (t.date = moment(t.date)));
+      state.lastUpdated = moment(timeseries[timeseries.length - 1].date).format(
+        'LL'
+      );
+
+      // All stats loaded.
+      state.stats.loaded = true;
+    }
+  },
+  actions: {
+    loadData: async ({ commit }) => {
+      const geojson = await import(
+        /* webpackChunkName: "geojson" */ '@/assets/MexicoGeoJson.json'
+      );
+      commit('SET_GEOJSON', geojson);
+      const stats = await import(
+        /* webpackChunkName: "stats" */ '@/assets/MexicoStats.json'
+      );
+      commit('SET_STATS', stats);
+      commit('SET_LOADED', true);
+    }
+  },
   modules: {}
 });

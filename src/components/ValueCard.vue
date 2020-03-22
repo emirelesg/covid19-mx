@@ -1,6 +1,6 @@
 <template>
   <v-card
-    outlined
+    elevation="4"
     :style="{ borderTop: `6px solid ${borderColor}`}"
     class="pa-1"
   >
@@ -9,7 +9,7 @@
         <v-list-item-title
           class="display-1 mb-2"
           :style="{ color: textColor }"
-        >{{ value }}</v-list-item-title>
+        >{{ value === null ? '—' : value }}</v-list-item-title>
         <v-list-item-subtitle class="text-uppercase subtitle-2">{{ title }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
@@ -35,7 +35,7 @@ export default {
       return colors[this.color][this.shade || 'base'];
     },
     borderColor: function() {
-      return colors[this.color].lighten2;
+      return colors[this.color].base;
     }
   }
 };

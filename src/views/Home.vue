@@ -7,10 +7,13 @@
             <div class="display-2">México</div>
             <v-spacer></v-spacer>
           </v-card-title>
-          <v-card-text class="pa-0">Última actualización: {{ lastUpdated }}</v-card-text>
+          <v-card-text
+            class="pa-0"
+          >Última actualización: {{ lastUpdated || 'cargando...' }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
+    <disclaimer/>
     <v-row>
       <v-col sm="6" md="3">
         <value-card
@@ -41,8 +44,6 @@
           v-bind:value="stats.deaths"
         />
       </v-col>
-    </v-row>
-    <v-row>
       <v-col sm="12" md="6">
         <map-card/>
       </v-col>
@@ -55,8 +56,9 @@
 
 <script>
 import ValueCard from '@/components/ValueCard.vue';
-import MapCard from '@/components/MapCard.vue';
+import MapCard from '@/components/charts/MapChart.vue';
 import TotalCasesChart from '@/components/charts/TotalCasesChart.vue';
+import Disclaimer from '@/components/Disclaimer.vue';
 import { mapState } from 'vuex';
 
 export default {
@@ -64,7 +66,8 @@ export default {
   components: {
     ValueCard,
     MapCard,
-    TotalCasesChart
+    TotalCasesChart,
+    Disclaimer
   },
   computed: {
     ...mapState({

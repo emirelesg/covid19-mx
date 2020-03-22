@@ -1,22 +1,25 @@
 <template>
-  <v-card outlined>
+  <v-card elevation="4">
     <v-card-title class="font-weight-regular headline">Casos Totales</v-card-title>
     <v-card-subtitle>El total de casos confirmados acomulado</v-card-subtitle>
     <v-card-text>
-      <v-tabs v-model="tab" class="mb-3" color="indigo">
-        <v-tab>Lineal</v-tab>
-        <v-tab>Logarítmico</v-tab>
-      </v-tabs>
-      <v-row no-gutters>
-        <v-col cols="12" class="my-4">
-          <line-chart
-            ref="lineChart"
-            :chart-data="data"
-            :styles="style"
-            :options="options"
-          ></line-chart>
-        </v-col>
-      </v-row>
+      <loading v-if="!loaded" message="Cargando Gráfica..." height="400px"/>
+      <div v-show="loaded">
+        <v-tabs v-model="tab" color="primary">
+          <v-tab>Lineal</v-tab>
+          <v-tab>Logarítmico</v-tab>
+        </v-tabs>
+        <v-row no-gutters>
+          <v-col cols="12" class>
+            <line-chart
+              ref="lineChart"
+              :chart-data="data"
+              :styles="style"
+              :options="options"
+            ></line-chart>
+          </v-col>
+        </v-row>
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -26,18 +29,21 @@
  * Plot the progress of the active topics.
  */
 import { mapState } from 'vuex';
-import LineChart from './LineChart.vue';
 import { hex2rgba } from '@/plugins/helper.js';
+import LineChart from '@/components/charts/BaseLineChart.vue';
+import Loading from '@/components/Loading.vue';
 import colors from 'vuetify/lib/util/colors';
-import moment from 'moment';
 
 export default {
   name: 'TotalCasesChart',
   components: {
-    LineChart
+    LineChart,
+    Loading
   },
   data() {
     return {
+      isMounted: false,
+      chartCreated: false,
       tab: null,
       data: {
         datasets: []
@@ -49,7 +55,8 @@ export default {
           display: false
         },
         tooltips: {
-          enabled: true
+          enabled: true,
+          yAlign: 'bottom'
         },
         elements: {
           point: {
@@ -84,35 +91,50 @@ export default {
         }
       },
       style: {
-        height: '360px',
+        paddingTop: '16px',
+        height: `${400 - 48}px`,
         position: 'relative'
       }
     };
   },
-  beforeMount() {
-    // Create the dataset time vs. commulative cases.
-    const data = this.timeseries.map(data => ({
-      t: moment(data.date),
-      y: data.confirmed
-    }));
-    const plot = {
-      borderColor: colors.red.base,
-      backgroundColor: hex2rgba(colors.red.base, 0.1),
-      borderWidth: 2,
-      pointBackgroundColor: colors.red.base,
-      data
-    };
-    this.data.datasets.push(plot);
-  },
   watch: {
     tab(val) {
       if (this.$refs.lineChart) this.$refs.lineChart.update(val);
+    },
+    loaded(val) {
+      if (val && this.isMounted) this.init();
     }
   },
-  methods: {},
+  mounted() {
+    if (this.loaded) this.init();
+    this.isMounted = true;
+  },
+  methods: {
+    init() {
+      if (!this.chartCreated) {
+        this.chartCreated = true;
+        // Create the dataset time vs. commulative cases.
+        const data = this.timeseries.map(data => ({
+          t: data.date,
+          y: data.confirmed
+        }));
+        const plot = {
+          borderColor: colors.red.base,
+          backgroundColor: hex2rgba(colors.red.base, 0.1),
+          borderWidth: 3,
+          pointBackgroundColor: colors.red.base,
+          pointHitRadius: 20,
+          data
+        };
+        this.data.datasets.push(plot);
+        if (this.$refs.lineChart) this.$refs.lineChart.update(0);
+      }
+    }
+  },
   computed: {
     ...mapState({
-      timeseries: state => state.timeseries
+      timeseries: state => state.timeseries,
+      loaded: state => state.stats.loaded
     })
   }
 };
