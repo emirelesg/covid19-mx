@@ -1,0 +1,212 @@
+{
+  "suspected": 697,
+  "states": {
+    "AG": {
+      "name": "Aguascalientes",
+      "confirmed": 4,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "BC": {
+      "name": "Baja California",
+      "confirmed": 8,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "BS": {
+      "name": "Baja California Sur",
+      "confirmed": 1,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "CM": { "name": "Campeche", "confirmed": 0, "recovered": 0, "deaths": 0 },
+    "CDMX": {
+      "name": "Ciudad de México",
+      "confirmed": 45,
+      "recovered": 0,
+      "deaths": 1
+    },
+    "CS": { "name": "Chiapas", "confirmed": 2, "recovered": 0, "deaths": 0 },
+    "CH": { "name": "Chihuahua", "confirmed": 2, "recovered": 0, "deaths": 0 },
+    "CO": { "name": "Coahuila", "confirmed": 3, "recovered": 1, "deaths": 0 },
+    "CL": { "name": "Colima", "confirmed": 2, "recovered": 0, "deaths": 0 },
+    "DG": { "name": "Durango", "confirmed": 5, "recovered": 0, "deaths": 1 },
+    "MX": { "name": "México", "confirmed": 14, "recovered": 1, "deaths": 0 },
+    "GJ": { "name": "Guanajuato", "confirmed": 4, "recovered": 0, "deaths": 0 },
+    "GR": { "name": "Guerrero", "confirmed": 4, "recovered": 0, "deaths": 0 },
+    "HG": { "name": "Hidalgo", "confirmed": 3, "recovered": 0, "deaths": 0 },
+    "JA": { "name": "Jalisco", "confirmed": 32, "recovered": 0, "deaths": 0 },
+    "MI": { "name": "Michoacán", "confirmed": 0, "recovered": 0, "deaths": 0 },
+    "MO": { "name": "Morelos", "confirmed": 2, "recovered": 0, "deaths": 0 },
+    "NA": { "name": "Nayarit", "confirmed": 1, "recovered": 0, "deaths": 0 },
+    "NL": {
+      "name": "Nuevo León",
+      "confirmed": 32,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "OA": { "name": "Oaxaca", "confirmed": 2, "recovered": 0, "deaths": 0 },
+    "PU": { "name": "Puebla", "confirmed": 16, "recovered": 0, "deaths": 0 },
+    "QT": { "name": "Querétaro", "confirmed": 14, "recovered": 0, "deaths": 0 },
+    "QR": {
+      "name": "Quintana Roo",
+      "confirmed": 12,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "SL": {
+      "name": "San Luis Potosí",
+      "confirmed": 9,
+      "recovered": 0,
+      "deaths": 0
+    },
+    "SI": { "name": "Sinaloa", "confirmed": 3, "recovered": 1, "deaths": 0 },
+    "SO": { "name": "Sonora", "confirmed": 2, "recovered": 0, "deaths": 0 },
+    "TB": { "name": "Tabasco", "confirmed": 4, "recovered": 0, "deaths": 0 },
+    "TM": { "name": "Tamaulipas", "confirmed": 3, "recovered": 0, "deaths": 0 },
+    "TL": { "name": "Tlaxcala", "confirmed": 0, "recovered": 0, "deaths": 0 },
+    "VE": { "name": "Veracruz", "confirmed": 7, "recovered": 0, "deaths": 0 },
+    "YU": { "name": "Yucatán", "confirmed": 14, "recovered": 0, "deaths": 0 },
+    "ZA": { "name": "Zacatecas", "confirmed": 1, "recovered": 0, "deaths": 0 }
+  },
+  "timeseries": [
+    {
+      "date": "2020-02-28",
+      "confirmed": 1,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-02-29",
+      "confirmed": 4,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-01",
+      "confirmed": 5,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-02",
+      "confirmed": 5,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-03",
+      "confirmed": 5,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-04",
+      "confirmed": 5,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-05",
+      "confirmed": 5,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-06",
+      "confirmed": 6,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-07",
+      "confirmed": 7,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-08",
+      "confirmed": 7,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-09",
+      "confirmed": 7,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-10",
+      "confirmed": 7,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-11",
+      "confirmed": 12,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-12",
+      "confirmed": 15,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-13",
+      "confirmed": 26,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-14",
+      "confirmed": 41,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-15",
+      "confirmed": 53,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-16",
+      "confirmed": 82,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-17",
+      "confirmed": 93,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-18",
+      "confirmed": 118,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-19",
+      "confirmed": 164,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-20",
+      "confirmed": 203,
+      "recovered": 0,
+      "deaths": 0
+    },
+    {
+      "date": "2020-03-21",
+      "confirmed": 251,
+      "recovered": 0,
+      "deaths": 2
+    }
+  ]
+}
