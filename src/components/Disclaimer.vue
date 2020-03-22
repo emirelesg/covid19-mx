@@ -16,9 +16,8 @@
     </div>
     <div>
       Fuente:
-      <a
-        href="https://www.gob.mx/salud/prensa/nuevo-coronavirus-en-el-mundo-covid-19-comunicado-tecnico-diario-238669"
-      >https://www.gob.mx/salud/prensa/nuevo-coronavirus-en-el-mundo-covid-19-comunicado-tecnico-diario-238669</a>
+      <a class="d-none d-sm-inline" :href="source">{{ source }}</a>
+      <a class="d-sm-none" :href="source">Prensa de la Secretaría de Salud</a>
     </div>
   </v-alert>
 </template>
@@ -27,7 +26,10 @@
 export default {
   name: 'disclaimer',
   data() {
-    return {};
+    return {
+      source:
+        'https://www.gob.mx/salud/prensa/nuevo-coronavirus-en-el-mundo-covid-19-comunicado-tecnico-diario-238669'
+    };
   }
 };
 </script>
