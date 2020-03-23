@@ -3,23 +3,26 @@
     <v-card-title class="font-weight-regular headline">Casos Totales</v-card-title>
     <v-card-subtitle>El total de casos confirmados acomulado</v-card-subtitle>
     <v-card-text>
-      <loading v-if="!loaded" message="Cargando Gráfica..." height="400px"/>
-      <div v-show="loaded">
-        <v-tabs v-model="tab" color="primary">
-          <v-tab>Lineal</v-tab>
-          <v-tab>Logarítmico</v-tab>
-        </v-tabs>
-        <v-row no-gutters>
-          <v-col cols="12">
-            <line-chart
-              ref="lineChart"
-              :chart-data="data"
-              :styles="style"
-              :options="options"
-            ></line-chart>
-          </v-col>
-        </v-row>
-      </div>
+      <v-row no-gutters>
+        <v-col cols="12">
+          <v-tabs v-model="tab" color="primary">
+            <v-tab>Lineal</v-tab>
+            <v-tab>Logarítmico</v-tab>
+          </v-tabs>
+          <loading
+            v-if="!loaded"
+            message="Cargando Gráfica..."
+            :height="style.height"
+          />
+          <line-chart
+            v-show="loaded"
+            ref="lineChart"
+            :chart-data="data"
+            :styles="style"
+            :options="options"
+          ></line-chart>
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>
@@ -44,7 +47,7 @@ export default {
     return {
       isMounted: false,
       chartCreated: false,
-      tab: null,
+      tab: 0,
       data: {
         datasets: []
       },
@@ -55,8 +58,7 @@ export default {
           display: false
         },
         tooltips: {
-          enabled: true,
-          yAlign: 'bottom'
+          enabled: true
         },
         elements: {
           point: {

@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       source:
-        'https://www.gob.mx/salud/prensa/nuevo-coronavirus-en-el-mundo-covid-19-comunicado-tecnico-diario-238669'
+        'https://www.gob.mx/salud/documentos/coronavirus-covid-19-comunicado-tecnico-diario-238449'
     };
   }
 };

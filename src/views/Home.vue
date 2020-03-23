@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="py-5">
-      <v-col sm="12">
+      <v-col cols="12">
         <v-card flat color="transparent">
           <v-card-title class="pa-0">
             <div class="display-2">México</div>
@@ -61,12 +61,14 @@ import ValueCard from '@/components/ValueCard.vue';
 import MapCard from '@/components/charts/MapChart.vue';
 import TotalCasesChart from '@/components/charts/TotalCasesChart.vue';
 import Disclaimer from '@/components/Disclaimer.vue';
+// import Share from '@/components/Share.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
     ValueCard,
+    // Share,
     MapCard,
     TotalCasesChart,
     Disclaimer
