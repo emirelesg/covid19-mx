@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'loading',
+  name: 'Loading',
   props: {
     message: { type: String, required: true },
     height: { type: String, default: 'calc(100vh - 88px)' }

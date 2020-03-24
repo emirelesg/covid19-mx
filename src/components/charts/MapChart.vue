@@ -53,10 +53,10 @@
 // Legends
 // http://bl.ocks.org/syntagmatic/e8ccca52559796be775553b467593a9f
 
-import { interpolateReds, select, scaleLinear, axisBottom } from 'd3';
+import { interpolateMagma, select, scaleLinear, axisBottom } from 'd3';
 import { geoPath, geoMercator } from 'd3-geo';
 import { mapState } from 'vuex';
-import Loading from '@/components/Loading.vue';
+import Loading from '@/components/Loading';
 
 export default {
   name: 'MapCard',
@@ -72,27 +72,27 @@ export default {
       geoGenerator: null,
       geoProjection: null,
       active: null,
-
       isMounted: false,
       mapCreated: false
     };
   },
   mounted() {
-    if (this.loaded) this.init();
     this.isMounted = true;
+    this.init();
   },
   watch: {
-    loaded(val) {
-      if (val && this.isMounted) this.init();
+    loaded() {
+      this.init();
     }
   },
   methods: {
-    colorScale: interpolateReds,
+    colorScale: k => interpolateMagma(1 - k),
     colorScaleCases(cases) {
       return this.colorScale(cases / this.stats.maxConfirmedByState);
     },
+
     init() {
-      if (!this.mapCreated) {
+      if (!this.mapCreated && this.loaded && this.isMounted) {
         this.mapCreated = true;
         this.generateMap();
         this.generateLegend();

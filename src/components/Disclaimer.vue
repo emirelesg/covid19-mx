@@ -6,6 +6,7 @@
     color="primary"
     dismissible
     elevation="4"
+    transition="fade-transition"
   >
     <div>
       Este es un sitio no oficial que recopila y presenta los datos entregados por la Secretaría de Salud de México
@@ -16,15 +17,15 @@
     </div>
     <div>
       Fuente:
-      <a class="d-none d-sm-inline" :href="source">{{ source }}</a>
-      <a class="d-sm-none" :href="source">Prensa de la Secretaría de Salud</a>
+      <a v-if="$vuetify.breakpoint.smAndUp" :href="source">{{ source }}</a>
+      <a v-else :href="source">Prensa de la Secretaría de Salud</a>
     </div>
   </v-alert>
 </template>
 
 <script>
 export default {
-  name: 'disclaimer',
+  name: 'Disclaimer',
   data() {
     return {
       source:

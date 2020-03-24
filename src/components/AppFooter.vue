@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Share from '@/components/Share.vue';
+import Share from '@/components/Share';
 export default {
   name: 'AppFooter',
   components: {

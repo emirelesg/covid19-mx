@@ -33,8 +33,8 @@
  */
 import { mapState } from 'vuex';
 import { hex2rgba } from '@/plugins/helper.js';
-import LineChart from '@/components/charts/BaseLineChart.vue';
-import Loading from '@/components/Loading.vue';
+import LineChart from '@/components/charts/BaseLineChart';
+import Loading from '@/components/Loading';
 import colors from 'vuetify/lib/util/colors';
 
 export default {
@@ -47,9 +47,17 @@ export default {
     return {
       isMounted: false,
       chartCreated: false,
-      tab: 0,
       data: {
-        datasets: []
+        datasets: [
+          {
+            borderColor: colors.red.base,
+            backgroundColor: hex2rgba(colors.red.base, 0.1),
+            pointBackgroundColor: colors.red.base,
+            pointHitRadius: 20,
+            borderWidth: 2,
+            data: []
+          }
+        ]
       },
       options: {
         maintainAspectRatio: false,
@@ -97,41 +105,27 @@ export default {
       },
       style: {
         paddingTop: '16px',
-        height: `${400 - 48}px`,
-        position: 'relative'
+        height: `${400 - 48}px`
       }
     };
   },
   watch: {
-    tab(val) {
-      if (this.$refs.lineChart) this.$refs.lineChart.update(val);
-    },
-    loaded(val) {
-      if (val && this.isMounted) this.init();
+    loaded() {
+      this.init();
     }
   },
   mounted() {
-    if (this.loaded) this.init();
     this.isMounted = true;
+    this.init();
   },
   methods: {
     init() {
-      if (!this.chartCreated) {
+      if (!this.chartCreated && this.loaded && this.isMounted) {
         this.chartCreated = true;
-        // Create the dataset time vs. commulative cases.
-        const data = this.timeseries.map(data => ({
+        this.data.datasets[0].data = this.timeseries.map(data => ({
           t: data.date,
           y: data.confirmed
         }));
-        const plot = {
-          borderColor: colors.red.base,
-          backgroundColor: hex2rgba(colors.red.base, 0.1),
-          borderWidth: 3,
-          pointBackgroundColor: colors.red.base,
-          pointHitRadius: 20,
-          data
-        };
-        this.data.datasets.push(plot);
         if (this.$refs.lineChart) this.$refs.lineChart.update(0);
       }
     }
