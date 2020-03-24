@@ -38,4 +38,17 @@ svg {
 a {
   text-decoration: none;
 }
+.fixed-footer-table table tr:nth-last-child(2) td {
+  border-bottom: none !important;
+}
+.fixed-footer-table table tr:last-child,
+.fixed-footer-table table tr:last-child td {
+  border-top: thin solid rgba(0, 0, 0, 0.12);
+  border-collapse: separate;
+  background: #efefef;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0px !important;
+  z-index: 2;
+}
 </style>

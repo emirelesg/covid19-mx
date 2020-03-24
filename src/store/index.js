@@ -16,7 +16,7 @@ export default new Vuex.Store({
     loaded: false,
     stats: {
       loaded: false,
-      byState: null,
+      byState: {},
       maxConfirmedByState: null,
       confirmed: null,
       recovered: null,

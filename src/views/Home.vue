@@ -52,15 +52,23 @@
       <v-col cols="12" md="6">
         <total-cases-chart/>
       </v-col>
+      <v-col cols="12" md="6">
+        <cases-by-state-table/>
+      </v-col>
+      <v-col cols="12" md="6">
+        <daily-increase-chart/>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import ValueCard from '@/components/ValueCard.vue';
-import MapCard from '@/components/charts/MapChart.vue';
-import TotalCasesChart from '@/components/charts/TotalCasesChart.vue';
-import Disclaimer from '@/components/Disclaimer.vue';
+import ValueCard from '@/components/ValueCard';
+import MapCard from '@/components/charts/MapChart';
+import TotalCasesChart from '@/components/charts/TotalCasesChart';
+import DailyIncreaseChart from '@/components/charts/DailyIncreaseChart';
+import Disclaimer from '@/components/Disclaimer';
+import CasesByStateTable from '@/components/tables/CasesByStateTable';
 // import Share from '@/components/Share.vue';
 import { mapState } from 'vuex';
 
@@ -71,7 +79,9 @@ export default {
     // Share,
     MapCard,
     TotalCasesChart,
-    Disclaimer
+    Disclaimer,
+    CasesByStateTable,
+    DailyIncreaseChart
   },
   computed: {
     ...mapState({
