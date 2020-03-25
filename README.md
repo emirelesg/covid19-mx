@@ -1,4 +1,4 @@
-# COVID-19 Dashboard for México
+# COVID-19 Dashboard for Mexico
 
 ## https://covid19.newtondreams.com
 
