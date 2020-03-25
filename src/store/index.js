@@ -2,8 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment';
 
-// import { states, suspected } from '@/assets/MexicoCases.json';
-// // 2d array with all states. Sorted by least to most cases.
+// Choose the default locale for momentjs.
+moment.locale('es');
 
 const add = (a, o) => a + o;
 
