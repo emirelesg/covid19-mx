@@ -1,23 +1,13 @@
 <template>
-  <v-card
-    elevation="4"
-    :style="{ borderTop: `6px solid ${borderColor}`}"
-    class="pa-1"
-  >
-    <div
-      v-if="updatedOn"
-      class="pt-1 pr-3 caption text-right grey--text text--darken-3"
-      style="position: absolute; right: 0"
-    >
-      <div>Actualizado al</div>
-      <div>{{ updatedOn }}</div>
-    </div>
+  <v-card elevation="4" :style="cardStyle" class="pa-1">
     <v-list-item two-line class="text-center">
       <v-list-item-content>
-        <v-list-item-title
-          class="display-1 mb-2"
-          :style="{ color: textColor }"
-        >{{ value === null ? '—' : value }}</v-list-item-title>
+        <v-list-item-title class="display-1 mb-2" :style="style">
+          <div v-if="value !== null">
+            <slot :value="value">{{ value }}</slot>
+          </div>
+          <div v-else>—</div>
+        </v-list-item-title>
         <v-list-item-subtitle class="text-uppercase subtitle-2">{{ title }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
@@ -32,19 +22,21 @@ export default {
   props: {
     title: String,
     value: Number,
-    color: String,
-    shade: String,
-    updatedOn: String
+    color: String
   },
   data() {
     return {};
   },
   computed: {
-    textColor: function() {
-      return colors[this.color][this.shade || 'base'];
+    style: function() {
+      return {
+        color: colors[this.color].base
+      };
     },
-    borderColor: function() {
-      return colors[this.color].base;
+    cardStyle: function() {
+      return {
+        borderTop: `6px solid ${colors[this.color].base}`
+      };
     }
   }
 };

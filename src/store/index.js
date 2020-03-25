@@ -15,14 +15,14 @@ export default new Vuex.Store({
     lastUpdated: null,
     loaded: false,
     stats: {
-      loaded: false,
       byState: {},
       maxConfirmedByState: null,
       confirmed: null,
-      confirmedLastUpdated: moment('2020-03-22').format('LL'),
       recovered: null,
       deaths: null,
-      suspected: null
+      suspected: null,
+      confirmedDelta: null,
+      loaded: false
     },
     geojson: null
   },
@@ -38,29 +38,24 @@ export default new Vuex.Store({
       const sortedStates = Object.entries(states).sort(
         (a, b) => a[1].confirmed - b[1].confirmed
       );
-      state.stats.byState = states;
-      state.stats.maxConfirmedByState =
-        sortedStates[sortedStates.length - 1][1].confirmed;
-      state.stats.confirmed = sortedStates
-        .map(([, data]) => data.confirmed)
-        .reduce(add);
-      state.stats.recovered = sortedStates
-        .map(([, data]) => data.recovered)
-        .reduce(add);
-      state.stats.deaths = sortedStates
-        .map(([, data]) => data.deaths)
-        .reduce(add);
-      state.stats.suspected = suspected;
+
+      state.stats = {
+        ...state.stats,
+        byState: states,
+        maxConfirmedByState: sortedStates[sortedStates.length - 1][1].confirmed,
+        confirmed: sortedStates.map(([, data]) => data.confirmed).reduce(add),
+        recovered: sortedStates.map(([, data]) => data.recovered).reduce(add),
+        deaths: sortedStates.map(([, data]) => data.deaths).reduce(add),
+        suspected: suspected,
+        confirmedDelta:
+          timeseries.slice(-1)[0].confirmed - timeseries.slice(-2)[0].confirmed,
+        loaded: true
+      };
 
       // Set the timeseries data.
       state.timeseries = timeseries;
       state.timeseries.forEach(t => (t.date = moment(t.date)));
-      state.lastUpdated = moment(timeseries[timeseries.length - 1].date).format(
-        'LL'
-      );
-
-      // All stats loaded.
-      state.stats.loaded = true;
+      state.lastUpdated = moment(timeseries.slice(-1)[0].date).format('LL');
     }
   },
   actions: {

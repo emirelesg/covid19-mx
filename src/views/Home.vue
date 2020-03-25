@@ -16,34 +16,29 @@
     <disclaimer/>
     <v-row>
       <v-col cols="12" sm="6" md="3">
+        <value-card title="Confirmados" color="red" :value="stats.confirmed"/>
+      </v-col>
+      <v-col cols="12" sm="6" md="3">
         <value-card
-          title="Confirmados"
-          color="red"
-          v-bind:value="stats.confirmed"
-        />
+          title="Confirmados Hoy"
+          :color="confirmedDeltaColor"
+          :value="stats.confirmedDelta"
+        >
+          <template v-slot:default="{value}">+{{value}}</template>
+        </value-card>
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <value-card
           title="Sospechosos"
           color="orange"
-          v-bind:value="stats.suspected"
+          :value="stats.suspected"
         />
       </v-col>
+      <!-- <v-col cols="12" sm="6" md="3">
+        <value-card title="Recuperados" color="green" :value="stats.recovered"/>
+      </v-col>-->
       <v-col cols="12" sm="6" md="3">
-        <value-card
-          title="Recuperados"
-          color="green"
-          :updatedOn="confirmedLastUpdated"
-          v-bind:value="stats.recovered"
-        />
-      </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <value-card
-          title="Fallecidos"
-          color="blueGrey"
-          shade="darken3"
-          v-bind:value="stats.deaths"
-        />
+        <value-card title="Fallecidos" color="blueGrey" :value="stats.deaths"/>
       </v-col>
     </v-row>
     <v-row>
@@ -86,9 +81,13 @@ export default {
   },
   computed: {
     ...mapState({
-      confirmedLastUpdated: state => state.stats.confirmedLastUpdated,
       lastUpdated: state => state.lastUpdated,
-      stats: state => state.stats
+      stats: state => state.stats,
+      confirmedDeltaColor: state => {
+        if (state.stats.confirmedDelta > 0) return 'red';
+        if (state.stats.confirmedDelta < 0) return 'green';
+        return 'blueGrey';
+      }
     })
   }
 };
