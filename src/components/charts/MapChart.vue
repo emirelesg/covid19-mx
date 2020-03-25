@@ -109,6 +109,7 @@ export default {
       // Select the map where the states are drawn.
       this.map = select('#container .map')
         .attr('stroke', '#aaa')
+        .attr('stroke-width', '1.5')
         .attr('transform', `translate(0, -20)`);
 
       // Define the projection and generator for the map.
