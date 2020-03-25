@@ -43,7 +43,6 @@ export default {
     return {
       isMounted: false,
       chartCreated: false,
-      tab: 0,
       data: {
         datasets: [
           {
@@ -99,9 +98,6 @@ export default {
     };
   },
   watch: {
-    tab(val) {
-      if (this.$refs.barChart) this.$refs.barChart.update(val);
-    },
     loaded() {
       this.init();
     }

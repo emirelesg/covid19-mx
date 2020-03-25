@@ -47,6 +47,7 @@ export default {
     return {
       isMounted: false,
       chartCreated: false,
+      tab: 0,
       data: {
         datasets: [
           {
@@ -112,6 +113,9 @@ export default {
   watch: {
     loaded() {
       this.init();
+    },
+    tab(val) {
+      if (this.$refs.lineChart) this.$refs.lineChart.update(val);
     }
   },
   mounted() {
