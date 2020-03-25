@@ -13,12 +13,17 @@
       —
       <a
         href="https://twitter.com/SSalud_mx"
+        target="_blank"
       >@SSalud_mx</a>.
     </div>
     <div>
       Fuente:
-      <a v-if="$vuetify.breakpoint.smAndUp" :href="source">{{ source }}</a>
-      <a v-else :href="source">Prensa de la Secretaría de Salud</a>
+      <a
+        v-if="$vuetify.breakpoint.smAndUp"
+        :href="source"
+        target="_blank"
+      >{{ source }}</a>
+      <a v-else :href="source" target="_blank">Prensa de la Secretaría de Salud</a>
     </div>
   </v-alert>
 </template>
