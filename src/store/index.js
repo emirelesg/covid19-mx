@@ -19,6 +19,7 @@ export default new Vuex.Store({
       byState: {},
       maxConfirmedByState: null,
       confirmed: null,
+      confirmedLastUpdated: moment('2020-03-22').format('LL'),
       recovered: null,
       deaths: null,
       suspected: null

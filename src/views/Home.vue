@@ -33,6 +33,7 @@
         <value-card
           title="Recuperados"
           color="green"
+          :updatedOn="confirmedLastUpdated"
           v-bind:value="stats.recovered"
         />
       </v-col>
@@ -85,6 +86,7 @@ export default {
   },
   computed: {
     ...mapState({
+      confirmedLastUpdated: state => state.stats.confirmedLastUpdated,
       lastUpdated: state => state.lastUpdated,
       stats: state => state.stats
     })

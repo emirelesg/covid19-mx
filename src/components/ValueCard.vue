@@ -4,6 +4,14 @@
     :style="{ borderTop: `6px solid ${borderColor}`}"
     class="pa-1"
   >
+    <div
+      v-if="updatedOn"
+      class="pt-1 pr-3 caption text-right grey--text text--darken-3"
+      style="position: absolute; right: 0"
+    >
+      <div>Actualizado al</div>
+      <div>{{ updatedOn }}</div>
+    </div>
     <v-list-item two-line class="text-center">
       <v-list-item-content>
         <v-list-item-title
@@ -25,7 +33,8 @@ export default {
     title: String,
     value: Number,
     color: String,
-    shade: String
+    shade: String,
+    updatedOn: String
   },
   data() {
     return {};
