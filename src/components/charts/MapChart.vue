@@ -13,7 +13,7 @@
                 <strong class="red--text">{{ active.confirmed }}</strong> Confirmados
               </div>
               <div>
-                <strong class="green--text">{{ active.recovered }}</strong> Recupreados
+                <strong class="green--text">{{ active.recovered }}</strong> Recuperados
               </div>
               <div>
                 <strong
@@ -212,12 +212,6 @@ export default {
 </script>
 
 <style>
-#container {
-}
-
-#container svg {
-}
-
 .tooltip {
   right: 20px;
   position: absolute;

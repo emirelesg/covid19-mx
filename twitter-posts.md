@@ -1,9 +1,15 @@
 ### 2020-03-24
 
-Hola! Hice esta herramienta ver la situación de una manera más intuitiva. He agregado más tablas y gráficas. Se las comparto. #COVID19mx #COVID19
+Hola! Hice esta herramienta ver la situación de una manera más intuitiva. He agregado más tablas y gráficas. Se las comparto.
 https://covid19.newtondreams.com
 
 ### 2020-03-25
 
-¡Hola! Hice esta app ver la situación en nuestro país. La estaré actualizando diario con los datos de @SSalud. Se las comparto. #COVID19mx #COVID19
+¡Hola! Hice esta página ver la situación en nuestro país con los datos de @SSalud_mx. Se las comparto.
 https://covid19.newtondreams.com
+#COVID19mx #COVID19
+
+¡Hola! Hice esta página comprender mejor la situación en nuestro país. Se las comparto.
+https://covid19.newtondreams.com
+#COVID19mx #COVID19
+También se estará actualizando diario con los datos de

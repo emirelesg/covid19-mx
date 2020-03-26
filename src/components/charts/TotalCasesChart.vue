@@ -28,9 +28,6 @@
 </template>
 
 <script>
-/**
- * Plot the progress of the active topics.
- */
 import { mapState } from 'vuex';
 import { hex2rgba } from '@/plugins/helper.js';
 import LineChart from '@/components/charts/BaseLineChart';
