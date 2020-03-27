@@ -13,3 +13,10 @@ https://covid19.newtondreams.com
 https://covid19.newtondreams.com
 #COVID19mx #COVID19
 También se estará actualizando diario con los datos de
+
+### 2020-03-26
+
+¡Hola! Les presento los datos de @SSalud_mx de una manera más intuitiva y sencilla:
+https://covid19.newtondreams.com
+#COVID19mx #COVID19
+Se estará actualizando diario.
