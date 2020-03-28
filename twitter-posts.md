@@ -20,3 +20,10 @@ También se estará actualizando diario con los datos de
 https://covid19.newtondreams.com
 #COVID19mx #COVID19
 Se estará actualizando diario.
+
+### 2020-03-27
+
+¡Hola! Hice esta página con los datos más importantes del reporte diario. Se las comparto.
+https://covid19.newtondreams.com
+#COVID19mx #COVID19
+Funciona para celular y escritorio. La actualizo diario.
