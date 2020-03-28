@@ -2,7 +2,7 @@
 
 ## https://covid19.newtondreams.com
 
-<img src="./src/assets/covid19.png">
+<img src="./src/assets/screenshots/covid19.png">
 
 ## Background
 
