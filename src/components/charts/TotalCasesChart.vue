@@ -1,6 +1,8 @@
 <template>
   <v-card elevation="4">
-    <v-card-title class="font-weight-regular headline">Casos Totales</v-card-title>
+    <v-card-title class="font-weight-regular headline"
+      >Casos Totales</v-card-title
+    >
     <v-card-subtitle>El total de casos confirmados acomulado</v-card-subtitle>
     <v-card-text>
       <v-row no-gutters>

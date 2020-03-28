@@ -8,7 +8,9 @@
           </div>
           <div v-else>—</div>
         </v-list-item-title>
-        <v-list-item-subtitle class="text-uppercase subtitle-2">{{ title }}</v-list-item-subtitle>
+        <v-list-item-subtitle class="text-uppercase subtitle-2">{{
+          title
+        }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
   </v-card>

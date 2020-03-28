@@ -5,14 +5,11 @@
         <v-card flat tile color="grey lighten-4" class="text-center">
           <v-card-text>
             <div class="caption">Compártelo en tus redes</div>
-            <share/>
+            <share />
             <div class="mt-3">
               {{ new Date().getFullYear() }}
-              —
-              Hecho con
-              <span
-                class="red--text"
-              >&#9829;</span>
+              — Hecho con
+              <span class="red--text">&#9829;</span>
               por
               <a href="https://github.com/emirelesg">@emirelesg</a>
             </div>
@@ -35,4 +32,3 @@ export default {
   }
 };
 </script>
-

@@ -3,7 +3,7 @@
     <v-toolbar-title>COVID-19 en México</v-toolbar-title>
     <v-spacer></v-spacer>
     <a href="https://udem.edu.mx/es">
-      <v-img alt="Logo UDEM" width="75" contain src="@/assets/LogoUdem.jpg"/>
+      <v-img alt="Logo UDEM" width="75" contain src="@/assets/LogoUdem.jpg" />
     </a>
   </v-app-bar>
 </template>
@@ -16,4 +16,3 @@ export default {
   }
 };
 </script>
-

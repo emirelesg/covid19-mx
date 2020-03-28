@@ -1,25 +1,40 @@
 <template>
   <v-card elevation="4">
-    <v-card-title class="font-weight-regular headline">Casos Confirmados</v-card-title>
-    <v-card-subtitle>Mueve el cursor sobre una entidad para conocer más</v-card-subtitle>
+    <v-card-title class="font-weight-regular headline"
+      >Casos Confirmados</v-card-title
+    >
+    <v-card-subtitle
+      >Mueve el cursor sobre una entidad para conocer más</v-card-subtitle
+    >
     <v-card-text id="container">
-      <loading v-if="!loaded" message="Cargando Mapa..." :height="`${h}px`"/>
+      <loading v-if="!loaded" message="Cargando Mapa..." :height="`${h}px`" />
       <v-row no-gutters>
         <v-col cols="12">
           <v-card class="tooltip" color elevation="8" v-if="active">
-            <v-card-title class="font-weight-regular pb-1">{{ active.name }}</v-card-title>
+            <v-card-title class="font-weight-regular pb-1">{{
+              active.name
+            }}</v-card-title>
             <v-card-text>
-              <div>
-                <strong class="red--text">{{ active.confirmed }}</strong> Confirmados
-              </div>
-              <div>
-                <strong class="green--text">{{ active.recovered }}</strong> Recuperados
-              </div>
-              <div>
-                <strong
-                  class="blue-grey--text text--darken-3"
-                >{{ active.deaths }}</strong> Fallecidos
-              </div>
+              <v-simple-table dense>
+                <template v-slot:default>
+                  <tbody>
+                    <tr>
+                      <td class="red--text">{{ active.confirmed }}</td>
+                      <td>Confirmados</td>
+                    </tr>
+                    <tr>
+                      <td class="orange--text">{{ active.suspected }}</td>
+                      <td>Sospechosos</td>
+                    </tr>
+                    <tr>
+                      <td class="blue-grey--text text--darken-3">
+                        {{ active.deaths }}
+                      </td>
+                      <td>Fallecidos</td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
             </v-card-text>
           </v-card>
           <svg
@@ -29,11 +44,11 @@
             viewBox="0 0 500 400"
           >
             <defs>
-              <linearGradient id="gradient"></linearGradient>
+              <linearGradient id="gradient" />
             </defs>
-            <g class="legendAxis" visible="invisible"></g>
-            <g class="legend"></g>
-            <g class="map"></g>
+            <g class="legendAxis" visible="invisible" />
+            <g class="legend" />
+            <g class="map" />
           </svg>
         </v-col>
       </v-row>
@@ -210,13 +225,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.tooltip {
-  right: 20px;
-  position: absolute;
-}
-.legendAxis {
-  font-size: 12px;
-}
-</style>

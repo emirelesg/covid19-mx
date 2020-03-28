@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <app-header/>
+    <app-header />
     <v-content class="pb-5">
       <router-view></router-view>
     </v-content>
-    <app-footer/>
+    <app-footer />
   </v-app>
 </template>
 
@@ -50,5 +50,18 @@ a {
   position: sticky;
   bottom: 0px !important;
   z-index: 2;
+}
+.tooltip {
+  right: 20px;
+  position: absolute;
+}
+.tooltip tr td {
+  padding: 0 0.5rem;
+}
+.tooltip tr td:first-child {
+  font-weight: bold;
+}
+.legendAxis {
+  font-size: 12px;
 }
 </style>

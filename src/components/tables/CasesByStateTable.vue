@@ -5,7 +5,7 @@
     <v-card-text>
       <v-row no-gutters>
         <v-col cols="12">
-          <loading v-if="!loaded" height="400px" message="Cargando Datos..."/>
+          <loading v-if="!loaded" height="400px" message="Cargando Datos..." />
           <v-data-table
             v-else
             class="fixed-footer-table"
@@ -22,9 +22,9 @@
             <template v-slot:body.append>
               <tr v-show="$vuetify.breakpoint.smAndUp">
                 <td class="font-weight-bold caption">Total</td>
-                <td class="font-weight-bold">{{ confirmed }}</td>
-                <td class="font-weight-bold">{{ recovered }}</td>
-                <td class="font-weight-bold">{{ deaths }}</td>
+                <td class="font-weight-bold">{{ stats.confirmed }}</td>
+                <td class="font-weight-bold">{{ stats.suspected }}</td>
+                <td class="font-weight-bold">{{ stats.deaths }}</td>
               </tr>
             </template>
           </v-data-table>
@@ -47,7 +47,7 @@ export default {
       headers: [
         { text: 'Entidad', value: 'name' },
         { text: 'Confirmados', value: 'confirmed' },
-        { text: 'Recuperados', value: 'recovered' },
+        { text: 'Sospechosos', value: 'suspected' },
         { text: 'Fallecidos', value: 'deaths' }
       ]
     };
@@ -56,9 +56,7 @@ export default {
     ...mapState({
       loaded: state => state.stats.loaded,
       data: state => Object.values(state.stats.byState),
-      confirmed: state => state.stats.confirmed,
-      recovered: state => state.stats.recovered,
-      deaths: state => state.stats.deaths
+      stats: state => state.stats
     })
   }
 };

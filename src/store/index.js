@@ -18,7 +18,6 @@ export default new Vuex.Store({
       byState: {},
       maxConfirmedByState: null,
       confirmed: null,
-      recovered: null,
       deaths: null,
       suspected: null,
       confirmedDelta: null,
@@ -33,29 +32,29 @@ export default new Vuex.Store({
     SET_GEOJSON(state, geojson) {
       state.geojson = geojson;
     },
-    SET_STATS(state, { timeseries, states, suspected }) {
+    SET_STATS(state, { timeseries, states }) {
       // Set the stats object.
       const sortedStates = Object.entries(states).sort(
         (a, b) => a[1].confirmed - b[1].confirmed
       );
+      const lastTimeseries = timeseries.slice(-1)[0];
+      const prevTimeseries = timeseries.slice(-2)[0];
 
       state.stats = {
         ...state.stats,
         byState: states,
         maxConfirmedByState: sortedStates[sortedStates.length - 1][1].confirmed,
         confirmed: sortedStates.map(([, data]) => data.confirmed).reduce(add),
-        recovered: sortedStates.map(([, data]) => data.recovered).reduce(add),
         deaths: sortedStates.map(([, data]) => data.deaths).reduce(add),
-        suspected: suspected,
-        confirmedDelta:
-          timeseries.slice(-1)[0].confirmed - timeseries.slice(-2)[0].confirmed,
+        suspected: lastTimeseries.suspected,
+        confirmedDelta: lastTimeseries.confirmed - prevTimeseries.confirmed,
         loaded: true
       };
 
       // Set the timeseries data.
       state.timeseries = timeseries;
       state.timeseries.forEach(t => (t.date = moment(t.date)));
-      state.lastUpdated = moment(timeseries.slice(-1)[0].date).format('LL');
+      state.lastUpdated = moment(lastTimeseries.date).format('LLL');
     }
   },
   actions: {

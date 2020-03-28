@@ -1,7 +1,11 @@
 <template>
   <v-card elevation="4">
-    <v-card-title class="font-weight-regular headline">Casos Nuevos Diarios</v-card-title>
-    <v-card-subtitle>El incremento de los casos confirmados por día</v-card-subtitle>
+    <v-card-title class="font-weight-regular headline"
+      >Casos Nuevos Diarios</v-card-title
+    >
+    <v-card-subtitle
+      >El incremento de los casos confirmados por día</v-card-subtitle
+    >
     <v-card-text>
       <v-row no-gutters>
         <v-col cols="12">
