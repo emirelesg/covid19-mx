@@ -185,192 +185,224 @@
     "BS": {
       "name": "Baja California Sur",
       "confirmed": 9,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 31
     },
     "CDMX": {
       "name": "Ciudad de México",
       "confirmed": 177,
+      "confirmedDelta": 70,
       "deaths": 7,
       "suspected": 398
     },
     "BC": {
       "name": "Baja California",
       "confirmed": 20,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 140
     },
     "SL": {
       "name": "San Luis Potosí",
       "confirmed": 20,
+      "confirmedDelta": 1,
       "deaths": 2,
       "suspected": 61
     },
     "AG": {
       "name": "Aguascalientes",
       "confirmed": 19,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 106
     },
     "QR": {
       "name": "Quintana Roo",
       "confirmed": 33,
+      "confirmedDelta": 4,
       "deaths": 1,
       "suspected": 52
     },
     "GJ": {
       "name": "Guanajuato",
       "confirmed": 37,
+      "confirmedDelta": 6,
       "deaths": 0,
       "suspected": 132
     },
     "NL": {
       "name": "Nuevo León",
       "confirmed": 64,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 66
     },
     "TM": {
       "name": "Tamaulipas",
       "confirmed": 6,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 33
     },
     "CH": {
       "name": "Chihuahua",
       "confirmed": 6,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 16
     },
     "MI": {
       "name": "Michoacán",
       "confirmed": 17,
+      "confirmedDelta": 1,
       "deaths": 1,
       "suspected": 48
     },
     "QT": {
       "name": "Querétaro",
       "confirmed": 25,
+      "confirmedDelta": 2,
       "deaths": 0,
       "suspected": 56
     },
     "ZA": {
       "name": "Zacatecas",
       "confirmed": 4,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 60
     },
     "CM": {
       "name": "Campeche",
       "confirmed": 3,
+      "confirmedDelta": 1,
       "deaths": 0,
       "suspected": 8
     },
     "CO": {
       "name": "Coahuila",
       "confirmed": 15,
+      "confirmedDelta": 1,
       "deaths": 0,
       "suspected": 86
     },
     "GR": {
       "name": "Guerrero",
       "confirmed": 10,
+      "confirmedDelta": 3,
       "deaths": 0,
       "suspected": 52
     },
     "TL": {
       "name": "Tlaxcala",
       "confirmed": 4,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 41
     },
     "VE": {
       "name": "Veracruz",
       "confirmed": 23,
+      "confirmedDelta": 6,
       "deaths": 0,
       "suspected": 171
     },
     "CS": {
       "name": "Chiapas",
       "confirmed": 6,
+      "confirmedDelta": -1,
       "deaths": 0,
       "suspected": 36
     },
     "DG": {
       "name": "Durango",
       "confirmed": 7,
+      "confirmedDelta": 0,
       "deaths": 1,
       "suspected": 35
     },
     "HG": {
       "name": "Hidalgo",
       "confirmed": 12,
+      "confirmedDelta": 0,
       "deaths": 1,
       "suspected": 43
     },
     "JA": {
       "name": "Jalisco",
       "confirmed": 82,
+      "confirmedDelta": 5,
       "deaths": 3,
       "suspected": 209
     },
     "MO": {
       "name": "Morelos",
       "confirmed": 4,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 25
     },
     "NA": {
       "name": "Nayarit",
       "confirmed": 5,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 15
     },
     "SI": {
       "name": "Sinaloa",
       "confirmed": 14,
+      "confirmedDelta": 5,
       "deaths": 0,
       "suspected": 84
     },
     "TB": {
       "name": "Tabasco",
       "confirmed": 27,
+      "confirmedDelta": 6,
       "deaths": 0,
       "suspected": 109
     },
     "YU": {
       "name": "Yucatán",
       "confirmed": 38,
+      "confirmedDelta": 2,
       "deaths": 0,
       "suspected": 10
     },
     "CL": {
       "name": "Colima",
       "confirmed": 2,
+      "confirmedDelta": 0,
       "deaths": 0,
       "suspected": 13
     },
     "MX": {
       "name": "México",
       "confirmed": 85,
+      "confirmedDelta": 15,
       "deaths": 0,
       "suspected": 298
     },
     "OA": {
       "name": "Oaxaca",
       "confirmed": 12,
+      "confirmedDelta": 1,
       "deaths": 0,
       "suspected": 36
     },
     "PU": {
       "name": "Puebla",
       "confirmed": 52,
+      "confirmedDelta": 1,
       "deaths": 0,
       "suspected": 105
     },
     "SO": {
       "name": "Sonora",
       "confirmed": 10,
+      "confirmedDelta": 2,
       "deaths": 0,
       "suspected": 48
     }
