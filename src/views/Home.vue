@@ -6,6 +6,7 @@
           <v-card-title class="pa-0">
             <div class="display-2">México</div>
             <v-spacer></v-spacer>
+            <download-stats />
           </v-card-title>
           <v-card-text class="pa-0">
             Última actualización:
@@ -63,6 +64,7 @@ import TotalCasesChart from '@/components/charts/TotalCasesChart';
 import DailyIncreaseChart from '@/components/charts/DailyIncreaseChart';
 import Disclaimer from '@/components/Disclaimer';
 import CasesByStateTable from '@/components/tables/CasesByStateTable';
+import DownloadStats from '@/components/DownloadStats';
 import { mapState } from 'vuex';
 
 export default {
@@ -73,7 +75,8 @@ export default {
     TotalCasesChart,
     Disclaimer,
     CasesByStateTable,
-    DailyIncreaseChart
+    DailyIncreaseChart,
+    DownloadStats
   },
   computed: {
     ...mapState({
