@@ -58,17 +58,29 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    loadData: async ({ commit }) => {
-      const geojson = await import(
-        /* webpackChunkName: "geojson" */ '@/assets/MexicoGeoJson.json'
-      );
+    loadData: async ({ dispatch, commit }) => {
+      const [geojson, stats] = await Promise.all([
+        dispatch('getJSON', '/maps/mexico.json'),
+        dispatch('getJSON', '/api/stats.json')
+      ]);
       commit('SET_GEOJSON', geojson);
-      const stats = await import(
-        /* webpackChunkName: "stats" */ '@/assets/MexicoStats.json'
-      );
       commit('SET_STATS', stats);
       commit('SET_LOADED', true);
-    }
+    },
+    getJSON: async (_, url) =>
+      new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.statusText);
+          }
+        };
+        xhr.onerror = () => reject(xhr.statusText);
+        xhr.send();
+      })
   },
   modules: {}
 });
