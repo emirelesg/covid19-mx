@@ -10,7 +10,7 @@ This project started as a response to the lack of visual tools for understanding
 
 ## Data Source
 
-All data is obtained from Mexico Public Health Ministry (Secretaría de Salud). Source links are displayed in the website.
+All data is obtained from the Mexico Public Health Ministry (Secretaría de Salud). Source links are displayed on the website.
 
 ## For Developers
 
@@ -34,7 +34,7 @@ To build production level files
 $ npm run build
 ```
 
-To deploy the built files to a FTP server
+To deploy the built files to an FTP server
 
 - Configure the FTP credentials by creating a .env file using the .env.example template.
 
@@ -42,7 +42,7 @@ To deploy the built files to a FTP server
 $ npm run deploy
 ```
 
-To create a screeshot for social media and the README
+To create a screenshot for social media and the README
 
 ```
 $ npm run sc
@@ -51,3 +51,7 @@ $ npm run sc
 ## Credits
 
 - favicon.ico made by <a href="" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
