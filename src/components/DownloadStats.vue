@@ -12,10 +12,7 @@ export default {
   },
   methods: {
     open() {
-      const popupWindow = window.open(
-        'https://github.com/emirelesg/covid19-mx/blob/master/src/assets/MexicoStats.json',
-        '_blank'
-      );
+      const popupWindow = window.open('/api/stats.json', '_blank');
       popupWindow.focus();
     }
   }
