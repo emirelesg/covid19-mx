@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const FtpDeploy = require('ftp-deploy');
 const path = require('path');
 const ftp = new FtpDeploy();
@@ -10,17 +10,22 @@ const config = {
   host: process.env.FTP_HOST,
   localRoot: path.resolve('./dist/'),
   remoteRoot: '/covid19/',
-  include: ["*"],
+  include: ['*', '.*'],
   exclude: [],
   deleteRemote: true,
   forcePasv: false,
   sftp: true
 };
 
-ftp.deploy(config)
-  .then(res => console.log(`Finished!`))
+ftp
+  .deploy(config)
+  .then(() => console.log(`Finished!`))
   .catch(err => console.error(err));
 
-ftp.on("uploading", (data) => {
-  console.log(`${data.transferredFileCount} / ${data.totalFilesCount} - ${data.filename}`);
+ftp.on('uploading', data => {
+  console.log(
+    `${data.transferredFileCount + 1} / ${data.totalFilesCount} - ${
+      data.filename
+    }`
+  );
 });
