@@ -9,8 +9,26 @@
             <v-tab>Lineal</v-tab>
             <v-tab>Logarítmico</v-tab>
             <v-spacer></v-spacer>
-            <v-checkbox v-model="prediction" label="Predicción"></v-checkbox>
+            <v-checkbox
+              v-on="on"
+              hide-details
+              dense
+              class="ma-0 pa-0 my-auto"
+              v-model="prediction"
+              label="Predicción"
+            ></v-checkbox>
           </v-tabs>
+          <!-- <v-alert
+            class="ma-0 mt-4"
+            v-model="prediction"
+            transition="fade-transition"
+            type="info"
+            text
+          >
+            Para predecir los casos totales del día siguiente se utiliza el
+            factor de crecimiento promedio de los últimos
+            {{ daysForGrowthEstimation }} días.
+          </v-alert>-->
           <loading
             v-if="!loaded"
             message="Cargando Gráfica..."
@@ -44,6 +62,7 @@ export default {
   },
   data() {
     return {
+      daysForGrowthEstimation: 10,
       prediction: true,
       isMounted: false,
       chartCreated: false,
@@ -90,7 +109,7 @@ export default {
         }));
         // Make a prediction for the next day.
         const last = this.data.datasets[0].data.slice(-1)[0];
-        const growth = this.averageGrowthFactor(10);
+        const growth = this.averageGrowthFactor(this.daysForGrowthEstimation);
         this.data.datasets[1].data = [
           last,
           { t: moment(last.t).add(1, 'day'), y: Math.round(last.y * growth) }
