@@ -1,8 +1,6 @@
 <template>
   <v-card elevation="4">
-    <v-card-title class="font-weight-regular headline"
-      >Casos Totales</v-card-title
-    >
+    <v-card-title class="font-weight-regular headline">Casos Totales</v-card-title>
     <v-card-subtitle>El total de casos confirmados acomulado</v-card-subtitle>
     <v-card-text>
       <v-row no-gutters>
@@ -10,19 +8,21 @@
           <v-tabs v-model="tab" color="primary">
             <v-tab>Lineal</v-tab>
             <v-tab>Logarítmico</v-tab>
+            <v-spacer></v-spacer>
+            <v-checkbox v-model="prediction" label="Predicción"></v-checkbox>
           </v-tabs>
           <loading
             v-if="!loaded"
             message="Cargando Gráfica..."
             :height="style.height"
           />
-          <line-chart
+          <chart
             v-show="loaded"
-            ref="lineChart"
+            ref="chart"
             :chart-data="data"
             :styles="style"
             :options="options"
-          ></line-chart>
+          ></chart>
         </v-col>
       </v-row>
     </v-card-text>
@@ -31,78 +31,30 @@
 
 <script>
 import { mapState } from 'vuex';
-import { hex2rgba } from '@/plugins/helper.js';
-import LineChart from '@/components/charts/BaseLineChart';
+import Chart from '@/components/charts/BaseChart';
 import Loading from '@/components/Loading';
-import colors from 'vuetify/lib/util/colors';
+import { baseLineOptions, baseChartOptions } from '@/plugins/helper';
+import moment from 'moment';
 
 export default {
   name: 'TotalCasesChart',
   components: {
-    LineChart,
+    Chart,
     Loading
   },
   data() {
     return {
+      prediction: true,
       isMounted: false,
       chartCreated: false,
       tab: 0,
       data: {
         datasets: [
-          {
-            borderColor: colors.red.base,
-            backgroundColor: hex2rgba(colors.red.base, 0.1),
-            pointBackgroundColor: colors.red.base,
-            pointHitRadius: 20,
-            borderWidth: 2,
-            data: []
-          }
+          baseLineOptions('red', 'base'),
+          baseLineOptions('orange', 'base', true)
         ]
       },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        legend: {
-          display: false
-        },
-        tooltips: {
-          enabled: true
-        },
-        elements: {
-          point: {
-            pointStyle: 'circle',
-            radius: 3
-          },
-          line: {
-            tension: 0
-          }
-        },
-        scales: {
-          xAxes: [
-            {
-              type: 'time',
-              time: {
-                tooltipFormat: 'LL'
-              },
-              scaleLabel: {
-                display: true,
-                labelString: 'Fecha'
-              }
-            }
-          ],
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true
-              },
-              scaleLabel: {
-                display: true,
-                labelString: 'Casos Confirmados'
-              }
-            }
-          ]
-        }
-      },
+      options: baseChartOptions('Fecha', 'Casos Confirmados'),
       style: {
         paddingTop: '16px',
         height: `${400 - 48}px`
@@ -113,8 +65,11 @@ export default {
     loaded() {
       this.init();
     },
-    tab(val) {
-      if (this.$refs.lineChart) this.$refs.lineChart.update(val);
+    tab() {
+      this.update();
+    },
+    prediction() {
+      this.update();
     }
   },
   mounted() {
@@ -122,6 +77,10 @@ export default {
     this.init();
   },
   methods: {
+    update() {
+      this.data.datasets[1].hidden = !this.prediction;
+      if (this.$refs.chart) this.$refs.chart.update(this.tab);
+    },
     init() {
       if (!this.chartCreated && this.loaded && this.isMounted) {
         this.chartCreated = true;
@@ -129,8 +88,27 @@ export default {
           t: data.date,
           y: data.confirmed
         }));
-        if (this.$refs.lineChart) this.$refs.lineChart.update(0);
+        // Make a prediction for the next day.
+        const last = this.data.datasets[0].data.slice(-1)[0];
+        const growth = this.averageGrowthFactor(10);
+        this.data.datasets[1].data = [
+          last,
+          { t: moment(last.t).add(1, 'day'), y: Math.round(last.y * growth) }
+        ];
+        this.update();
       }
+    },
+    averageGrowthFactor(n) {
+      // Calculate the average growth factor for the last n elements. If n is 0, then the growth is
+      // averaged using all data poitns.
+      const last = this.timeseries.slice(-n);
+      const growth =
+        last
+          .slice(1)
+          .map((data, i) => data.confirmed / last[i].confirmed)
+          .reduce((a, growth) => a + growth, 0) /
+        (last.length - 1);
+      return growth;
     }
   },
   computed: {

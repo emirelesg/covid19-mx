@@ -1,9 +1,9 @@
 <script>
-import { Bar } from 'vue-chartjs';
+import { Line } from 'vue-chartjs';
 
 export default {
-  name: 'BarChart',
-  extends: Bar,
+  name: 'Chart',
+  extends: Line,
   props: ['chartData', 'options'],
   methods: {
     update(isLog) {

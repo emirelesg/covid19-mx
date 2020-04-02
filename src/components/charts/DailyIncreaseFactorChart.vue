@@ -1,7 +1,10 @@
 <template>
   <v-card elevation="4">
-    <v-card-title class="font-weight-regular headline">Casos Nuevos Diarios</v-card-title>
-    <v-card-subtitle>El incremento de los casos confirmados por día</v-card-subtitle>
+    <v-card-title class="font-weight-regular headline">Factor de Crecimiento</v-card-title>
+    <v-card-subtitle>
+      Muestra el factor por el cual aumentan los casos día a
+      día
+    </v-card-subtitle>
     <v-card-text>
       <v-row no-gutters>
         <v-col cols="12">
@@ -24,16 +27,13 @@
 </template>
 
 <script>
-/**
- * Bar chart for displaying the increase of confirmed cases by day.
- */
 import { mapState } from 'vuex';
 import Chart from '@/components/charts/BaseChart';
 import Loading from '@/components/Loading';
-import { baseBarOptions, baseChartOptions } from '@/plugins/helper';
+import { baseLineOptions, baseChartOptions } from '@/plugins/helper';
 
 export default {
-  name: 'DailyIncreaseChart',
+  name: 'DailyIncreaseFactorChart',
   components: {
     Chart,
     Loading
@@ -43,12 +43,12 @@ export default {
       isMounted: false,
       chartCreated: false,
       data: {
-        datasets: [baseBarOptions('blue')]
+        datasets: [baseLineOptions('orange')]
       },
-      options: baseChartOptions('Fecha', 'Casos Confirmados Diarios', true),
+      options: baseChartOptions('Fecha', 'Factor', false, 1),
       style: {
         paddingTop: '16px',
-        height: '400px'
+        height: `400px`
       }
     };
   },
@@ -69,8 +69,10 @@ export default {
           .slice(1)
           .map((data, i) => ({
             t: data.date,
-            y: data.confirmed - this.timeseries[i].confirmed
+            y: data.confirmed / this.timeseries[i].confirmed
           }));
+
+        this.data.datasets[0].data.splice(0, 1);
         if (this.$refs.chart) this.$refs.chart.update(0);
       }
     }
