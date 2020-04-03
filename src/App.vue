@@ -64,4 +64,8 @@ a {
 .legendAxis {
   font-size: 12px;
 }
+.v-slide-group__prev {
+  /* https://github.com/vuetifyjs/vuetify/issues/8875 */
+  display: none !important;
+}
 </style>
