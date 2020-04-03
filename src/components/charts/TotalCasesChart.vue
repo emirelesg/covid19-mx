@@ -127,7 +127,7 @@ export default {
           .map((data, i) => data.confirmed / last[i].confirmed)
           .reduce((a, growth) => a + growth, 0) /
         (last.length - 1);
-      return growth;
+      return growth * 0.98;
     }
   },
   computed: {
