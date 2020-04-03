@@ -75,3 +75,20 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart) => ({
     ]
   }
 });
+
+export const afterBuildTicks = chart => {
+  const ticks = [1, 10, 100, 1000, 10000, 100000, 1000000];
+  chart.ticks.splice(0, chart.ticks.length);
+  chart.ticks.push(...ticks);
+};
+
+export const readableLog = value => {
+  if (value === 1000000) return '1M';
+  if (value === 100000) return '100K';
+  if (value === 10000) return '10K';
+  if (value === 1000) return '1K';
+  if (value === 100) return '100';
+  if (value === 10) return '10';
+  if (value === 0) return '0';
+  return null;
+};
