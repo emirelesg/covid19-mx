@@ -20,8 +20,7 @@ export default new Vuex.Store({
       confirmed: null,
       deaths: null,
       suspected: null,
-      confirmedDelta: null,
-      loaded: false
+      confirmedDelta: null
     },
     geojson: null
   },
@@ -47,8 +46,7 @@ export default new Vuex.Store({
         confirmed: sortedStates.map(([, data]) => data.confirmed).reduce(add),
         deaths: sortedStates.map(([, data]) => data.deaths).reduce(add),
         suspected: lastTimeseries.suspected,
-        confirmedDelta: lastTimeseries.confirmed - prevTimeseries.confirmed,
-        loaded: true
+        confirmedDelta: lastTimeseries.confirmed - prevTimeseries.confirmed
       };
 
       // Set the timeseries data.

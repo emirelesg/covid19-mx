@@ -1,62 +1,59 @@
 <template>
-  <v-card elevation="4" height="100%">
-    <v-card-title class="font-weight-regular headline">Entidades</v-card-title>
-    <v-card-subtitle>Conoce los tipos de casos por entidad</v-card-subtitle>
-    <v-card-text>
-      <v-row no-gutters>
-        <v-col cols="12">
-          <loading v-if="!loaded" height="400px" message="Cargando Datos..." />
-          <v-data-table
-            v-else
-            class="fixed-footer-table"
-            fixed-header
-            hide-default-footer
-            disable-pagination
-            dense
-            height="400px"
-            sort-by="confirmed"
-            :sort-desc="true"
-            :headers="headers"
-            :items="data"
-            item-key="name"
+  <card
+    title="Entidades"
+    subtitle="Conoce los tipos de casos por entidad"
+    loadingMessage="Cargando Datos..."
+    :loaded="loaded"
+  >
+    <template v-slot:content>
+      <v-data-table
+        class="fixed-footer-table"
+        fixed-header
+        hide-default-footer
+        disable-pagination
+        dense
+        height="400px"
+        sort-by="confirmed"
+        :sort-desc="true"
+        :headers="headers"
+        :items="data"
+        item-key="name"
+      >
+        <template v-slot:item.confirmedDelta="{ item }">
+          <span
+            v-if="item.confirmedDelta !== 0"
+            :style="getDeltaStyle(item.confirmedDelta)"
+            >{{ getDeltaLabel(item.confirmedDelta) }}</span
           >
-            <template v-slot:item.confirmedDelta="{ item }">
-              <span
-                v-if="item.confirmedDelta !== 0"
-                :style="getDeltaStyle(item.confirmedDelta)"
-                >{{ getDeltaLabel(item.confirmedDelta) }}</span
-              >
-            </template>
-            <template v-slot:body.append>
-              <tr v-show="$vuetify.breakpoint.smAndUp">
-                <td class="font-weight-bold caption">Total</td>
-                <td class="text-center font-weight-bold">
-                  {{ stats.confirmed }}
-                </td>
-                <td class="text-center font-weight-bold">
-                  {{ getDeltaLabel(stats.confirmedDelta) }}
-                </td>
-                <td class="text-center font-weight-bold">
-                  {{ stats.suspected }}
-                </td>
-                <td class="text-center font-weight-bold">{{ stats.deaths }}</td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+        </template>
+        <template v-slot:body.append>
+          <tr v-show="$vuetify.breakpoint.smAndUp">
+            <td class="font-weight-bold caption">Total</td>
+            <td class="text-center font-weight-bold">
+              {{ stats.confirmed }}
+            </td>
+            <td class="text-center font-weight-bold">
+              {{ getDeltaLabel(stats.confirmedDelta) }}
+            </td>
+            <td class="text-center font-weight-bold">
+              {{ stats.suspected }}
+            </td>
+            <td class="text-center font-weight-bold">{{ stats.deaths }}</td>
+          </tr>
+        </template>
+      </v-data-table>
+    </template>
+  </card>
 </template>
 
 <script>
+import Card from '@/components/Card';
 import colors from 'vuetify/lib/util/colors';
-import Loading from '@/components/Loading.vue';
 import { mapState } from 'vuex';
 export default {
   name: 'CasesBystateTable',
   components: {
-    Loading
+    Card
   },
   data() {
     return {
@@ -89,7 +86,7 @@ export default {
   },
   computed: {
     ...mapState({
-      loaded: state => state.stats.loaded,
+      loaded: state => state.loaded,
       data: state => Object.values(state.stats.byState),
       stats: state => state.stats
     })

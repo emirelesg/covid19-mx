@@ -1,59 +1,22 @@
 <template>
-  <v-card elevation="4" height="100%">
-    <v-card-title class="font-weight-regular headline">
-      Casos Confirmados
-    </v-card-title>
-    <v-card-subtitle>
-      Mueve el cursor sobre una entidad para conocer más
-    </v-card-subtitle>
-    <v-card-text id="container">
-      <loading v-if="!loaded" message="Cargando Mapa..." :height="`${h}px`" />
-      <v-row no-gutters>
-        <v-col cols="12">
-          <v-card class="tooltip" color elevation="8" v-if="active">
-            <v-card-title class="font-weight-regular pb-1">
-              {{ active.name }}
-            </v-card-title>
-            <v-card-text>
-              <v-simple-table dense>
-                <template v-slot:default>
-                  <tbody>
-                    <tr>
-                      <td class="red--text">{{ active.confirmed }}</td>
-                      <td>Confirmados</td>
-                    </tr>
-                    <tr>
-                      <td class="orange--text">{{ active.suspected }}</td>
-                      <td>Sospechosos</td>
-                    </tr>
-                    <tr>
-                      <td class="blue-grey--text text--darken-3">
-                        {{ active.deaths }}
-                      </td>
-                      <td>Fallecidos</td>
-                    </tr>
-                  </tbody>
-                </template>
-              </v-simple-table>
-            </v-card-text>
-          </v-card>
-          <svg
-            v-show="loaded"
-            width="100%"
-            height="400px"
-            viewBox="0 0 500 400"
-          >
-            <defs>
-              <linearGradient id="gradient" />
-            </defs>
-            <g class="legendAxis" visible="invisible" />
-            <g class="legend" />
-            <g class="map" />
-          </svg>
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+  <card
+    title="Casos Confirmados"
+    subtitle="Mueve el cursor sobre una entidad para conocer más"
+    loadingMessage="Cargando Mapa..."
+    :loaded="loaded"
+  >
+    <template v-slot:content>
+      <state-info :state="active" />
+      <svg width="100%" height="400px" viewBox="0 0 500 400">
+        <defs>
+          <linearGradient id="gradient" />
+        </defs>
+        <g class="legendAxis" visible="invisible" />
+        <g class="legend" />
+        <g class="map" />
+      </svg>
+    </template>
+  </card>
 </template>
 
 <script>
@@ -71,12 +34,14 @@
 import { interpolateMagma, select, scaleLinear, axisBottom } from 'd3';
 import { geoPath, geoMercator } from 'd3-geo';
 import { mapState } from 'vuex';
-import Loading from '@/components/Loading';
+import Card from '@/components/Card';
+import StateInfo from '@/components/charts/StateInfo';
 
 export default {
   name: 'MapCard',
   components: {
-    Loading
+    StateInfo,
+    Card
   },
   data() {
     return {

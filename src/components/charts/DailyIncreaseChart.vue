@@ -1,30 +1,19 @@
 <template>
-  <v-card elevation="4" height="100%">
-    <v-card-title class="font-weight-regular headline">
-      Casos Nuevos Diarios
-    </v-card-title>
-    <v-card-subtitle>
-      El incremento de los casos confirmados por día
-    </v-card-subtitle>
-    <v-card-text>
-      <v-row no-gutters>
-        <v-col cols="12">
-          <loading
-            v-if="!loaded"
-            message="Cargando Gráfica..."
-            :height="style.height"
-          />
-          <chart
-            v-show="loaded"
-            ref="chart"
-            :chart-data="data"
-            :styles="style"
-            :options="options"
-          ></chart>
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+  <card
+    title="Casos Nuevos Diarios"
+    subtitle="El incremento de los casos confirmados por día"
+    loadingMessage="Cargando Gráfica..."
+    :loaded="loaded"
+  >
+    <template v-slot:content>
+      <chart
+        ref="chart"
+        :chart-data="data"
+        :styles="style"
+        :options="options"
+      ></chart>
+    </template>
+  </card>
 </template>
 
 <script>
@@ -32,15 +21,15 @@
  * Bar chart for displaying the increase of confirmed cases by day.
  */
 import { mapState } from 'vuex';
+import Card from '@/components/Card';
 import Chart from '@/components/charts/BaseChart';
-import Loading from '@/components/Loading';
 import { baseBarOptions, baseChartOptions } from '@/plugins/helper';
 
 export default {
   name: 'DailyIncreaseChart',
   components: {
     Chart,
-    Loading
+    Card
   },
   data() {
     return {
@@ -82,7 +71,7 @@ export default {
   computed: {
     ...mapState({
       timeseries: state => state.timeseries,
-      loaded: state => state.stats.loaded
+      loaded: state => state.loaded
     })
   }
 };
