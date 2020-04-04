@@ -1,6 +1,11 @@
 <template>
   <v-card elevation="4" height="100%" width="100%">
     <div ref="title">
+      <!-- <v-btn @click="isFullscreen = !isFullscreen" absolute right top icon>
+        <v-icon>
+          {{ isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen' }}
+        </v-icon>
+      </v-btn> -->
       <v-card-title class="font-weight-regular headline">
         {{ title }}
       </v-card-title>
@@ -8,7 +13,7 @@
         {{ subtitle }}
       </v-card-subtitle>
     </div>
-    <v-card-text :style="style">
+    <v-card-text :style="contentStyle">
       <v-row class="fill-height" no-gutters align="center" justify="center">
         <v-col cols="12">
           <loading v-if="!loaded" :message="loadingMessage" />
@@ -34,26 +39,27 @@ export default {
     Loading
   },
   mounted() {
-    this.resize();
-    window.addEventListener('resize', this.resize);
+    this.resizeHandler();
+    window.addEventListener('resize', this.resizeHandler);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.resize);
+    window.removeEventListener('resize', this.resizeHandler);
   },
   data() {
     return {
+      // isFullscreen: false,
       cardTitleHeight: 0
     };
   },
   methods: {
-    resize() {
+    resizeHandler() {
       if (this.$refs.title.clientHeight) {
         this.cardTitleHeight = this.$refs.title.clientHeight;
       }
     }
   },
   computed: {
-    style() {
+    contentStyle() {
       return {
         height: `calc(100% - ${this.cardTitleHeight}px)`
       };
