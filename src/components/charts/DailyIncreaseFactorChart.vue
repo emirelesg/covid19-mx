@@ -1,9 +1,10 @@
 <template>
   <v-card elevation="4">
-    <v-card-title class="font-weight-regular headline">Factor de Crecimiento</v-card-title>
+    <v-card-title class="font-weight-regular headline">
+      Factor de Crecimiento
+    </v-card-title>
     <v-card-subtitle>
-      Muestra el factor por el cual aumentan los casos día a
-      día
+      Muestra el factor por el cual aumentan los casos día a día
     </v-card-subtitle>
     <v-card-text>
       <v-row no-gutters>

@@ -15,9 +15,9 @@
     </div>
     <div>
       Fuente:
-      <a v-if="$vuetify.breakpoint.smAndUp" :href="source" target="_blank">{{
-        source
-      }}</a>
+      <a v-if="$vuetify.breakpoint.smAndUp" :href="source" target="_blank">
+        {{ source }}
+      </a>
       <a v-else :href="source" target="_blank"
         >Prensa de la Secretaría de Salud</a
       >

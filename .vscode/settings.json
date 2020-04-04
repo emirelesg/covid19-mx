@@ -1,14 +1,15 @@
 {
-  "vetur.format.defaultFormatter.html": "prettyhtml",
+  "vetur.format.defaultFormatter.html": "prettier",
   "vetur.format.defaultFormatter.js": "prettier",
   "vetur.format.defaultFormatterOptions": {
-    "prettyhtml": {
-      "printWidth": 80,
-      "singleQuote": false,
-      "wrapAttributes": false,
-      "sortAttributes": false
-    },
+    // "prettyhtml": {
+    //   "printWidth": 80,
+    //   "singleQuote": false,
+    //   "wrapAttributes": false,
+    //   "sortAttributes": false
+    // },
     "prettier": {
+      "printWidth": 80,
       "singleQuote": true,
       "jsxSingleQuote": true
     }

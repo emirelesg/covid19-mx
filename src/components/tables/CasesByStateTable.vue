@@ -24,16 +24,21 @@
               <span
                 v-if="item.confirmedDelta !== 0"
                 :style="getDeltaStyle(item.confirmedDelta)"
-              >{{ getDeltaLabel(item.confirmedDelta) }}</span>
+                >{{ getDeltaLabel(item.confirmedDelta) }}</span
+              >
             </template>
             <template v-slot:body.append>
               <tr v-show="$vuetify.breakpoint.smAndUp">
                 <td class="font-weight-bold caption">Total</td>
-                <td class="text-center font-weight-bold">{{ stats.confirmed }}</td>
-                <td
-                  class="text-center font-weight-bold"
-                >{{ getDeltaLabel(stats.confirmedDelta) }}</td>
-                <td class="text-center font-weight-bold">{{ stats.suspected }}</td>
+                <td class="text-center font-weight-bold">
+                  {{ stats.confirmed }}
+                </td>
+                <td class="text-center font-weight-bold">
+                  {{ getDeltaLabel(stats.confirmedDelta) }}
+                </td>
+                <td class="text-center font-weight-bold">
+                  {{ stats.suspected }}
+                </td>
                 <td class="text-center font-weight-bold">{{ stats.deaths }}</td>
               </tr>
             </template>
