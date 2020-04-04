@@ -6,17 +6,20 @@
     :loaded="loaded"
   >
     <template v-slot:content>
-      <div id="container">
-        <state-info :state="active" />
-        <svg width="100%" height="400px" viewBox="0 0 500 400">
-          <defs>
-            <linearGradient id="gradient" />
-          </defs>
-          <g class="legendAxis" visible="invisible" />
-          <g class="legend" />
-          <g class="map" />
-        </svg>
-      </div>
+      <state-info id="map-tooltip" :state="active" />
+      <svg
+        style="vertical-align: top;"
+        width="100%"
+        height="400px"
+        viewBox="0 0 500 400"
+      >
+        <defs>
+          <linearGradient id="gradient" />
+        </defs>
+        <g id="legendAxis" class="caption" visible="invisible" />
+        <g id="legend" />
+        <g id="map" />
+      </svg>
     </template>
   </card>
 </template>
@@ -80,11 +83,8 @@ export default {
       }
     },
     generateMap() {
-      // Select the svg and make it responsive
-      this.svg = select('#container svg');
-
       // Select the map where the states are drawn.
-      this.map = select('#container .map')
+      this.map = select('#map')
         .attr('stroke', '#aaa')
         .attr('stroke-width', '1.5')
         .attr('transform', `translate(0, -20)`);
@@ -133,7 +133,7 @@ export default {
       }
 
       // Create the box for the legend and apply gradient.
-      select('#container .legend')
+      select('#legend')
         .append('rect')
         .attr('x1', 0)
         .attr('y1', 0)
@@ -150,7 +150,7 @@ export default {
         .scale(legendScale)
         .tickSize(6)
         .ticks(5);
-      select('#container .legendAxis')
+      select('#legendAxis')
         .attr('transform', `translate(${xAxis}, ${yAxis})`)
         .call(legendAxis);
     },
@@ -160,7 +160,7 @@ export default {
         .transition()
         .duration('50')
         .attr('opacity', '1');
-      select('#container .tooltip')
+      select('#map-tooltip')
         .transition()
         .duration('300')
         .style('opacity', '0');
@@ -172,7 +172,7 @@ export default {
         .transition()
         .duration('50')
         .attr('opacity', '0.75');
-      select('#container .tooltip')
+      select('#map-tooltip')
         .transition()
         .duration('50')
         .style('opacity', '0.85');
