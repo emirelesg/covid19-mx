@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="4">
+  <v-card elevation="4" height="100%">
     <v-card-title class="font-weight-regular headline">Entidades</v-card-title>
     <v-card-subtitle>Conoce los tipos de casos por entidad</v-card-subtitle>
     <v-card-text>
@@ -24,21 +24,16 @@
               <span
                 v-if="item.confirmedDelta !== 0"
                 :style="getDeltaStyle(item.confirmedDelta)"
-                >{{ getDeltaLabel(item.confirmedDelta) }}</span
-              >
+              >{{ getDeltaLabel(item.confirmedDelta) }}</span>
             </template>
             <template v-slot:body.append>
               <tr v-show="$vuetify.breakpoint.smAndUp">
                 <td class="font-weight-bold caption">Total</td>
-                <td class="text-center font-weight-bold">
-                  {{ stats.confirmed }}
-                </td>
-                <td class="text-center font-weight-bold">
-                  {{ getDeltaLabel(stats.confirmedDelta) }}
-                </td>
-                <td class="text-center font-weight-bold">
-                  {{ stats.suspected }}
-                </td>
+                <td class="text-center font-weight-bold">{{ stats.confirmed }}</td>
+                <td
+                  class="text-center font-weight-bold"
+                >{{ getDeltaLabel(stats.confirmedDelta) }}</td>
+                <td class="text-center font-weight-bold">{{ stats.suspected }}</td>
                 <td class="text-center font-weight-bold">{{ stats.deaths }}</td>
               </tr>
             </template>

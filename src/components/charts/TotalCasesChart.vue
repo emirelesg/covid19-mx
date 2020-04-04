@@ -1,6 +1,8 @@
 <template>
-  <v-card elevation="4">
-    <v-card-title class="font-weight-regular headline">Casos Totales</v-card-title>
+  <v-card elevation="4" height="100%">
+    <v-card-title class="font-weight-regular headline">
+      <span>Casos Totales</span>
+    </v-card-title>
     <v-card-subtitle>El total de casos confirmados acomulado</v-card-subtitle>
     <v-card-text>
       <v-row no-gutters>
@@ -10,7 +12,6 @@
             <v-tab>Logarítmico</v-tab>
             <v-spacer></v-spacer>
             <v-checkbox
-              v-on="on"
               hide-details
               dense
               class="ma-0 pa-0 my-auto"
@@ -19,14 +20,14 @@
             ></v-checkbox>
           </v-tabs>
           <!-- <v-alert
-            class="ma-0 mt-4"
-            v-model="prediction"
+            class="ma-0 mt-4 body-2"
+            :value="prediction"
             transition="fade-transition"
             type="info"
             text
           >
-            Para predecir los casos totales del día siguiente se utiliza el
-            factor de crecimiento promedio de los últimos
+            La predicción se hace tomando el promedio del factor de crecimiento
+            en los casos totales acumulados de los últimos
             {{ daysForGrowthEstimation }} días.
           </v-alert>-->
           <loading
@@ -121,13 +122,19 @@ export default {
       // Calculate the average growth factor for the last n elements. If n is 0, then the growth is
       // averaged using all data poitns.
       const last = this.timeseries.slice(-n);
-      const growth =
-        last
-          .slice(1)
-          .map((data, i) => data.confirmed / last[i].confirmed)
-          .reduce((a, growth) => a + growth, 0) /
-        (last.length - 1);
-      return growth * 0.98;
+      const growthFactors = last
+        .slice(1)
+        .map((data, i) => data.confirmed / last[i].confirmed);
+      // .sort((a, b) => a - b);
+      const meanGrowth =
+        growthFactors.reduce((a, growth) => a + growth, 0) / (last.length - 1);
+      // const medianGrowth =
+      //   growthFactors.length % 2 === 0
+      //     ? growthFactors[growthFactors.length / 2]
+      //     : (growthFactors[(growthFactors.length - 1) / 2] +
+      //         growthFactors[(growthFactors.length + 1) / 2]) /
+      //       2;
+      return meanGrowth;
     }
   },
   computed: {

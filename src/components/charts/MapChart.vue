@@ -1,19 +1,17 @@
 <template>
-  <v-card elevation="4">
-    <v-card-title class="font-weight-regular headline"
-      >Casos Confirmados</v-card-title
-    >
-    <v-card-subtitle
-      >Mueve el cursor sobre una entidad para conocer más</v-card-subtitle
-    >
+  <v-card elevation="4" height="100%">
+    <v-card-title class="font-weight-regular headline">Casos Confirmados</v-card-title>
+    <v-card-subtitle>Mueve el cursor sobre una entidad para conocer más</v-card-subtitle>
     <v-card-text id="container">
       <loading v-if="!loaded" message="Cargando Mapa..." :height="`${h}px`" />
       <v-row no-gutters>
         <v-col cols="12">
           <v-card class="tooltip" color elevation="8" v-if="active">
-            <v-card-title class="font-weight-regular pb-1">{{
+            <v-card-title class="font-weight-regular pb-1">
+              {{
               active.name
-            }}</v-card-title>
+              }}
+            </v-card-title>
             <v-card-text>
               <v-simple-table dense>
                 <template v-slot:default>
@@ -27,9 +25,9 @@
                       <td>Sospechosos</td>
                     </tr>
                     <tr>
-                      <td class="blue-grey--text text--darken-3">
-                        {{ active.deaths }}
-                      </td>
+                      <td
+                        class="blue-grey--text text--darken-3"
+                      >{{ active.deaths }}</td>
                       <td>Fallecidos</td>
                     </tr>
                   </tbody>
