@@ -1,8 +1,8 @@
 <template>
-  <v-card elevation="4" :style="cardStyle" class="pa-1">
+  <v-card elevation="4" :style="{ borderTop: `6px solid ${colorHex}` }">
     <v-list-item two-line class="text-center">
-      <v-list-item-content>
-        <v-list-item-title class="display-1 mb-2" :style="style">
+      <v-list-item-content class="py-4">
+        <v-list-item-title class="display-1 mb-2" :style="{ color: colorHex }">
           <div v-if="value !== null">
             <slot :value="value">{{ value }}</slot>
           </div>
@@ -13,6 +13,17 @@
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
+    <!-- <v-sparkline
+      :style="sparklineStyle"
+      :gradient="[colorHex, '#efefef']"
+      :padding="0"
+      :line-width="2"
+      :value="dataPoints"
+      preserveAspectRatio="xMaxYMax meet"
+      smooth
+      stroke-linecap="round"
+      auto-draw
+    /> -->
   </v-card>
 </template>
 
@@ -25,21 +36,27 @@ export default {
     title: String,
     value: Number,
     color: String
+    // dataPoints: Array
   },
   data() {
     return {};
   },
   computed: {
-    style: function() {
-      return {
-        color: colors[this.color].base
-      };
-    },
-    cardStyle: function() {
-      return {
-        borderTop: `6px solid ${colors[this.color].base}`
-      };
+    colorHex() {
+      return colors[this.color].base;
     }
+    // sparklineStyle() {
+    //   return {
+    //     verticalAlign: 'top',
+    //     position: 'absolute',
+    //     padding: '8px 16px',
+    //     bottom: 0,
+    //     left: 0,
+    //     right: 0,
+    //     height: '75%',
+    //     width: '100%'
+    //   };
+    // }
   }
 };
 </script>

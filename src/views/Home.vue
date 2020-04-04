@@ -80,6 +80,27 @@ export default {
   },
   computed: {
     ...mapState({
+      // Data for sparklines.
+      // suspected: state => ({
+      //   dataPoints: state.timeseries
+      //     ? state.timeseries.map(s => s.suspected)
+      //     : []
+      // }),
+      // confirmed: state => ({
+      //   dataPoints: state.timeseries
+      //     ? state.timeseries.map(s => s.confirmed)
+      //     : []
+      // }),
+      // confirmedDelta: state => ({
+      //   dataPoints: state.timeseries
+      //     ? state.timeseries
+      //         .slice(1)
+      //         .map((s, i) => s.confirmed - state.timeseries[i].confirmed)
+      //     : []
+      // }),
+      // deaths: state => ({
+      //   dataPoints: state.timeseries ? state.timeseries.map(s => s.deaths) : []
+      // }),
       lastUpdated: state => state.lastUpdated,
       stats: state => state.stats,
       confirmedDeltaColor: state => {
