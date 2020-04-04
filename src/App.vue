@@ -32,9 +32,6 @@ export default {
 </script>
 
 <style>
-svg {
-  vertical-align: top;
-}
 a {
   text-decoration: none;
 }
@@ -60,9 +57,6 @@ a {
 }
 .tooltip tr td:first-child {
   font-weight: bold;
-}
-.legendAxis {
-  font-size: 12px;
 }
 .v-slide-group__prev {
   /* https://github.com/vuetifyjs/vuetify/issues/8875 */
