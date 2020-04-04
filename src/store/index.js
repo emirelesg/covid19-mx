@@ -52,7 +52,9 @@ export default new Vuex.Store({
       // Set the timeseries data.
       state.timeseries = timeseries;
       state.timeseries.forEach(t => (t.date = moment(t.date)));
-      state.lastUpdated = moment(lastTimeseries.date).format('LL');
+      state.lastUpdated = moment(lastTimeseries.date)
+        .add('13', 'hour')
+        .fromNow();
     }
   },
   actions: {
