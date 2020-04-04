@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      daysForGrowthEstimation: 10,
+      daysForGrowthEstimation: 5,
       prediction: true,
       isMounted: false,
       chartCreated: false,
@@ -119,15 +119,16 @@ export default {
       }
     },
     averageGrowthFactor(n) {
-      // Calculate the average growth factor for the last n elements. If n is 0, then the growth is
-      // averaged using all data poitns.
-      const last = this.timeseries.slice(-n);
+      // Calculate the average growth factor using n days.
+      // We need n + 1 elements to calculate n growth factors.
+      const last = this.timeseries.slice(-(n + 1));
       const growthFactors = last
         .slice(1)
         .map((data, i) => data.confirmed / last[i].confirmed);
       // .sort((a, b) => a - b);
       const meanGrowth =
-        growthFactors.reduce((a, growth) => a + growth, 0) / (last.length - 1);
+        growthFactors.reduce((a, growth) => a + growth, 0) /
+        growthFactors.length;
       // const medianGrowth =
       //   growthFactors.length % 2 === 0
       //     ? growthFactors[growthFactors.length / 2]
