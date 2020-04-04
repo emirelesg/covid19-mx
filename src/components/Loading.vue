@@ -19,8 +19,14 @@
 export default {
   name: 'Loading',
   props: {
-    message: { type: String, required: true },
-    height: { type: String, default: 'calc(100vh - 88px)' }
+    message: {
+      type: String,
+      default: 'Cargando...'
+    },
+    height: {
+      type: String,
+      default: 'calc(100vh - 88px)'
+    }
   },
   data() {
     return {};
