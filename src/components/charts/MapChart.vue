@@ -6,15 +6,17 @@
     :loaded="loaded"
   >
     <template v-slot:content>
-      <state-info :state="active" />
-      <svg width="100%" height="400px" viewBox="0 0 500 400">
-        <defs>
-          <linearGradient id="gradient" />
-        </defs>
-        <g class="legendAxis" visible="invisible" />
-        <g class="legend" />
-        <g class="map" />
-      </svg>
+      <div id="container">
+        <state-info :state="active" />
+        <svg width="100%" height="400px" viewBox="0 0 500 400">
+          <defs>
+            <linearGradient id="gradient" />
+          </defs>
+          <g class="legendAxis" visible="invisible" />
+          <g class="legend" />
+          <g class="map" />
+        </svg>
+      </div>
     </template>
   </card>
 </template>
@@ -58,11 +60,11 @@ export default {
   },
   mounted() {
     this.isMounted = true;
-    this.init();
+    this.$nextTick(this.init);
   },
   watch: {
     loaded() {
-      this.init();
+      this.$nextTick(this.init);
     }
   },
   methods: {
@@ -70,7 +72,6 @@ export default {
     colorScaleCases(cases) {
       return this.colorScale(cases / this.stats.maxConfirmedByState);
     },
-
     init() {
       if (!this.mapCreated && this.loaded && this.isMounted) {
         this.mapCreated = true;
@@ -78,13 +79,9 @@ export default {
         this.generateLegend();
       }
     },
-
     generateMap() {
       // Select the svg and make it responsive
       this.svg = select('#container svg');
-      // .attr('width', `100%`)
-      // .attr('height', `${this.h}`)
-      // .attr('viewBox', `0 0 ${this.w} ${this.h}`);
 
       // Select the map where the states are drawn.
       this.map = select('#container .map')
