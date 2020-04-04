@@ -22,10 +22,10 @@
         class="ma-0 mt-4 body-2"
         :value="prediction"
         transition="fade-transition"
-        type="info"
+        type="warning"
         text
       >
-        La predicción se hace con el promedio del factor de crecimiento en los
+        La predicción se hace con el promedio del factor de crecimiento de los
         casos totales acumulados de los últimos
         <strong>{{ meanGrowthFactorDays }} días.</strong>
         Este factor es de
@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       meanGrowthFactorDays: 5,
-      prediction: true,
+      prediction: false,
       isMounted: false,
       chartCreated: false,
       tab: 0,
