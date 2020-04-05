@@ -1,7 +1,7 @@
 <template>
   <card
     title="Casos Totales"
-    subtitle="El total de casos confirmados acomulado"
+    subtitle="El total de casos confirmados acumulado"
     loadingMessage="Cargando Gráfica..."
     :loaded="loaded"
   >
