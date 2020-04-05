@@ -110,6 +110,22 @@ export default {
             y: Math.round(last.y * this.meanGrowthFactor())
           }
         ];
+        // Predict over the complete range.
+        // this.data.datasets[1].data = [];
+        // const n = 5;
+        // const points = this.data.datasets[0].data;
+        // for (let i = n; i < points.length; i++) {
+        //   let mg = 0;
+        //   for (let j = i - n; j < i; j++) {
+        //     mg += points[j + 1].y / points[j].y;
+        //   }
+        //   mg /= n;
+
+        //   this.data.datasets[1].data.push({
+        //     t: moment(points[i].t).add(1, 'day'),
+        //     y: Math.round(points[i].y * mg)
+        //   });
+        // }
         this.update();
       }
     },
