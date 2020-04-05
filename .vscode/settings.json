@@ -12,14 +12,15 @@
   // Vue specific.
   "vetur.format.defaultFormatter.html": "prettier",
   "vetur.format.defaultFormatter.js": "prettier",
-  // "vetur.format.defaultFormatterOptions": {
-  //   "prettier": {
-  //     "printWidth": 80,
-  //     "singleQuote": true,
-  //     "jsxSingleQuote": true,
-  //     "trailingComma": "none"
-  //   }
-  // },
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "printWidth": 80,
+      "singleQuote": true,
+      "jsxSingleQuote": true,
+      "trailingComma": "none",
+      "prettier.arrowParens": "avoid"
+    }
+  },
   "vetur.validation.template": false,
   // Javascript specific.
   "[javascript]": {
