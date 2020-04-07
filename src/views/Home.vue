@@ -53,6 +53,9 @@
       <v-col cols="12" md="6">
         <daily-increase-chart />
       </v-col>
+      <v-col cols="12">
+        <Faq />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -64,12 +67,14 @@ import TotalCasesChart from '@/components/charts/TotalCasesChart';
 import DailyIncreaseChart from '@/components/charts/DailyIncreaseChart';
 import Disclaimer from '@/components/Disclaimer';
 import CasesByStateTable from '@/components/tables/CasesByStateTable';
+import Faq from '@/components/faq';
 import DownloadStats from '@/components/DownloadStats';
 import { mapState } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
+    Faq,
     ValueCard,
     MapCard,
     TotalCasesChart,
