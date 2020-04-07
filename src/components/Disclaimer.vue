@@ -9,8 +9,8 @@
     transition="fade-transition"
   >
     <div>
-      Este es un sitio no oficial que recopila y presenta los datos entregados
-      por la Secretaría de Salud de México —
+      Este es un sitio no oficial que presenta <strong>únicamente</strong> los
+      datos oficiales entregados por la Secretaría de Salud de México —
       <a href="https://twitter.com/SSalud_mx" target="_blank">@SSalud_mx</a>.
     </div>
     <div>
