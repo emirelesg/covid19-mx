@@ -25,8 +25,8 @@
         type="warning"
         text
       >
-        La predicción se hace con el promedio del factor de crecimiento de los
-        casos totales acumulados de los últimos
+        La predicción se hace con el promedio del <strong>factor</strong> de
+        crecimiento de los casos totales acumulados de los últimos
         <strong>{{ meanGrowthFactorDays }} días.</strong>
         Este factor es de
         <strong>{{ Math.round(meanGrowthFactor() * 1000) / 1000 }}</strong>
