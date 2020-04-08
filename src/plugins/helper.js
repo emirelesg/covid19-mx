@@ -20,12 +20,13 @@ export const baseBarOptions = color => ({
 
 export const baseLineOptions = (color, shade, dashed) => ({
   type: 'line',
+  borderWidth: 2,
   borderDash: dashed ? [4, 4] : [0, 0],
   borderColor: colors[color][shade || 'base'],
   backgroundColor: hex2rgba(colors[color][shade || 'base'], 0.1),
   pointBackgroundColor: colors[color][shade || 'base'],
-  pointHitRadius: 20,
-  borderWidth: 2,
+  pointHitRadius: 10,
+  pointHoverRadius: 4,
   data: []
 });
 
@@ -38,10 +39,14 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart) => ({
   tooltips: {
     enabled: true
   },
+  hover: {
+    axis: 'xy',
+    animationDuration: 0
+  },
   elements: {
     point: {
       pointStyle: 'circle',
-      radius: 3
+      radius: 2
     },
     line: {
       tension: 0
@@ -54,6 +59,9 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart) => ({
         offset: xOffset || false,
         time: {
           tooltipFormat: 'LL'
+        },
+        gridLines: {
+          color: 'rgba(0,0,0,0)'
         },
         scaleLabel: {
           display: true,
