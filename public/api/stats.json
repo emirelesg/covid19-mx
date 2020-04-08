@@ -233,522 +233,528 @@
       "confirmed": 2439,
       "deaths": 125,
       "suspected": 6295
+    },
+    {
+      "date": "2020-04-07",
+      "confirmed": 2785,
+      "deaths": 141,
+      "suspected": 7526
     }
   ],
   "states": {
     "BS": {
       "name": "Baja California Sur",
-      "confirmed": 54,
-      "confirmedDelta": 26,
+      "confirmed": 56,
+      "confirmedDelta": 2,
       "deaths": 2,
-      "suspected": 141
+      "suspected": 149
     },
     "CDMX": {
       "name": "Ciudad de México",
-      "confirmed": 609,
-      "confirmedDelta": 49,
-      "deaths": 29,
-      "suspected": 1100
+      "confirmed": 723,
+      "confirmedDelta": 114,
+      "deaths": 32,
+      "suspected": 1350
     },
     "BC": {
       "name": "Baja California",
-      "confirmed": 111,
-      "confirmedDelta": 42,
+      "confirmed": 136,
+      "confirmedDelta": 25,
       "deaths": 7,
-      "suspected": 245
+      "suspected": 345
     },
     "SL": {
       "name": "San Luis Potosí",
-      "confirmed": 37,
-      "confirmedDelta": 0,
+      "confirmed": 41,
+      "confirmedDelta": 4,
       "deaths": 3,
-      "suspected": 154
+      "suspected": 187
     },
     "AG": {
       "name": "Aguascalientes",
-      "confirmed": 49,
-      "confirmedDelta": 0,
+      "confirmed": 53,
+      "confirmedDelta": 4,
       "deaths": 0,
-      "suspected": 164
+      "suspected": 183
     },
     "QR": {
       "name": "Quintana Roo",
-      "confirmed": 115,
-      "confirmedDelta": 29,
-      "deaths": 8,
-      "suspected": 148
+      "confirmed": 135,
+      "confirmedDelta": 20,
+      "deaths": 9,
+      "suspected": 171
     },
     "GJ": {
       "name": "Guanajuato",
-      "confirmed": 58,
-      "confirmedDelta": 5,
-      "deaths": 0,
-      "suspected": 164
+      "confirmed": 61,
+      "confirmedDelta": 3,
+      "deaths": 1,
+      "suspected": 242
     },
     "NL": {
       "name": "Nuevo León",
       "confirmed": 93,
-      "confirmedDelta": 2,
-      "deaths": 3,
-      "suspected": 142
+      "confirmedDelta": 0,
+      "deaths": 4,
+      "suspected": 333
     },
     "TM": {
       "name": "Tamaulipas",
-      "confirmed": 31,
-      "confirmedDelta": 5,
-      "deaths": 1,
-      "suspected": 82
+      "confirmed": 32,
+      "confirmedDelta": 1,
+      "deaths": 3,
+      "suspected": 111
     },
     "CH": {
       "name": "Chihuahua",
       "confirmed": 22,
-      "confirmedDelta": 7,
+      "confirmedDelta": 0,
       "deaths": 0,
-      "suspected": 52
+      "suspected": 68
     },
     "MI": {
       "name": "Michoacán",
-      "confirmed": 33,
-      "confirmedDelta": 3,
-      "deaths": 3,
-      "suspected": 82
+      "confirmed": 34,
+      "confirmedDelta": 1,
+      "deaths": 4,
+      "suspected": 134
     },
     "QT": {
       "name": "Querétaro",
-      "confirmed": 40,
-      "confirmedDelta": 2,
+      "confirmed": 45,
+      "confirmedDelta": 5,
       "deaths": 2,
-      "suspected": 48
+      "suspected": 58
     },
     "ZA": {
       "name": "Zacatecas",
-      "confirmed": 9,
-      "confirmedDelta": -1,
+      "confirmed": 10,
+      "confirmedDelta": 1,
       "deaths": 2,
-      "suspected": 39
+      "suspected": 48
     },
     "CM": {
       "name": "Campeche",
-      "confirmed": 9,
-      "confirmedDelta": 1,
-      "deaths": 0,
-      "suspected": 15
+      "confirmed": 14,
+      "confirmedDelta": 5,
+      "deaths": 1,
+      "suspected": 12
     },
     "CO": {
       "name": "Coahuila",
-      "confirmed": 102,
-      "confirmedDelta": 20,
+      "confirmed": 109,
+      "confirmedDelta": 7,
       "deaths": 5,
-      "suspected": 391
+      "suspected": 550
     },
     "GR": {
       "name": "Guerrero",
-      "confirmed": 32,
-      "confirmedDelta": 2,
+      "confirmed": 37,
+      "confirmedDelta": 5,
       "deaths": 3,
-      "suspected": 128
+      "suspected": 145
     },
     "TL": {
       "name": "Tlaxcala",
-      "confirmed": 14,
-      "confirmedDelta": 3,
+      "confirmed": 18,
+      "confirmedDelta": 4,
       "deaths": 0,
-      "suspected": 75
+      "suspected": 83
     },
     "VE": {
       "name": "Veracruz",
-      "confirmed": 41,
-      "confirmedDelta": 1,
+      "confirmed": 46,
+      "confirmedDelta": 5,
       "deaths": 3,
-      "suspected": 412
+      "suspected": 429
     },
     "CS": {
       "name": "Chiapas",
-      "confirmed": 26,
-      "confirmedDelta": 1,
+      "confirmed": 28,
+      "confirmedDelta": 2,
       "deaths": 0,
-      "suspected": 65
+      "suspected": 80
     },
     "DG": {
       "name": "Durango",
-      "confirmed": 12,
-      "confirmedDelta": 0,
+      "confirmed": 15,
+      "confirmedDelta": 3,
       "deaths": 4,
-      "suspected": 78
+      "suspected": 84
     },
     "HG": {
       "name": "Hidalgo",
-      "confirmed": 35,
-      "confirmedDelta": 1,
-      "deaths": 5,
-      "suspected": 79
+      "confirmed": 41,
+      "confirmedDelta": 6,
+      "deaths": 6,
+      "suspected": 87
     },
     "JA": {
       "name": "Jalisco",
-      "confirmed": 126,
-      "confirmedDelta": 3,
+      "confirmed": 135,
+      "confirmedDelta": 9,
       "deaths": 7,
-      "suspected": 703
+      "suspected": 752
     },
     "MO": {
       "name": "Morelos",
-      "confirmed": 17,
-      "confirmedDelta": 2,
-      "deaths": 3,
-      "suspected": 57
+      "confirmed": 24,
+      "confirmedDelta": 7,
+      "deaths": 4,
+      "suspected": 51
     },
     "NA": {
       "name": "Nayarit",
       "confirmed": 10,
-      "confirmedDelta": 1,
+      "confirmedDelta": 0,
       "deaths": 1,
-      "suspected": 27
+      "suspected": 37
     },
     "SI": {
       "name": "Sinaloa",
-      "confirmed": 97,
-      "confirmedDelta": 7,
-      "deaths": 12,
-      "suspected": 271
+      "confirmed": 111,
+      "confirmedDelta": 14,
+      "deaths": 13,
+      "suspected": 329
     },
     "TB": {
       "name": "Tabasco",
-      "confirmed": 107,
-      "confirmedDelta": 10,
+      "confirmed": 108,
+      "confirmedDelta": 1,
       "deaths": 8,
-      "suspected": 331
+      "suspected": 293
     },
     "YU": {
       "name": "Yucatán",
-      "confirmed": 72,
-      "confirmedDelta": 5,
+      "confirmed": 74,
+      "confirmedDelta": 2,
       "deaths": 2,
-      "suspected": 64
+      "suspected": 88
     },
     "CL": {
       "name": "Colima",
-      "confirmed": 4,
-      "confirmedDelta": 0,
+      "confirmed": 5,
+      "confirmedDelta": 1,
       "deaths": 0,
-      "suspected": 22
+      "suspected": 19
     },
     "MX": {
       "name": "México",
-      "confirmed": 261,
-      "confirmedDelta": 57,
-      "deaths": 8,
-      "suspected": 572
+      "confirmed": 320,
+      "confirmedDelta": 59,
+      "deaths": 9,
+      "suspected": 609
     },
     "OA": {
       "name": "Oaxaca",
-      "confirmed": 27,
-      "confirmedDelta": 2,
+      "confirmed": 35,
+      "confirmedDelta": 8,
       "deaths": 1,
-      "suspected": 81
+      "suspected": 61
     },
     "PU": {
       "name": "Puebla",
-      "confirmed": 156,
-      "confirmedDelta": 9,
-      "deaths": 2,
-      "suspected": 222
+      "confirmed": 179,
+      "confirmedDelta": 23,
+      "deaths": 4,
+      "suspected": 262
     },
     "SO": {
       "name": "Sonora",
-      "confirmed": 30,
-      "confirmedDelta": 2,
+      "confirmed": 35,
+      "confirmedDelta": 5,
       "deaths": 1,
-      "suspected": 141
+      "suspected": 176
     }
   },
   "statesAsArray": [
     {
       "key": "BS",
       "name": "Baja California Sur",
-      "confirmed": 54,
-      "confirmedDelta": 26,
+      "confirmed": 56,
+      "confirmedDelta": 2,
       "deaths": 2,
-      "suspected": 141,
-      "date": "2020-04-06"
+      "suspected": 149,
+      "date": "2020-04-07"
     },
     {
       "key": "CDMX",
       "name": "Ciudad de México",
-      "confirmed": 609,
-      "confirmedDelta": 49,
-      "deaths": 29,
-      "suspected": 1100,
-      "date": "2020-04-06"
+      "confirmed": 723,
+      "confirmedDelta": 114,
+      "deaths": 32,
+      "suspected": 1350,
+      "date": "2020-04-07"
     },
     {
       "key": "BC",
       "name": "Baja California",
-      "confirmed": 111,
-      "confirmedDelta": 42,
+      "confirmed": 136,
+      "confirmedDelta": 25,
       "deaths": 7,
-      "suspected": 245,
-      "date": "2020-04-06"
+      "suspected": 345,
+      "date": "2020-04-07"
     },
     {
       "key": "SL",
       "name": "San Luis Potosí",
-      "confirmed": 37,
-      "confirmedDelta": 0,
+      "confirmed": 41,
+      "confirmedDelta": 4,
       "deaths": 3,
-      "suspected": 154,
-      "date": "2020-04-06"
+      "suspected": 187,
+      "date": "2020-04-07"
     },
     {
       "key": "AG",
       "name": "Aguascalientes",
-      "confirmed": 49,
-      "confirmedDelta": 0,
+      "confirmed": 53,
+      "confirmedDelta": 4,
       "deaths": 0,
-      "suspected": 164,
-      "date": "2020-04-06"
+      "suspected": 183,
+      "date": "2020-04-07"
     },
     {
       "key": "QR",
       "name": "Quintana Roo",
-      "confirmed": 115,
-      "confirmedDelta": 29,
-      "deaths": 8,
-      "suspected": 148,
-      "date": "2020-04-06"
+      "confirmed": 135,
+      "confirmedDelta": 20,
+      "deaths": 9,
+      "suspected": 171,
+      "date": "2020-04-07"
     },
     {
       "key": "GJ",
       "name": "Guanajuato",
-      "confirmed": 58,
-      "confirmedDelta": 5,
-      "deaths": 0,
-      "suspected": 164,
-      "date": "2020-04-06"
+      "confirmed": 61,
+      "confirmedDelta": 3,
+      "deaths": 1,
+      "suspected": 242,
+      "date": "2020-04-07"
     },
     {
       "key": "NL",
       "name": "Nuevo León",
       "confirmed": 93,
-      "confirmedDelta": 2,
-      "deaths": 3,
-      "suspected": 142,
-      "date": "2020-04-06"
+      "confirmedDelta": 0,
+      "deaths": 4,
+      "suspected": 333,
+      "date": "2020-04-07"
     },
     {
       "key": "TM",
       "name": "Tamaulipas",
-      "confirmed": 31,
-      "confirmedDelta": 5,
-      "deaths": 1,
-      "suspected": 82,
-      "date": "2020-04-06"
+      "confirmed": 32,
+      "confirmedDelta": 1,
+      "deaths": 3,
+      "suspected": 111,
+      "date": "2020-04-07"
     },
     {
       "key": "CH",
       "name": "Chihuahua",
       "confirmed": 22,
-      "confirmedDelta": 7,
+      "confirmedDelta": 0,
       "deaths": 0,
-      "suspected": 52,
-      "date": "2020-04-06"
+      "suspected": 68,
+      "date": "2020-04-07"
     },
     {
       "key": "MI",
       "name": "Michoacán",
-      "confirmed": 33,
-      "confirmedDelta": 3,
-      "deaths": 3,
-      "suspected": 82,
-      "date": "2020-04-06"
+      "confirmed": 34,
+      "confirmedDelta": 1,
+      "deaths": 4,
+      "suspected": 134,
+      "date": "2020-04-07"
     },
     {
       "key": "QT",
       "name": "Querétaro",
-      "confirmed": 40,
-      "confirmedDelta": 2,
+      "confirmed": 45,
+      "confirmedDelta": 5,
       "deaths": 2,
-      "suspected": 48,
-      "date": "2020-04-06"
+      "suspected": 58,
+      "date": "2020-04-07"
     },
     {
       "key": "ZA",
       "name": "Zacatecas",
-      "confirmed": 9,
-      "confirmedDelta": -1,
+      "confirmed": 10,
+      "confirmedDelta": 1,
       "deaths": 2,
-      "suspected": 39,
-      "date": "2020-04-06"
+      "suspected": 48,
+      "date": "2020-04-07"
     },
     {
       "key": "CM",
       "name": "Campeche",
-      "confirmed": 9,
-      "confirmedDelta": 1,
-      "deaths": 0,
-      "suspected": 15,
-      "date": "2020-04-06"
+      "confirmed": 14,
+      "confirmedDelta": 5,
+      "deaths": 1,
+      "suspected": 12,
+      "date": "2020-04-07"
     },
     {
       "key": "CO",
       "name": "Coahuila",
-      "confirmed": 102,
-      "confirmedDelta": 20,
+      "confirmed": 109,
+      "confirmedDelta": 7,
       "deaths": 5,
-      "suspected": 391,
-      "date": "2020-04-06"
+      "suspected": 550,
+      "date": "2020-04-07"
     },
     {
       "key": "GR",
       "name": "Guerrero",
-      "confirmed": 32,
-      "confirmedDelta": 2,
+      "confirmed": 37,
+      "confirmedDelta": 5,
       "deaths": 3,
-      "suspected": 128,
-      "date": "2020-04-06"
+      "suspected": 145,
+      "date": "2020-04-07"
     },
     {
       "key": "TL",
       "name": "Tlaxcala",
-      "confirmed": 14,
-      "confirmedDelta": 3,
+      "confirmed": 18,
+      "confirmedDelta": 4,
       "deaths": 0,
-      "suspected": 75,
-      "date": "2020-04-06"
+      "suspected": 83,
+      "date": "2020-04-07"
     },
     {
       "key": "VE",
       "name": "Veracruz",
-      "confirmed": 41,
-      "confirmedDelta": 1,
+      "confirmed": 46,
+      "confirmedDelta": 5,
       "deaths": 3,
-      "suspected": 412,
-      "date": "2020-04-06"
+      "suspected": 429,
+      "date": "2020-04-07"
     },
     {
       "key": "CS",
       "name": "Chiapas",
-      "confirmed": 26,
-      "confirmedDelta": 1,
+      "confirmed": 28,
+      "confirmedDelta": 2,
       "deaths": 0,
-      "suspected": 65,
-      "date": "2020-04-06"
+      "suspected": 80,
+      "date": "2020-04-07"
     },
     {
       "key": "DG",
       "name": "Durango",
-      "confirmed": 12,
-      "confirmedDelta": 0,
+      "confirmed": 15,
+      "confirmedDelta": 3,
       "deaths": 4,
-      "suspected": 78,
-      "date": "2020-04-06"
+      "suspected": 84,
+      "date": "2020-04-07"
     },
     {
       "key": "HG",
       "name": "Hidalgo",
-      "confirmed": 35,
-      "confirmedDelta": 1,
-      "deaths": 5,
-      "suspected": 79,
-      "date": "2020-04-06"
+      "confirmed": 41,
+      "confirmedDelta": 6,
+      "deaths": 6,
+      "suspected": 87,
+      "date": "2020-04-07"
     },
     {
       "key": "JA",
       "name": "Jalisco",
-      "confirmed": 126,
-      "confirmedDelta": 3,
+      "confirmed": 135,
+      "confirmedDelta": 9,
       "deaths": 7,
-      "suspected": 703,
-      "date": "2020-04-06"
+      "suspected": 752,
+      "date": "2020-04-07"
     },
     {
       "key": "MO",
       "name": "Morelos",
-      "confirmed": 17,
-      "confirmedDelta": 2,
-      "deaths": 3,
-      "suspected": 57,
-      "date": "2020-04-06"
+      "confirmed": 24,
+      "confirmedDelta": 7,
+      "deaths": 4,
+      "suspected": 51,
+      "date": "2020-04-07"
     },
     {
       "key": "NA",
       "name": "Nayarit",
       "confirmed": 10,
-      "confirmedDelta": 1,
+      "confirmedDelta": 0,
       "deaths": 1,
-      "suspected": 27,
-      "date": "2020-04-06"
+      "suspected": 37,
+      "date": "2020-04-07"
     },
     {
       "key": "SI",
       "name": "Sinaloa",
-      "confirmed": 97,
-      "confirmedDelta": 7,
-      "deaths": 12,
-      "suspected": 271,
-      "date": "2020-04-06"
+      "confirmed": 111,
+      "confirmedDelta": 14,
+      "deaths": 13,
+      "suspected": 329,
+      "date": "2020-04-07"
     },
     {
       "key": "TB",
       "name": "Tabasco",
-      "confirmed": 107,
-      "confirmedDelta": 10,
+      "confirmed": 108,
+      "confirmedDelta": 1,
       "deaths": 8,
-      "suspected": 331,
-      "date": "2020-04-06"
+      "suspected": 293,
+      "date": "2020-04-07"
     },
     {
       "key": "YU",
       "name": "Yucatán",
-      "confirmed": 72,
-      "confirmedDelta": 5,
+      "confirmed": 74,
+      "confirmedDelta": 2,
       "deaths": 2,
-      "suspected": 64,
-      "date": "2020-04-06"
+      "suspected": 88,
+      "date": "2020-04-07"
     },
     {
       "key": "CL",
       "name": "Colima",
-      "confirmed": 4,
-      "confirmedDelta": 0,
+      "confirmed": 5,
+      "confirmedDelta": 1,
       "deaths": 0,
-      "suspected": 22,
-      "date": "2020-04-06"
+      "suspected": 19,
+      "date": "2020-04-07"
     },
     {
       "key": "MX",
       "name": "México",
-      "confirmed": 261,
-      "confirmedDelta": 57,
-      "deaths": 8,
-      "suspected": 572,
-      "date": "2020-04-06"
+      "confirmed": 320,
+      "confirmedDelta": 59,
+      "deaths": 9,
+      "suspected": 609,
+      "date": "2020-04-07"
     },
     {
       "key": "OA",
       "name": "Oaxaca",
-      "confirmed": 27,
-      "confirmedDelta": 2,
+      "confirmed": 35,
+      "confirmedDelta": 8,
       "deaths": 1,
-      "suspected": 81,
-      "date": "2020-04-06"
+      "suspected": 61,
+      "date": "2020-04-07"
     },
     {
       "key": "PU",
       "name": "Puebla",
-      "confirmed": 156,
-      "confirmedDelta": 9,
-      "deaths": 2,
-      "suspected": 222,
-      "date": "2020-04-06"
+      "confirmed": 179,
+      "confirmedDelta": 23,
+      "deaths": 4,
+      "suspected": 262,
+      "date": "2020-04-07"
     },
     {
       "key": "SO",
       "name": "Sonora",
-      "confirmed": 30,
-      "confirmedDelta": 2,
+      "confirmed": 35,
+      "confirmedDelta": 5,
       "deaths": 1,
-      "suspected": 141,
-      "date": "2020-04-06"
+      "suspected": 176,
+      "date": "2020-04-07"
     }
   ]
 }
