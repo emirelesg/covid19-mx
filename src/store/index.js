@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment';
+import { round } from '@/plugins/helper';
 
 // Choose the default locale for momentjs.
 moment.locale('es');
-
-const add = (a, o) => a + o;
 
 Vue.use(Vuex);
 
@@ -14,6 +13,7 @@ export default new Vuex.Store({
     timeseries: null,
     lastUpdated: null,
     loaded: false,
+    prediction: null,
     stats: {
       byState: {},
       maxConfirmedByState: null,
@@ -32,27 +32,54 @@ export default new Vuex.Store({
       state.geojson = geojson;
     },
     SET_STATS(state, { timeseries, states }) {
-      // Set the stats object.
-      const sortedStates = Object.entries(states).sort(
-        (a, b) => a[1].confirmed - b[1].confirmed
-      );
-      const lastTimeseries = timeseries.slice(-1)[0];
-      const prevTimeseries = timeseries.slice(-2)[0];
+      // Set the timeseries data.
+      state.timeseries = timeseries.map((d, i) => {
+        const prevConfirmed = timeseries[i > 0 ? i - 1 : i].confirmed;
+        return {
+          ...d,
+          date: moment(d.date),
+          confirmedDelta: d.confirmed - prevConfirmed,
+          growthFactor: round(d.confirmed / prevConfirmed, 4)
+        };
+      });
+      // Growth factor by new cases.
+      // state.timeseries.forEach((p, i) => {
+      //   p.growthFactor =
+      //     p.confirmedDelta /
+      //     (i > 0 ? state.timeseries[i - 1].confirmedDelta : 1);
+      // });
+
+      const recentData = state.timeseries[state.timeseries.length - 1];
 
       state.stats = {
         ...state.stats,
         byState: states,
-        maxConfirmedByState: sortedStates[sortedStates.length - 1][1].confirmed,
-        confirmed: sortedStates.map(([, data]) => data.confirmed).reduce(add),
-        deaths: sortedStates.map(([, data]) => data.deaths).reduce(add),
-        suspected: lastTimeseries.suspected,
-        confirmedDelta: lastTimeseries.confirmed - prevTimeseries.confirmed
+        maxConfirmedByState: Math.max(
+          ...Object.values(states).map(s => s.confirmed)
+        ),
+        confirmed: recentData.confirmed,
+        deaths: recentData.deaths,
+        suspected: recentData.suspected,
+        confirmedDelta: recentData.confirmedDelta
       };
 
-      // Set the timeseries data.
-      state.timeseries = timeseries;
-      state.timeseries.forEach(t => (t.date = moment(t.date)));
-      state.lastUpdated = moment(lastTimeseries.date)
+      // Prediction calculation.
+      const meanGrowthFactorDays = 5;
+      const meanGrowthFactor = round(
+        state.timeseries
+          .slice(-meanGrowthFactorDays)
+          .reduce((a, o) => a + o.growthFactor, 0) / meanGrowthFactorDays,
+        4
+      );
+      state.prediction = {
+        date: recentData.date.clone().add(1, 'day'),
+        confirmed: round(recentData.confirmed * meanGrowthFactor, 0),
+        meanGrowthFactorDays,
+        meanGrowthFactor
+      };
+
+      state.lastUpdated = recentData.date
+        .clone()
         .add('13', 'hour')
         .fromNow();
     }

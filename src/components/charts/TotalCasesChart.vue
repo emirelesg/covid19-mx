@@ -29,7 +29,7 @@
         crecimiento de los casos totales acumulados de los últimos
         <strong>{{ meanGrowthFactorDays }} días.</strong>
         Este factor es de
-        <strong>{{ Math.round(meanGrowthFactor() * 1000) / 1000 }}</strong>
+        <strong>{{ meanGrowthFactor }}</strong>
       </v-alert>
       <chart
         ref="chart"
@@ -46,7 +46,6 @@ import Card from '@/components/Card';
 import { mapState } from 'vuex';
 import Chart from '@/components/charts/BaseChart';
 import { baseLineOptions, baseChartOptions } from '@/plugins/helper';
-import moment from 'moment';
 
 export default {
   name: 'TotalCasesChart',
@@ -56,7 +55,6 @@ export default {
   },
   data() {
     return {
-      meanGrowthFactorDays: 5,
       prediction: false,
       isMounted: false,
       chartCreated: false,
@@ -97,57 +95,32 @@ export default {
     init() {
       if (!this.chartCreated && this.loaded && this.isMounted) {
         this.chartCreated = true;
-        this.data.datasets[0].data = this.timeseries.map(data => ({
-          t: data.date,
-          y: data.confirmed
-        }));
-        // Make a prediction for the next day.
-        const last = this.data.datasets[0].data.slice(-1)[0];
-        this.data.datasets[1].data = [
-          last,
-          {
-            t: moment(last.t).add(1, 'day'),
-            y: Math.round(last.y * this.meanGrowthFactor())
-          }
-        ];
-        // Predict over the complete range.
-        // this.data.datasets[1].data = [];
-        // const n = 5;
-        // const points = this.data.datasets[0].data;
-        // for (let i = n; i < points.length; i++) {
-        //   let mg = 0;
-        //   for (let j = i - n; j < i; j++) {
-        //     mg += points[j + 1].y / points[j].y;
-        //   }
-        //   mg /= n;
-
-        //   this.data.datasets[1].data.push({
-        //     t: moment(points[i].t).add(1, 'day'),
-        //     y: Math.round(points[i].y * mg)
-        //   });
-        // }
+        this.data.datasets[0].data = this.confirmedData;
+        this.data.datasets[1].data = this.predictionData;
         this.update();
       }
-    },
-    meanGrowthFactor() {
-      if (!this.timeseries) return 0;
-      // Calculate the average growth factor using n days.
-      // We need n + 1 elements to calculate n growth factors.
-      const last = this.timeseries.slice(-(this.meanGrowthFactorDays + 1));
-      const growthFactors = last
-        .slice(1)
-        .map((data, i) => data.confirmed / last[i].confirmed);
-      // .sort((a, b) => a - b);
-      return (
-        growthFactors.reduce((a, growth) => a + growth, 0) /
-        growthFactors.length
-      );
     }
   },
   computed: {
     ...mapState({
-      timeseries: state => state.timeseries,
-      loaded: state => state.loaded
+      loaded: state => state.loaded,
+      confirmedData: state =>
+        state.timeseries.map(d => ({
+          t: d.date,
+          y: d.confirmed
+        })),
+      predictionData: state => [
+        {
+          t: state.timeseries[state.timeseries.length - 1].date,
+          y: state.timeseries[state.timeseries.length - 1].confirmed
+        },
+        {
+          t: state.prediction.date,
+          y: state.prediction.confirmed
+        }
+      ],
+      meanGrowthFactor: state => state.prediction.meanGrowthFactor,
+      meanGrowthFactorDays: state => state.prediction.meanGrowthFactorDays
     })
   }
 };

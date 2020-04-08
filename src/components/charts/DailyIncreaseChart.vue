@@ -40,7 +40,7 @@ export default {
       },
       options: baseChartOptions('Fecha', 'Casos Confirmados Diarios', true),
       style: {
-        paddingTop: '16px',
+        paddingTop: '0px',
         height: '400px'
       }
     };
@@ -58,20 +58,19 @@ export default {
     init() {
       if (!this.chartCreated && this.loaded && this.isMounted) {
         this.chartCreated = true;
-        this.data.datasets[0].data = this.timeseries
-          .slice(1)
-          .map((data, i) => ({
-            t: data.date,
-            y: data.confirmed - this.timeseries[i].confirmed
-          }));
+        this.data.datasets[0].data = this.confirmedDeltaData;
         if (this.$refs.chart) this.$refs.chart.update(0);
       }
     }
   },
   computed: {
     ...mapState({
-      timeseries: state => state.timeseries,
-      loaded: state => state.loaded
+      loaded: state => state.loaded,
+      confirmedDeltaData: state =>
+        state.timeseries.map(d => ({
+          t: d.date,
+          y: d.confirmedDelta
+        }))
     })
   }
 };

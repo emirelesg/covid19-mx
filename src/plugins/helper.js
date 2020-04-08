@@ -23,7 +23,8 @@ export const baseLineOptions = (color, shade, dashed) => ({
   borderWidth: 2,
   borderDash: dashed ? [4, 4] : [0, 0],
   borderColor: colors[color][shade || 'base'],
-  backgroundColor: hex2rgba(colors[color][shade || 'base'], 0.1),
+  // backgroundColor: hex2rgba(colors[color][shade || 'base'], 0.1),
+  backgroundColor: 'rgba(0, 0, 0, 0)',
   pointBackgroundColor: colors[color][shade || 'base'],
   pointHitRadius: 10,
   pointHoverRadius: 4,
@@ -100,3 +101,5 @@ export const readableLog = value => {
   if (value === 0) return '0';
   return null;
 };
+
+export const round = (num, dec) => +(Math.round(num + `e+${dec}`) + `e-${dec}`);
