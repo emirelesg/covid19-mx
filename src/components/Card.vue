@@ -54,6 +54,7 @@ export default {
   methods: {
     resizeHandler() {
       if (this.$refs.title.clientHeight) {
+        this.$emit('resize');
         this.cardTitleHeight = this.$refs.title.clientHeight;
       }
     }
