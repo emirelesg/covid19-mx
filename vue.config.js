@@ -1,6 +1,14 @@
 module.exports = {
   transpileDependencies: ['vuetify'],
   productionSourceMap: false,
+  devServer: {
+    proxy: {
+      '^/api': {
+        target: 'https://covid19.newtondreams.com',
+        changeOrigin: true
+      }
+    }
+  },
   chainWebpack: config => {
     config.plugin('html').tap(args => {
       args[0].title = 'COVID-19 en México';
