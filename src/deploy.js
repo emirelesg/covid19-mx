@@ -17,6 +17,12 @@ const baseConfig = {
   sftp: true
 };
 
+// Create ftp object.
+const ftp = new FtpDeploy();
+ftp.on('uploading', data => {
+  console.log(`${data.transferredFileCount + 1} - ${data.filename}`);
+});
+
 // Returns an object with all files and folders in the provided directory.
 function listDir(dir) {
   return fs.readdirSync(dir).reduce(
@@ -32,32 +38,19 @@ function listDir(dir) {
   );
 }
 
-function sync(config) {
-  // Create a new ftp connection.
-  const ftp = new FtpDeploy();
-  // Configure ftp connection to log on upload.
-  console.log(`Folder - ${config.remoteRoot}`);
-  ftp.on('uploading', data => {
-    const fullPath = path.join(config.remoteRoot, data.filename);
-    console.log(
-      `${data.transferredFileCount + 1} / ${data.totalFilesCount} - ${fullPath}`
-    );
-  });
-  // Return a promise, connection closes on resolve.
-  return ftp.deploy(config);
-}
-
 async function upload() {
   const { files, dirs } = listDir(baseConfig.localRoot);
 
   // Sync files in the root folder. Do not delete all of it.
-  await sync({ ...baseConfig, include: files, exclude: dirs });
+  console.log(`Folder - ${baseConfig.remoteRoot}`);
+  await ftp.deploy({ ...baseConfig, include: files, exclude: dirs });
 
   // Sync files inside each folder. Here it can delete everything.
   await dirs.reduce(async (prevPromise, dir) => {
     await prevPromise;
     const remoteRoot = path.join(baseConfig.remoteRoot, dir);
-    return sync({
+    console.log(`Folder - ${remoteRoot}`);
+    return ftp.deploy({
       ...baseConfig,
       localRoot: path.join(baseConfig.localRoot, dir),
       remoteRoot,
