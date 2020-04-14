@@ -34,20 +34,6 @@ To build production level files
 $ npm run build
 ```
 
-To deploy the built files to an FTP server
-
-- Configure the FTP credentials by creating a .env file using the .env.example template.
-
-```
-$ npm run deploy
-```
-
-To create a screenshot for social media and the README
-
-```
-$ npm run sc
-```
-
 ## Credits
 
 - favicon.ico made by <a href="" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
