@@ -10,6 +10,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
+        with:
+          fetch-depth: 2
 
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
@@ -26,7 +28,7 @@ jobs:
             ${{ runner.OS }}-
 
       - name: Install modules
-        run: npm install
+        run: npm ci
 
       - name: Build
         run: npm run build --if-present
