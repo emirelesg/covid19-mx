@@ -10,8 +10,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-        with:
-          fetch-depth: 2
 
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
@@ -35,7 +33,7 @@ jobs:
 
       - name: Deploy
         run: npm run deploy
-        with:
+        env:
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
       # - name: Deploy
