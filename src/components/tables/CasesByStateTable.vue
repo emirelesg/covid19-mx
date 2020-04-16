@@ -21,7 +21,7 @@
       >
         <template v-slot:item.confirmedDelta="{ item }">
           <span
-            v-if="item.confirmedDelta !== 0"
+            v-if="isFinite(item.confirmedDelta) && item.confirmedDelta !== 0"
             :style="getDeltaStyle(item.confirmedDelta)"
             >{{ getDeltaLabel(item.confirmedDelta) }}</span
           >
