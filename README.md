@@ -2,7 +2,9 @@
 
 ## https://covid19.newtondreams.com
 
-<img src="./src/assets/screenshots/covid19.png">
+<p align="center">
+  <img width="1000" src="https://raw.githubusercontent.com/emirelesg/covid19-mx-stats/master/data/latest.png">
+</p>
 
 ## Background
 
