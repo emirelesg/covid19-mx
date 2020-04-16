@@ -1,6 +1,6 @@
 # COVID-19 Dashboard for Mexico
 
-## https://covid19.newtondreams.com
+### https://covid19.newtondreams.com
 
 <p align="center">
   <img width="1000" src="https://raw.githubusercontent.com/emirelesg/covid19-mx-stats/master/data/latest.png">
