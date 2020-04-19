@@ -1,7 +1,19 @@
 <template>
-  <v-btn @click.stop="open" color="primary" dark outlined>
-    <v-icon left>mdi-download</v-icon>Datos
-  </v-btn>
+  <v-menu offset-y open-on-hover>
+    <template v-slot:activator="{ on }">
+      <v-btn color="primary" dark outlined v-on="on">
+        <v-icon left>mdi-download</v-icon>Datos
+      </v-btn>
+    </template>
+    <v-list>
+      <v-list-item @click.stop="stats">
+        <v-list-item-title>Generales</v-list-item-title>
+      </v-list-item>
+      <v-list-item @click.stop="statsByState">
+        <v-list-item-title>Entidades</v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-menu>
 </template>
 
 <script>
@@ -11,8 +23,12 @@ export default {
     return {};
   },
   methods: {
-    open() {
+    stats() {
       const popupWindow = window.open('/api/stats.json', '_blank');
+      popupWindow.focus();
+    },
+    statsByState() {
+      const popupWindow = window.open('/api/statsByState.json', '_blank');
       popupWindow.focus();
     }
   }
