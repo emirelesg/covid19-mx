@@ -21,7 +21,10 @@
       >
         <template v-slot:item.name="{ item }">
           <router-link
-            :to="{ name: 'State', params: { stateKey: item.key } }"
+            :to="{
+              name: 'State',
+              params: { stateKey: item.key.toLowerCase() }
+            }"
             >{{ item.name }}</router-link
           >
         </template>

@@ -5,7 +5,7 @@
       <v-list-item link :to="{ name: 'Home' }" color="primary" exact>
         <v-list-item-title>Inicio</v-list-item-title>
       </v-list-item>
-      <v-subheader>ESTADOS</v-subheader>
+      <v-subheader>ENTIDADES</v-subheader>
       <v-list-item-group color="primary">
         <v-list-item
           link

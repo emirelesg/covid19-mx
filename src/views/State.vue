@@ -79,8 +79,7 @@ export default {
   data() {
     return {
       loaded: false,
-      stateName: null,
-      stateKey: null
+      stateName: null
     };
   },
   methods: {
@@ -88,13 +87,12 @@ export default {
     async init() {
       this.loaded = false;
 
-      this.stateKey = this.$route.params.stateKey.toUpperCase();
-      this.stateName = stateNames[this.stateKey];
+      const stateKey = this.$route.params.stateKey.toLowerCase();
+      this.stateName = stateNames[stateKey];
       if (this.stateName === 'México') this.stateName = `Estado de México`;
 
       this.clear();
-      await this.loadStatsByState();
-      this.loaded = await this.selectState(this.stateKey);
+      this.loaded = await this.loadStatsByState(stateKey);
     }
   },
   created() {
@@ -102,7 +100,7 @@ export default {
   },
   watch: {
     '$route.params.stateKey': function() {
-      if (stateNames[this.$route.params.stateKey.toUpperCase()]) {
+      if (stateNames[this.$route.params.stateKey.toLowerCase()]) {
         this.init();
       } else {
         this.$router.push({ name: 'NotFound' });

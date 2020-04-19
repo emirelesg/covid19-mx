@@ -17,9 +17,9 @@ export default new Vuex.Store({
     // Data for drawing the map of Mexico.
     geojson: null,
     // Contains totals about the pandemic.
-    stats: {},
+    stats: null,
     // Contains info about each state.
-    statsByState: {},
+    statsByState: null,
     // Currently selected timeseries.
     timeseries: [],
     // Most recent value of the timeseries.
@@ -54,12 +54,19 @@ export default new Vuex.Store({
       commit('SET_ACTIVE_TIMESERIES', { timeseries: [], latest: {} });
     },
 
-    selectState: async ({ state, commit }, stateKey) => {
-      const key = stateKey.toUpperCase();
-      const selectedState = state.statsByState.states[key];
+    loadStatsByState: async ({ state, dispatch, commit }, stateKey) => {
+      // Only load stats by state for the first time.
+      if (!state.statsByState) {
+        const statsByState = await dispatch(
+          'getJSON',
+          '/api/statsByState.json'
+        );
+        commit('SET_STATS_BY_STATE', statsByState);
+      }
 
       // Convert data to a timeseries format. Then process it
       // to obtain the extended timeseries and latest data.
+      const selectedState = state.statsByState.states[stateKey.toUpperCase()];
       let timeseries = state.statsByState.dates.map((date, i) => ({
         date,
         confirmed: selectedState.confirmed[i],
@@ -68,14 +75,6 @@ export default new Vuex.Store({
       }));
       const processed = processTimeseries(timeseries);
       commit('SET_ACTIVE_TIMESERIES', processed);
-
-      // Get the name of the state loaded.
-      return true;
-    },
-
-    loadStatsByState: async ({ dispatch, commit }) => {
-      const statsByState = await dispatch('getJSON', '/api/statsByState.json');
-      commit('SET_STATS_BY_STATE', statsByState);
 
       return true;
     },
@@ -87,11 +86,14 @@ export default new Vuex.Store({
         commit('SET_GEOJSON', geojson);
       }
 
-      const stats = await dispatch('getJSON', '/api/stats.json');
-      commit('SET_STATS', stats);
+      // Only load stats for the first time.
+      if (!state.stats) {
+        const stats = await dispatch('getJSON', '/api/stats.json');
+        commit('SET_STATS', stats);
+      }
 
       // Process the timeseries data.
-      const processed = processTimeseries(stats.timeseries);
+      const processed = processTimeseries(state.stats.timeseries);
       commit('SET_ACTIVE_TIMESERIES', processed);
 
       return true;
