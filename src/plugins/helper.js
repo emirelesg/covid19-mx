@@ -1,4 +1,5 @@
 import colors from 'vuetify/lib/util/colors';
+import moment from 'moment';
 
 export const hex2rgba = (hex, opacity) => {
   const parsedHex = hex.replace('#', '');
@@ -23,7 +24,6 @@ export const baseLineOptions = (color, shade, dashed) => ({
   borderWidth: 2,
   borderDash: dashed ? [4, 4] : [0, 0],
   borderColor: colors[color][shade || 'base'],
-  // backgroundColor: hex2rgba(colors[color][shade || 'base'], 0.1),
   backgroundColor: 'rgba(0, 0, 0, 0)',
   pointBackgroundColor: colors[color][shade || 'base'],
   pointHitRadius: 10,
@@ -103,3 +103,68 @@ export const readableLog = value => {
 };
 
 export const round = (num, dec) => +(Math.round(num + `e+${dec}`) + `e-${dec}`);
+
+export const processTimeseries = timeseries => {
+  // Timeseries is an array, where each element is an object with the following properties:
+  // date, confirmed, deaths, suspected
+  // The goal is to make an analysis on the timeseries, the resulting data is used by several components.
+
+  // Convert the date to a moment object.
+  // Add deltas and growth factors.
+  const extendedTimeseries = timeseries.map((data, i) => {
+    const prevConfirmed = timeseries[i > 0 ? i - 1 : i].confirmed;
+    return {
+      ...data,
+      date: moment(data.date),
+      confirmedDelta: data.confirmed - prevConfirmed,
+      confirmedGrowthFactor: round(data.confirmed / prevConfirmed, 4)
+    };
+  });
+
+  // The last object of the timeseries is the latest data.
+  // Also change the hour to 13h since at that hour the data is updated.
+  const latest = extendedTimeseries[extendedTimeseries.length - 1];
+  latest.updateDate = moment(latest.date)
+    .add('13', 'hour')
+    .fromNow();
+
+  return {
+    timeseries: extendedTimeseries,
+    latest
+  };
+};
+
+export const stateNames = {
+  BS: 'Baja California Sur',
+  CDMX: 'Ciudad de México',
+  BC: 'Baja California',
+  SL: 'San Luis Potosí',
+  AG: 'Aguascalientes',
+  QR: 'Quintana Roo',
+  GJ: 'Guanajuato',
+  NL: 'Nuevo León',
+  TM: 'Tamaulipas',
+  CH: 'Chihuahua',
+  MI: 'Michoacán',
+  QT: 'Querétaro',
+  ZA: 'Zacatecas',
+  CM: 'Campeche',
+  CO: 'Coahuila',
+  GR: 'Guerrero',
+  TL: 'Tlaxcala',
+  VE: 'Veracruz',
+  CS: 'Chiapas',
+  DG: 'Durango',
+  HG: 'Hidalgo',
+  JA: 'Jalisco',
+  MO: 'Morelos',
+  NA: 'Nayarit',
+  SI: 'Sinaloa',
+  TB: 'Tabasco',
+  YU: 'Yucatán',
+  CL: 'Colima',
+  MX: 'México',
+  OA: 'Oaxaca',
+  PU: 'Puebla',
+  SO: 'Sonora'
+};

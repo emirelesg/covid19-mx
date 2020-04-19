@@ -44,6 +44,12 @@ import StateInfo from '@/components/charts/StateInfo';
 
 export default {
   name: 'MapCard',
+  props: {
+    loaded: {
+      type: Boolean,
+      required: true
+    }
+  },
   components: {
     StateInfo,
     Card
@@ -73,7 +79,7 @@ export default {
   methods: {
     colorScale: k => interpolateMagma(1 - k),
     colorScaleCases(cases) {
-      return this.colorScale(cases / this.stats.maxConfirmedByState);
+      return this.colorScale(cases / this.maxConfirmedByState);
     },
     init() {
       if (!this.mapCreated && this.loaded && this.isMounted) {
@@ -110,7 +116,7 @@ export default {
 
       // Color each federal state.
       this.map.selectAll('path').style('fill', ({ properties }) => {
-        const { confirmed } = this.stats.byState[properties.postal];
+        const { confirmed } = this.states[properties.postal];
         return this.colorScaleCases(confirmed);
       });
     },
@@ -145,7 +151,7 @@ export default {
       // Create the axis for the legend.
       const legendScale = scaleLinear()
         .range([0, w])
-        .domain([0, this.stats.maxConfirmedByState]);
+        .domain([0, this.maxConfirmedByState]);
       const legendAxis = axisBottom()
         .scale(legendScale)
         .tickSize(6)
@@ -167,7 +173,7 @@ export default {
     },
 
     handleMouseover(d) {
-      this.active = this.stats.byState[d.properties.postal];
+      this.active = this.states[d.properties.postal];
       select(`#${d.properties.postal}-mx`)
         .transition()
         .duration('50')
@@ -180,8 +186,9 @@ export default {
   },
   computed: {
     ...mapState({
-      loaded: state => state.loaded,
-      stats: state => state.stats,
+      states: state => state.stats.states,
+      maxConfirmedByState: state =>
+        Math.max(...state.stats.statesAsArray.map(data => data.confirmed)),
       geojson: state => state.geojson
     })
   }

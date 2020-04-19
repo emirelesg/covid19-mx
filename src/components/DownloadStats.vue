@@ -1,5 +1,5 @@
 <template>
-  <v-btn @click="open" color="primary" dark outlined>
+  <v-btn @click.stop="open" color="primary" dark outlined>
     <v-icon left>mdi-download</v-icon>Datos
   </v-btn>
 </template>

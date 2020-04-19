@@ -37,10 +37,18 @@ export default {
     Chart,
     Card
   },
+  props: {
+    loaded: {
+      type: Boolean,
+      required: true
+    },
+    skip: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
-      isMounted: false,
-      chartCreated: false,
       data: {
         datasets: [baseLineOptions('teal', 'base')]
       },
@@ -52,31 +60,34 @@ export default {
     };
   },
   watch: {
-    loaded() {
-      this.init();
+    loaded(val) {
+      if (val) {
+        this.reset();
+        this.update();
+      }
     }
   },
   mounted() {
-    this.isMounted = true;
-    this.init();
+    this.reset();
+    this.update();
   },
   methods: {
-    init() {
-      if (!this.chartCreated && this.loaded && this.isMounted) {
-        this.chartCreated = true;
-        this.data.datasets[0].data = this.growthFactorData;
-        if (this.$refs.chart) this.$refs.chart.update(0);
-      }
+    update() {
+      if (this.$refs.chart) this.$refs.chart.update(0);
+    },
+    reset() {
+      if (this.timeseries.length === 0) return;
+      this.data.datasets[0].data = this.timeseries
+        .slice(this.skip)
+        .map(data => ({
+          t: data.date,
+          y: data.confirmedGrowthFactor
+        }));
     }
   },
   computed: {
     ...mapState({
-      loaded: state => state.loaded,
-      growthFactorData: state =>
-        state.timeseries.slice(14).map(d => ({
-          t: d.date,
-          y: d.growthFactor
-        }))
+      timeseries: state => state.timeseries
     })
   }
 };

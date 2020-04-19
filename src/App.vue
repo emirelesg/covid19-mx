@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <app-navigation />
     <app-header />
     <v-content class="pb-5">
       <router-view></router-view>
@@ -9,24 +10,19 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import AppFooter from '@/components/AppFooter.vue';
 import AppHeader from '@/components/AppHeader.vue';
+import AppNavigation from '@/components/AppNavigation.vue';
 
 export default {
   name: 'App',
   components: {
     AppFooter,
-    AppHeader
+    AppHeader,
+    AppNavigation
   },
   data() {
     return {};
-  },
-  methods: {
-    ...mapActions(['loadData'])
-  },
-  mounted() {
-    this.loadData();
   }
 };
 </script>

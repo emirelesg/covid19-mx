@@ -3,27 +3,13 @@
     <v-list-item two-line class="text-center">
       <v-list-item-content class="py-4">
         <v-list-item-title class="display-1 mb-2" :style="{ color: colorHex }">
-          <div v-if="value !== null">
-            <slot :value="value">{{ value }}</slot>
-          </div>
-          <div v-else>—</div>
+          {{ formattedValue }}
         </v-list-item-title>
         <v-list-item-subtitle class="text-uppercase subtitle-2">
           {{ title }}
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-    <!-- <v-sparkline
-      :style="sparklineStyle"
-      :gradient="[colorHex, '#efefef']"
-      :padding="0"
-      :line-width="2"
-      :value="dataPoints"
-      preserveAspectRatio="xMaxYMax meet"
-      smooth
-      stroke-linecap="round"
-      auto-draw
-    /> -->
   </v-card>
 </template>
 
@@ -33,30 +19,43 @@ import colors from 'vuetify/es5/util/colors';
 export default {
   name: 'ValueCard',
   props: {
-    title: String,
-    value: Number,
-    color: String
-    // dataPoints: Array
+    title: {
+      type: String,
+      required: true
+    },
+    value: {
+      type: Number,
+      default: null
+    },
+    color: {
+      type: String,
+      default: 'grey'
+    },
+    isDelta: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {};
   },
   computed: {
+    formattedValue() {
+      if (this.value === null) return '-';
+      if (this.isDelta && this.value > 0) return `+${this.value}`;
+      return this.value;
+    },
     colorHex() {
-      return colors[this.color].base;
+      if (this.value === null) {
+        return colors.grey.base;
+      } else {
+        if (this.isDelta) {
+          if (this.value > 0) return colors.red.base;
+          if (this.value < 0) return colors.green.base;
+        }
+        return colors[this.color].base;
+      }
     }
-    // sparklineStyle() {
-    //   return {
-    //     verticalAlign: 'top',
-    //     position: 'absolute',
-    //     padding: '8px 16px',
-    //     bottom: 0,
-    //     left: 0,
-    //     right: 0,
-    //     height: '75%',
-    //     width: '100%'
-    //   };
-    // }
   }
 };
 </script>

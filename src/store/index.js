@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment';
-import { round } from '@/plugins/helper';
+import { processTimeseries } from '@/plugins/helper';
 
 // Choose the default locale for momentjs.
 moment.locale('es');
@@ -10,90 +10,93 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    timeseries: null,
-    lastUpdated: null,
-    loaded: false,
-    prediction: null,
-    stats: {
-      byState: {},
-      maxConfirmedByState: null,
-      confirmed: null,
-      deaths: null,
-      suspected: null,
-      confirmedDelta: null
-    },
-    geojson: null
+    // Navigation drawer.
+    drawer: false,
+    // Once dismissed, the disclaimer remains closed.
+    disclaimerClosed: false,
+    // Data for drawing the map of Mexico.
+    geojson: null,
+    // Contains totals about the pandemic.
+    stats: {},
+    // Contains info about each state.
+    statsByState: {},
+    // Currently selected timeseries.
+    timeseries: [],
+    // Most recent value of the timeseries.
+    latest: {}
   },
   mutations: {
-    SET_LOADED(state, loaded) {
-      state.loaded = loaded;
+    SET_DRAWER(state, val) {
+      state.drawer = val;
+    },
+    TOGGLE_DRAWER(state) {
+      state.drawer = !state.drawer;
+    },
+    CLOSE_DISCLAIMER(state) {
+      state.disclaimerClosed = true;
     },
     SET_GEOJSON(state, geojson) {
       state.geojson = geojson;
     },
-    SET_STATS(state, { timeseries, states }) {
-      // Set the timeseries data.
-      state.timeseries = timeseries.map((d, i) => {
-        const prevConfirmed = timeseries[i > 0 ? i - 1 : i].confirmed;
-        return {
-          ...d,
-          date: moment(d.date),
-          confirmedDelta: d.confirmed - prevConfirmed,
-          growthFactor: round(d.confirmed / prevConfirmed, 4)
-        };
-      });
-      // Growth factor by new cases.
-      // state.timeseries.forEach((p, i) => {
-      //   p.growthFactor =
-      //     p.confirmedDelta /
-      //     (i > 0 ? state.timeseries[i - 1].confirmedDelta : 1);
-      // });
-
-      const recentData = state.timeseries[state.timeseries.length - 1];
-
-      state.stats = {
-        ...state.stats,
-        byState: states,
-        maxConfirmedByState: Math.max(
-          ...Object.values(states).map(s => s.confirmed)
-        ),
-        confirmed: recentData.confirmed,
-        deaths: recentData.deaths,
-        suspected: recentData.suspected,
-        confirmedDelta: recentData.confirmedDelta
-      };
-
-      // Prediction calculation.
-      const meanGrowthFactorDays = 5;
-      const meanGrowthFactor = round(
-        state.timeseries
-          .slice(-meanGrowthFactorDays)
-          .reduce((a, o) => a + o.growthFactor, 0) / meanGrowthFactorDays,
-        4
-      );
-      state.prediction = {
-        date: recentData.date.clone().add(1, 'day'),
-        confirmed: round(recentData.confirmed * meanGrowthFactor, 0),
-        meanGrowthFactorDays,
-        meanGrowthFactor
-      };
-
-      state.lastUpdated = recentData.date
-        .clone()
-        .add('13', 'hour')
-        .fromNow();
+    SET_STATS_BY_STATE(state, statsByState) {
+      state.statsByState = statsByState;
+    },
+    SET_ACTIVE_TIMESERIES(state, { timeseries, latest }) {
+      state.timeseries = timeseries;
+      state.latest = latest;
+    },
+    SET_STATS(state, stats) {
+      state.stats = stats;
     }
   },
   actions: {
-    loadData: async ({ dispatch, commit }) => {
-      const [geojson, stats] = await Promise.all([
-        dispatch('getJSON', '/maps/mexico.json'),
-        dispatch('getJSON', '/api/stats.json')
-      ]);
-      commit('SET_GEOJSON', geojson);
-      commit('SET_STATS', stats);
-      commit('SET_LOADED', true);
+    clear: ({ commit }) => {
+      commit('SET_ACTIVE_TIMESERIES', { timeseries: [], latest: {} });
     },
+
+    selectState: async ({ state, commit }, stateKey) => {
+      const key = stateKey.toUpperCase();
+      const selectedState = state.statsByState.states[key];
+
+      // Convert data to a timeseries format. Then process it
+      // to obtain the extended timeseries and latest data.
+      let timeseries = state.statsByState.dates.map((date, i) => ({
+        date,
+        confirmed: selectedState.confirmed[i],
+        suspected: selectedState.suspected[i],
+        deaths: selectedState.deaths[i]
+      }));
+      const processed = processTimeseries(timeseries);
+      commit('SET_ACTIVE_TIMESERIES', processed);
+
+      // Get the name of the state loaded.
+      return true;
+    },
+
+    loadStatsByState: async ({ dispatch, commit }) => {
+      const statsByState = await dispatch('getJSON', '/api/statsByState.json');
+      commit('SET_STATS_BY_STATE', statsByState);
+
+      return true;
+    },
+
+    loadStats: async ({ state, dispatch, commit }) => {
+      // Only load geojson for the first time.
+      if (!state.geojson) {
+        const geojson = await dispatch('getJSON', '/maps/mexico.json');
+        commit('SET_GEOJSON', geojson);
+      }
+
+      const stats = await dispatch('getJSON', '/api/stats.json');
+      commit('SET_STATS', stats);
+
+      // Process the timeseries data.
+      const processed = processTimeseries(stats.timeseries);
+      commit('SET_ACTIVE_TIMESERIES', processed);
+
+      return true;
+    },
+
     getJSON: async (_, url) =>
       new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();

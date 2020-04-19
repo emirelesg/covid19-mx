@@ -9,7 +9,8 @@
             <div class="mt-3">
               {{ new Date().getFullYear() }}
               — Hecho con
-              <span class="red--text">&#9829;</span>
+              <v-icon color="teal" size="16">mdi-vuejs</v-icon> y
+              <v-icon color="red" size="16">mdi-heart</v-icon>
               por
               <a href="https://github.com/emirelesg">@emirelesg</a>
             </div>

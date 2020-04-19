@@ -7,6 +7,8 @@
     dismissible
     elevation="4"
     transition="fade-transition"
+    :value="!disclaimerClosed"
+    @input="CLOSE_DISCLAIMER"
   >
     <div>
       Este es un sitio no oficial que presenta <strong>únicamente</strong> los
@@ -26,6 +28,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
   name: 'Disclaimer',
   data() {
@@ -33,6 +36,14 @@ export default {
       source:
         'https://www.gob.mx/salud/documentos/coronavirus-covid-19-comunicado-tecnico-diario-238449'
     };
+  },
+  methods: {
+    ...mapMutations(['CLOSE_DISCLAIMER'])
+  },
+  computed: {
+    ...mapState({
+      disclaimerClosed: state => state.disclaimerClosed
+    })
   }
 };
 </script>

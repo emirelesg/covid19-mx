@@ -19,6 +19,12 @@
         :items="data"
         item-key="name"
       >
+        <template v-slot:item.name="{ item }">
+          <router-link
+            :to="{ name: 'State', params: { stateKey: item.key } }"
+            >{{ item.name }}</router-link
+          >
+        </template>
         <template v-slot:item.confirmedDelta="{ item }">
           <span
             v-if="isFinite(item.confirmedDelta) && item.confirmedDelta !== 0"
@@ -30,15 +36,15 @@
           <tr v-show="$vuetify.breakpoint.smAndUp">
             <td class="font-weight-bold caption">Total</td>
             <td class="text-center font-weight-bold">
-              {{ stats.confirmed }}
+              {{ latest.confirmed }}
             </td>
             <td class="text-center font-weight-bold">
-              {{ getDeltaLabel(stats.confirmedDelta) }}
+              {{ getDeltaLabel(latest.confirmedDelta) }}
             </td>
             <td class="text-center font-weight-bold">
-              {{ stats.suspected }}
+              {{ latest.suspected }}
             </td>
-            <td class="text-center font-weight-bold">{{ stats.deaths }}</td>
+            <td class="text-center font-weight-bold">{{ latest.deaths }}</td>
           </tr>
         </template>
       </v-data-table>
@@ -54,6 +60,12 @@ export default {
   name: 'CasesBystateTable',
   components: {
     Card
+  },
+  props: {
+    loaded: {
+      type: Boolean,
+      required: true
+    }
   },
   data() {
     return {
@@ -86,9 +98,8 @@ export default {
   },
   computed: {
     ...mapState({
-      loaded: state => state.loaded,
-      data: state => Object.values(state.stats.byState),
-      stats: state => state.stats
+      latest: state => state.latest,
+      data: state => state.stats.statesAsArray
     })
   }
 };

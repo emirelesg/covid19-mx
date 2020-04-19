@@ -45,7 +45,7 @@
 import Card from '@/components/Card';
 import { mapState } from 'vuex';
 import Chart from '@/components/charts/BaseChart';
-import { baseLineOptions, baseChartOptions } from '@/plugins/helper';
+import { baseLineOptions, baseChartOptions, round } from '@/plugins/helper';
 
 export default {
   name: 'TotalCasesChart',
@@ -53,11 +53,17 @@ export default {
     Chart,
     Card
   },
+  props: {
+    loaded: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
+      meanGrowthFactor: null,
+      meanGrowthFactorDays: 5,
       prediction: false,
-      isMounted: false,
-      chartCreated: false,
       tab: 0,
       data: {
         datasets: [
@@ -73,8 +79,11 @@ export default {
     };
   },
   watch: {
-    loaded() {
-      this.init();
+    loaded(val) {
+      if (val) {
+        this.reset();
+        this.update();
+      }
     },
     tab() {
       this.update();
@@ -84,43 +93,51 @@ export default {
     }
   },
   mounted() {
-    this.isMounted = true;
-    this.init();
+    this.reset();
+    this.update();
   },
   methods: {
     update() {
       this.data.datasets[1].hidden = !this.prediction;
-      if (this.$refs.chart) this.$refs.chart.update(this.tab);
+      if (this.$refs.chart) this.$refs.chart.update(this.tab === 1);
     },
-    init() {
-      if (!this.chartCreated && this.loaded && this.isMounted) {
-        this.chartCreated = true;
-        this.data.datasets[0].data = this.confirmedData;
-        this.data.datasets[1].data = this.predictionData;
-        this.update();
-      }
+    reset() {
+      if (!this.latest.date || this.timeseries.length === 0) return;
+
+      // Reset controls.
+      this.tab = 0;
+      this.prediction = false;
+
+      // Cases plot data.
+      this.data.datasets[0].data = this.timeseries.map(data => ({
+        t: data.date,
+        y: data.confirmed
+      }));
+
+      // Prediction plot data.
+      this.meanGrowthFactor = round(
+        this.timeseries
+          .slice(-this.meanGrowthFactorDays)
+          .reduce((a, data) => a + data.confirmedGrowthFactor, 0) /
+          this.meanGrowthFactorDays,
+        4
+      );
+      this.data.datasets[1].data = [
+        {
+          t: this.latest.date,
+          y: this.latest.confirmed
+        },
+        {
+          t: this.latest.date.clone().add(1, 'day'),
+          y: round(this.latest.confirmed * this.meanGrowthFactor, 0)
+        }
+      ];
     }
   },
   computed: {
     ...mapState({
-      loaded: state => state.loaded,
-      confirmedData: state =>
-        state.timeseries.map(d => ({
-          t: d.date,
-          y: d.confirmed
-        })),
-      predictionData: state => [
-        {
-          t: state.timeseries[state.timeseries.length - 1].date,
-          y: state.timeseries[state.timeseries.length - 1].confirmed
-        },
-        {
-          t: state.prediction.date,
-          y: state.prediction.confirmed
-        }
-      ],
-      meanGrowthFactor: state => state.prediction.meanGrowthFactor,
-      meanGrowthFactorDays: state => state.prediction.meanGrowthFactorDays
+      timeseries: state => state.timeseries,
+      latest: state => state.latest
     })
   }
 };

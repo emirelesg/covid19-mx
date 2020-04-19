@@ -17,9 +17,6 @@
 </template>
 
 <script>
-/**
- * Bar chart for displaying the increase of confirmed cases by day.
- */
 import { mapState } from 'vuex';
 import Card from '@/components/Card';
 import Chart from '@/components/charts/BaseChart';
@@ -31,10 +28,14 @@ export default {
     Chart,
     Card
   },
+  props: {
+    loaded: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
-      isMounted: false,
-      chartCreated: false,
       data: {
         datasets: [baseBarOptions('blue')]
       },
@@ -46,31 +47,32 @@ export default {
     };
   },
   watch: {
-    loaded() {
-      this.init();
+    loaded(val) {
+      if (val) {
+        this.reset();
+        this.update();
+      }
     }
   },
   mounted() {
-    this.isMounted = true;
-    this.init();
+    this.reset();
+    this.update();
   },
   methods: {
-    init() {
-      if (!this.chartCreated && this.loaded && this.isMounted) {
-        this.chartCreated = true;
-        this.data.datasets[0].data = this.confirmedDeltaData;
-        if (this.$refs.chart) this.$refs.chart.update(0);
-      }
+    update() {
+      if (this.$refs.chart) this.$refs.chart.update(0);
+    },
+    reset() {
+      if (this.timeseries.length === 0) return;
+      this.data.datasets[0].data = this.timeseries.map(data => ({
+        t: data.date,
+        y: data.confirmedDelta
+      }));
     }
   },
   computed: {
     ...mapState({
-      loaded: state => state.loaded,
-      confirmedDeltaData: state =>
-        state.timeseries.map(d => ({
-          t: d.date,
-          y: d.confirmedDelta
-        }))
+      timeseries: state => state.timeseries
     })
   }
 };
