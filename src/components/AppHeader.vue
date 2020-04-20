@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="primary" dark clipped-left>
+  <v-app-bar app color="primary" dark clipped-left hide-on-scroll>
     <v-app-bar-nav-icon @click.stop="TOGGLE_DRAWER" />
     <v-toolbar-title class="pl-2">
       <router-link :to="{ name: 'Home' }" class="white--text">
