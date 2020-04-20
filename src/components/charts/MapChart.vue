@@ -13,11 +13,7 @@
         height="400px"
         viewBox="0 0 500 400"
       >
-        <defs>
-          <linearGradient id="gradient" />
-        </defs>
-        <g id="legendAxis" class="caption" visible="invisible" />
-        <g id="legend" />
+        <g id="legend" class="caption" />
         <g id="map" />
       </svg>
     </template>
@@ -36,11 +32,12 @@
 // Legends
 // http://bl.ocks.org/syntagmatic/e8ccca52559796be775553b467593a9f
 
-import { interpolateMagma, select, scaleLinear, axisBottom } from 'd3';
+import { select, interpolateMagma } from 'd3';
 import { geoPath, geoMercator } from 'd3-geo';
 import { mapState } from 'vuex';
 import Card from '@/components/Card';
 import StateInfo from '@/components/charts/StateInfo';
+import scaleCluster from 'd3-scale-cluster';
 
 export default {
   name: 'MapCard',
@@ -60,6 +57,7 @@ export default {
       h: 400,
       svg: null,
       map: null,
+      colorScale: null,
       geoGenerator: null,
       geoProjection: null,
       active: null,
@@ -77,13 +75,37 @@ export default {
     }
   },
   methods: {
-    colorScale: k => interpolateMagma(1 - k),
-    colorScaleCases(cases) {
-      return this.colorScale(cases / this.maxConfirmedByState);
+    generateScale() {
+      //      '#E5D6EA',
+      //     '#C798D3',
+      //     '#9E58AF',
+      //     '#7F3391',
+      //     '#581F66',
+      //     '#30003A'
+      // var clr = d3
+      //   .scaleLinear()
+      //   .range([d3.interpolateReds(0), 'rgb(244, 67, 54)'])
+      //   .domain([0, 5]);
+      // var colourArray = d3.range(6).map(d => clr(d));
+      // console.log(colourArray);
+      var values = Object.entries(this.states)
+        .reduce((arr, [, obj]) => [...arr, obj.confirmed], [])
+        .sort((a, b) => a - b);
+      var s = scaleCluster()
+        .domain(values)
+        .range(
+          // colourArray
+          // d3.schemeReds[6]
+          Array(6)
+            .fill()
+            .map((_, i) => interpolateMagma(1 - i / 6))
+        );
+      return s;
     },
     init() {
       if (!this.mapCreated && this.loaded && this.isMounted) {
         this.mapCreated = true;
+        this.colorScale = this.generateScale();
         this.generateMap();
         this.generateLegend();
       }
@@ -91,8 +113,8 @@ export default {
     generateMap() {
       // Select the map where the states are drawn.
       this.map = select('#map')
-        .attr('stroke', '#aaa')
-        .attr('stroke-width', '1.5')
+        .attr('stroke', '#888')
+        .attr('stroke-width', '1')
         .attr('transform', `translate(0, -20)`);
 
       // Define the projection and generator for the map.
@@ -117,48 +139,40 @@ export default {
       // Color each federal state.
       this.map.selectAll('path').style('fill', ({ properties }) => {
         const { confirmed } = this.states[properties.postal];
-        return this.colorScaleCases(confirmed);
+        return this.colorScale(confirmed);
       });
     },
 
     generateLegend() {
-      const w = this.w * 0.75;
-      const h = 10;
-      const xAxis = (this.w - w) / 2;
-      const xBar = xAxis;
-      const yBar = this.h - h - 20;
-      const yAxis = this.h - 20;
+      const legend = select('#legend');
+      const blockWidth = 15;
+      const blockPadding = 7;
+      // Get the clusters or ranges for the color scale. Add 0 to the array.
+      const clusters = [0, ...this.colorScale.clusters()];
 
-      // Add 10 color stops to the gradient.
-      const mainGradient = select('#gradient');
-      for (let i = 0; i <= 1; i += 0.1) {
-        mainGradient
-          .append('stop')
-          .attr('stop-color', this.colorScale(i))
-          .attr('offset', `${i}`);
+      // Position legend and iterate through each item in the clusters.
+      legend.attr('transform', `translate(${25}, ${225})`);
+      for (let i = 0; i < clusters.length; i++) {
+        const y = i * (blockWidth + blockPadding);
+        legend
+          .append('rect')
+          .attr('x', 0.5)
+          .attr('y', y)
+          .attr('width', `${blockWidth}px`)
+          .attr('height', `${blockWidth}px`)
+          .attr('stroke', '#888')
+          .style('fill', this.colorScale(clusters[i]));
+        legend
+          .append('text')
+          .attr('alignment-baseline', 'middle')
+          .attr('x', blockWidth + 10)
+          .attr('y', y + blockWidth / 2)
+          .text(
+            i < clusters.length - 1
+              ? `${clusters[i]} a ${clusters[i + 1]}`
+              : `más de ${clusters[i]}`
+          );
       }
-
-      // Create the box for the legend and apply gradient.
-      select('#legend')
-        .append('rect')
-        .attr('x1', 0)
-        .attr('y1', 0)
-        .attr('width', `${w}px`)
-        .attr('height', `${h}px`)
-        .attr('transform', `translate(${xBar}, ${yBar})`)
-        .style('fill', 'url(#gradient)');
-
-      // Create the axis for the legend.
-      const legendScale = scaleLinear()
-        .range([0, w])
-        .domain([0, this.maxConfirmedByState]);
-      const legendAxis = axisBottom()
-        .scale(legendScale)
-        .tickSize(6)
-        .ticks(5);
-      select('#legendAxis')
-        .attr('transform', `translate(${xAxis}, ${yAxis})`)
-        .call(legendAxis);
     },
 
     handleMouseout(d) {
@@ -187,6 +201,7 @@ export default {
   computed: {
     ...mapState({
       states: state => state.stats.states,
+      statesAsArray: state => state.stats.statesAsArray,
       maxConfirmedByState: state =>
         Math.max(...state.stats.statesAsArray.map(data => data.confirmed)),
       geojson: state => state.geojson

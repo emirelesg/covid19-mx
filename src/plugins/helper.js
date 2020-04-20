@@ -113,9 +113,11 @@ export const processTimeseries = timeseries => {
   // Add deltas and growth factors.
   const extendedTimeseries = timeseries.map((data, i) => {
     const prevConfirmed = timeseries[i > 0 ? i - 1 : i].confirmed;
+    const prevDeaths = timeseries[i > 0 ? i - 1 : i].deaths;
     return {
       ...data,
       date: moment(data.date),
+      deathsDelta: data.deaths - prevDeaths,
       confirmedDelta: data.confirmed - prevConfirmed,
       confirmedGrowthFactor: round(data.confirmed / prevConfirmed, 4)
     };
