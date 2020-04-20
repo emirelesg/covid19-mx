@@ -26,6 +26,9 @@
       <v-col cols="12" md="12">
         <growth-factor-chart :loaded="loaded" />
       </v-col>
+      <v-col cols="12">
+        <donations />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -37,12 +40,14 @@ import TotalCasesChart from '@/components/charts/TotalCasesChart';
 import Disclaimer from '@/components/Disclaimer';
 import LatestValues from '@/components/LatestValues';
 import { stateNames } from '@/plugins/helper';
+import Donations from '@/components/Donations';
 import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'State',
   components: {
     Disclaimer,
+    Donations,
     LatestValues,
     TotalCasesChart,
     GrowthFactorChart,

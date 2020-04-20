@@ -7,7 +7,7 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <a href="https://udem.edu.mx/es">
+    <a target="_blank" href="https://udem.edu.mx/es">
       <v-img alt="Logo UDEM" width="75" contain src="@/assets/LogoUdem.png" />
     </a>
     <template v-slot:extension>

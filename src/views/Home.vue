@@ -36,6 +36,9 @@
       <v-col cols="12">
         <Faq />
       </v-col>
+      <v-col cols="12">
+        <Donations />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -50,6 +53,7 @@ import GrowthFactorChart from '@/components/charts/GrowthFactorChart';
 import Faq from '@/components/Faq';
 import DownloadStats from '@/components/DownloadStats';
 import LatestValues from '@/components/LatestValues';
+import Donations from '@/components/Donations';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -63,7 +67,8 @@ export default {
     CasesByStateTable,
     DailyIncreaseChart,
     DownloadStats,
-    GrowthFactorChart
+    GrowthFactorChart,
+    Donations
   },
   data() {
     return {
