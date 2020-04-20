@@ -10,41 +10,13 @@
           </v-card-title>
           <v-card-text class="pa-0">
             Última actualización:
-            <span v-if="loaded">
-              {{ latest.updateDate }}
-            </span>
-            <span v-else>cargando...</span>
+            {{ loaded ? latest.updateDate : 'cargando...' }}
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
     <disclaimer />
-    <v-row>
-      <v-col cols="12" sm="6" md="3">
-        <value-card title="Confirmados" color="red" :value="latest.confirmed" />
-      </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <value-card
-          title="Confirmados Hoy"
-          :value="latest.confirmedDelta"
-          :isDelta="true"
-        />
-      </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <value-card
-          title="Sospechosos"
-          color="orange"
-          :value="latest.suspected"
-        />
-      </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <value-card
-          title="Fallecidos"
-          color="blueGrey"
-          :value="latest.deaths"
-        />
-      </v-col>
-    </v-row>
+    <latest-values :loaded="loaded" />
     <v-row>
       <v-col cols="12" md="6">
         <map-card :loaded="loaded" />
@@ -59,7 +31,7 @@
         <daily-increase-chart :loaded="loaded" />
       </v-col>
       <v-col cols="12" md="12">
-        <growth-factor-chart :loaded="loaded" :skip="14" />
+        <growth-factor-chart :skip="14" :loaded="loaded" />
       </v-col>
       <v-col cols="12">
         <Faq />
@@ -69,7 +41,6 @@
 </template>
 
 <script>
-import ValueCard from '@/components/ValueCard';
 import MapCard from '@/components/charts/MapChart';
 import TotalCasesChart from '@/components/charts/TotalCasesChart';
 import DailyIncreaseChart from '@/components/charts/DailyIncreaseChart';
@@ -78,14 +49,15 @@ import CasesByStateTable from '@/components/tables/CasesByStateTable';
 import GrowthFactorChart from '@/components/charts/GrowthFactorChart';
 import Faq from '@/components/Faq';
 import DownloadStats from '@/components/DownloadStats';
-import { mapState, mapActions } from 'vuex';
+import LatestValues from '@/components/LatestValues';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
     Faq,
-    ValueCard,
     MapCard,
+    LatestValues,
     TotalCasesChart,
     Disclaimer,
     CasesByStateTable,

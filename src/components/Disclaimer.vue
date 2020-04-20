@@ -5,8 +5,8 @@
     type="info"
     color="primary"
     dismissible
-    elevation="4"
     transition="fade-transition"
+    style="border: thin solid rgba(98, 0, 234, 0.2)"
     :value="!disclaimerClosed"
     @input="CLOSE_DISCLAIMER"
   >

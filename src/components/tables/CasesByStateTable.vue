@@ -39,15 +39,17 @@
           <tr v-show="$vuetify.breakpoint.smAndUp">
             <td class="font-weight-bold caption">Total</td>
             <td class="text-center font-weight-bold">
-              {{ latest.confirmed }}
+              {{ latest.confirmed.value }}
             </td>
             <td class="text-center font-weight-bold">
-              {{ getDeltaLabel(latest.confirmedDelta) }}
+              {{ getDeltaLabel(latest.confirmed.delta) }}
             </td>
             <td class="text-center font-weight-bold">
-              {{ latest.suspected }}
+              {{ latest.suspected.value }}
             </td>
-            <td class="text-center font-weight-bold">{{ latest.deaths }}</td>
+            <td class="text-center font-weight-bold">
+              {{ latest.deaths.value }}
+            </td>
           </tr>
         </template>
       </v-data-table>
@@ -76,7 +78,7 @@ export default {
         { text: 'Entidad', value: 'name' },
         { text: 'Confirmados', value: 'confirmed', align: 'center' },
         {
-          text: 'Nuevos Confirmados',
+          text: 'Confirmados Hoy',
           value: 'confirmedDelta',
           align: 'center'
         },

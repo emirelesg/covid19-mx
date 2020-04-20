@@ -1,11 +1,6 @@
 <template>
-  <v-card elevation="4" height="100%" width="100%">
+  <v-card height="100%" width="100%" outlined>
     <div ref="title">
-      <!-- <v-btn @click="isFullscreen = !isFullscreen" absolute right top icon>
-        <v-icon>
-          {{ isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen' }}
-        </v-icon>
-      </v-btn> -->
       <v-card-title class="font-weight-regular headline">
         {{ title }}
       </v-card-title>
@@ -47,7 +42,6 @@ export default {
   },
   data() {
     return {
-      // isFullscreen: false,
       cardTitleHeight: 0
     };
   },

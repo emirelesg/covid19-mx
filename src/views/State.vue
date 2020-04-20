@@ -9,41 +9,13 @@
           </v-card-title>
           <v-card-text class="pa-0">
             Última actualización:
-            <span v-if="loaded">
-              {{ latest.updateDate }}
-            </span>
-            <span v-else>cargando...</span>
+            {{ loaded ? latest.updateDate : 'cargando...' }}
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
     <disclaimer />
-    <v-row>
-      <v-col cols="12" sm="6" md="3">
-        <value-card title="Confirmados" color="red" :value="latest.confirmed" />
-      </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <value-card
-          title="Confirmados Hoy"
-          :value="latest.confirmedDelta"
-          :isDelta="true"
-        />
-      </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <value-card
-          title="Sospechosos"
-          color="orange"
-          :value="latest.suspected"
-        />
-      </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <value-card
-          title="Fallecidos"
-          color="blueGrey"
-          :value="latest.deaths"
-        />
-      </v-col>
-    </v-row>
+    <latest-values :loaded="loaded" />
     <v-row>
       <v-col cols="12" md="6">
         <total-cases-chart :loaded="loaded" />
@@ -62,16 +34,16 @@
 import DailyIncreaseChart from '@/components/charts/DailyIncreaseChart';
 import GrowthFactorChart from '@/components/charts/GrowthFactorChart';
 import TotalCasesChart from '@/components/charts/TotalCasesChart';
-import ValueCard from '@/components/ValueCard';
 import Disclaimer from '@/components/Disclaimer';
+import LatestValues from '@/components/LatestValues';
 import { stateNames } from '@/plugins/helper';
 import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'State',
   components: {
-    ValueCard,
     Disclaimer,
+    LatestValues,
     TotalCasesChart,
     GrowthFactorChart,
     DailyIncreaseChart

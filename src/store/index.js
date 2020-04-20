@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment';
-import { processTimeseries } from '@/plugins/helper';
+import { processTimeseries, modes } from '@/plugins/helper';
 
 // Choose the default locale for momentjs.
 moment.locale('es');
@@ -10,6 +10,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // What property is used to display charts.
+    mode: modes[0],
+    modeIdx: 0,
     // Navigation drawer.
     drawer: false,
     // Once dismissed, the disclaimer remains closed.
@@ -26,6 +29,10 @@ export default new Vuex.Store({
     latest: {}
   },
   mutations: {
+    SET_MODE_BY_IDX(state, idx) {
+      state.modeIdx = idx;
+      state.mode = modes[idx];
+    },
     SET_DRAWER(state, val) {
       state.drawer = val;
     },

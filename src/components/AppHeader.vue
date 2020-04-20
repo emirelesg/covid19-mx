@@ -10,14 +10,21 @@
     <a href="https://udem.edu.mx/es">
       <v-img alt="Logo UDEM" width="75" contain src="@/assets/LogoUdem.png" />
     </a>
+    <template v-slot:extension>
+      <app-mode />
+    </template>
   </v-app-bar>
 </template>
 
 <script>
+import AppMode from '@/components/AppMode';
 import { mapMutations } from 'vuex';
 
 export default {
   name: 'AppHeader',
+  components: {
+    AppMode
+  },
   data() {
     return {};
   },

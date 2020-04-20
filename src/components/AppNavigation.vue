@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-on:input="SET_DRAWER" :value="drawer" app clipped>
+  <v-navigation-drawer @input="SET_DRAWER" :value="drawer" app clipped>
     <v-list dense>
       <v-subheader>PAÍS</v-subheader>
       <v-list-item link :to="{ name: 'Home' }" color="primary" exact>

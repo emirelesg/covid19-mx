@@ -12,12 +12,15 @@ export default {
     };
   },
   methods: {
-    update(isLog) {
+    update(isLog, yLabel) {
       // Get the y-axis from the chart object.
       const yAxis = this.$data._chart.options.scales.yAxes[0];
 
       // Change the type of the graph.
       yAxis.type = isLog ? 'logarithmic' : 'linear';
+
+      // Change the y label of the chart.
+      if (yLabel) yAxis.scaleLabel.labelString = yLabel;
 
       // Store the default tick algorithm.
       if (this.defaultTickCallback === undefined) {

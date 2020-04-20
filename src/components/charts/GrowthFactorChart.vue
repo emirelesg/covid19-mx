@@ -81,7 +81,7 @@ export default {
         .slice(this.skip)
         .map(data => ({
           t: data.date,
-          y: data.confirmedGrowthFactor
+          y: data.confirmed.growthFactor
         }));
     }
   },

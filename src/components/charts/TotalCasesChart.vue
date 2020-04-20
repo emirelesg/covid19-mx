@@ -1,12 +1,12 @@
 <template>
   <card
-    title="Casos Totales"
-    subtitle="El total de casos confirmados acumulado"
+    :title="texts.title[mode.key]"
+    :subtitle="texts.subtitle[mode.key]"
     loadingMessage="Cargando Gráfica..."
     :loaded="loaded"
   >
     <template v-slot:content>
-      <v-tabs v-model="tab" color="primary">
+      <v-tabs v-model="tab" :color="mode.colorStr">
         <v-tab>Lineal</v-tab>
         <v-tab>Logarítmico</v-tab>
         <v-spacer></v-spacer>
@@ -45,7 +45,30 @@
 import Card from '@/components/Card';
 import { mapState } from 'vuex';
 import Chart from '@/components/charts/BaseChart';
-import { baseLineOptions, baseChartOptions, round } from '@/plugins/helper';
+import {
+  baseLineOptions,
+  baseChartOptions,
+  round,
+  lineColor
+} from '@/plugins/helper';
+
+const texts = {
+  title: {
+    confirmed: 'Acumulado de Confirmados',
+    suspected: 'Acumulado de Sospechosos',
+    deaths: 'Acumulado de Fallecidos'
+  },
+  subtitle: {
+    confirmed: 'El total de casos confirmados reportado',
+    suspected: 'El total de casos sospechosos reportado',
+    deaths: 'El total de casos fallecidos reportado'
+  },
+  yLabel: {
+    confirmed: '# de Confirmados',
+    suspected: '# de Sospechosos',
+    deaths: '# de Fallecidos'
+  }
+};
 
 export default {
   name: 'TotalCasesChart',
@@ -61,6 +84,7 @@ export default {
   },
   data() {
     return {
+      texts,
       meanGrowthFactor: null,
       meanGrowthFactorDays: 5,
       prediction: false,
@@ -71,7 +95,7 @@ export default {
           baseLineOptions('orange', 'base', true)
         ]
       },
-      options: baseChartOptions('Fecha', 'Casos Confirmados'),
+      options: baseChartOptions('Fecha', ''),
       style: {
         paddingTop: '16px',
         height: `${400 - 48}px`
@@ -90,6 +114,10 @@ export default {
     },
     prediction() {
       this.update();
+    },
+    mode() {
+      this.reset();
+      this.update();
     }
   },
   mounted() {
@@ -99,7 +127,12 @@ export default {
   methods: {
     update() {
       this.data.datasets[1].hidden = !this.prediction;
-      if (this.$refs.chart) this.$refs.chart.update(this.tab === 1);
+      if (this.$refs.chart) {
+        this.$refs.chart.update(this.tab === 1, texts.yLabel[this.mode.key]);
+      } else {
+        this.options.scales.yAxes[0].scaleLabel.labelString =
+          texts.yLabel[this.mode.key];
+      }
     },
     reset() {
       if (!this.latest.date || this.timeseries.length === 0) return;
@@ -108,28 +141,32 @@ export default {
       this.tab = 0;
       this.prediction = false;
 
-      // Cases plot data.
+      // Plot data.
+      this.data.datasets[0] = {
+        ...this.data.datasets[0],
+        ...lineColor(this.mode.colorStr, this.mode.colorShade)
+      };
       this.data.datasets[0].data = this.timeseries.map(data => ({
         t: data.date,
-        y: data.confirmed
+        y: data[this.mode.key].value
       }));
 
       // Prediction plot data.
       this.meanGrowthFactor = round(
         this.timeseries
           .slice(-this.meanGrowthFactorDays)
-          .reduce((a, data) => a + data.confirmedGrowthFactor, 0) /
+          .reduce((a, data) => a + data[this.mode.key].growthFactor, 0) /
           this.meanGrowthFactorDays,
         4
       );
       this.data.datasets[1].data = [
         {
           t: this.latest.date,
-          y: this.latest.confirmed
+          y: this.latest[this.mode.key].value
         },
         {
           t: this.latest.date.clone().add(1, 'day'),
-          y: round(this.latest.confirmed * this.meanGrowthFactor, 0)
+          y: round(this.latest[this.mode.key].value * this.meanGrowthFactor, 0)
         }
       ];
     }
@@ -137,7 +174,8 @@ export default {
   computed: {
     ...mapState({
       timeseries: state => state.timeseries,
-      latest: state => state.latest
+      latest: state => state.latest,
+      mode: state => state.mode
     })
   }
 };

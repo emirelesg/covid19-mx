@@ -10,25 +10,33 @@ export const hex2rgba = (hex, opacity) => {
   return result;
 };
 
-export const baseBarOptions = color => ({
+export const barColor = (color, shade) => ({
+  borderColor: colors[color][shade || 'base'],
+  backgroundColor: hex2rgba(colors[color][shade || 'base'], 0.3)
+});
+
+export const baseBarOptions = (color, shade) => ({
   type: 'bar',
   barPercentage: 0.7,
   borderWidth: 1,
-  borderColor: colors[color].accent3,
-  backgroundColor: hex2rgba(colors[color].accent4, 0.3),
-  data: []
+  data: [],
+  ...barColor(color, shade)
+});
+
+export const lineColor = (color, shade) => ({
+  borderColor: colors[color][shade || 'base'],
+  backgroundColor: 'rgba(0, 0, 0, 0)',
+  pointBackgroundColor: colors[color][shade || 'base']
 });
 
 export const baseLineOptions = (color, shade, dashed) => ({
   type: 'line',
   borderWidth: 2,
   borderDash: dashed ? [4, 4] : [0, 0],
-  borderColor: colors[color][shade || 'base'],
-  backgroundColor: 'rgba(0, 0, 0, 0)',
-  pointBackgroundColor: colors[color][shade || 'base'],
   pointHitRadius: 10,
   pointHoverRadius: 4,
-  data: []
+  data: [],
+  ...lineColor(color, shade)
 });
 
 export const baseChartOptions = (xLabel, yLabel, xOffset, yStart) => ({
@@ -104,6 +112,14 @@ export const readableLog = value => {
 
 export const round = (num, dec) => +(Math.round(num + `e+${dec}`) + `e-${dec}`);
 
+function getValue(latest, prev, prop) {
+  return {
+    value: latest[prop],
+    delta: latest[prop] - prev[prop],
+    growthFactor: round(latest[prop] / prev[prop], 4)
+  };
+}
+
 export const processTimeseries = timeseries => {
   // Timeseries is an array, where each element is an object with the following properties:
   // date, confirmed, deaths, suspected
@@ -112,14 +128,16 @@ export const processTimeseries = timeseries => {
   // Convert the date to a moment object.
   // Add deltas and growth factors.
   const extendedTimeseries = timeseries.map((data, i) => {
-    const prevConfirmed = timeseries[i > 0 ? i - 1 : i].confirmed;
-    const prevDeaths = timeseries[i > 0 ? i - 1 : i].deaths;
+    const prev = timeseries[i > 0 ? i - 1 : i];
     return {
       ...data,
       date: moment(data.date),
-      deathsDelta: data.deaths - prevDeaths,
-      confirmedDelta: data.confirmed - prevConfirmed,
-      confirmedGrowthFactor: round(data.confirmed / prevConfirmed, 4)
+      confirmed: getValue(data, prev, 'confirmed'),
+      suspected: getValue(data, prev, 'suspected'),
+      deaths: {
+        ...getValue(data, prev, 'deaths'),
+        letality: `${round((data.deaths / data.confirmed) * 100, 1)}%`
+      }
     };
   });
 
@@ -170,3 +188,27 @@ export const stateNames = {
   pu: 'Puebla',
   so: 'Sonora'
 };
+
+export const modes = [
+  {
+    title: 'Confirmados',
+    key: 'confirmed',
+    colorHex: colors.red.base,
+    colorStr: 'red',
+    colorShade: 'base'
+  },
+  {
+    title: 'Sospechosos',
+    key: 'suspected',
+    colorHex: colors.orange.base,
+    colorStr: 'orange',
+    colorShade: 'base'
+  },
+  {
+    title: 'Fallecidos',
+    key: 'deaths',
+    colorHex: colors.blueGrey.base,
+    colorStr: 'blueGrey',
+    colorShade: 'base'
+  }
+];
