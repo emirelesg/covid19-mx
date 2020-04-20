@@ -32,7 +32,7 @@
 // Legends
 // http://bl.ocks.org/syntagmatic/e8ccca52559796be775553b467593a9f
 
-import { select, interpolateMagma } from 'd3';
+import { select, interpolateReds } from 'd3';
 import { geoPath, geoMercator } from 'd3-geo';
 import { mapState } from 'vuex';
 import Card from '@/components/Card';
@@ -62,7 +62,8 @@ export default {
       geoProjection: null,
       active: null,
       isMounted: false,
-      mapCreated: false
+      mapCreated: false,
+      toAnalyse: 'confirmed'
     };
   },
   mounted() {
@@ -76,29 +77,15 @@ export default {
   },
   methods: {
     generateScale() {
-      //      '#E5D6EA',
-      //     '#C798D3',
-      //     '#9E58AF',
-      //     '#7F3391',
-      //     '#581F66',
-      //     '#30003A'
-      // var clr = d3
-      //   .scaleLinear()
-      //   .range([d3.interpolateReds(0), 'rgb(244, 67, 54)'])
-      //   .domain([0, 5]);
-      // var colourArray = d3.range(6).map(d => clr(d));
-      // console.log(colourArray);
       var values = Object.entries(this.states)
-        .reduce((arr, [, obj]) => [...arr, obj.confirmed], [])
+        .reduce((arr, [, obj]) => [...arr, obj[this.toAnalyse]], [])
         .sort((a, b) => a - b);
       var s = scaleCluster()
         .domain(values)
         .range(
-          // colourArray
-          // d3.schemeReds[6]
           Array(6)
             .fill()
-            .map((_, i) => interpolateMagma(1 - i / 6))
+            .map((_, i) => interpolateReds(i / 5))
         );
       return s;
     },
@@ -138,25 +125,24 @@ export default {
 
       // Color each federal state.
       this.map.selectAll('path').style('fill', ({ properties }) => {
-        const { confirmed } = this.states[properties.postal];
-        return this.colorScale(confirmed);
+        return this.colorScale(this.states[properties.postal][this.toAnalyse]);
       });
     },
 
     generateLegend() {
       const legend = select('#legend');
-      const blockWidth = 15;
+      const blockWidth = 17;
       const blockPadding = 7;
       // Get the clusters or ranges for the color scale. Add 0 to the array.
       const clusters = [0, ...this.colorScale.clusters()];
 
       // Position legend and iterate through each item in the clusters.
-      legend.attr('transform', `translate(${25}, ${225})`);
+      legend.attr('transform', `translate(${25.5}, ${220.5})`);
       for (let i = 0; i < clusters.length; i++) {
         const y = i * (blockWidth + blockPadding);
         legend
           .append('rect')
-          .attr('x', 0.5)
+          .attr('x', 0)
           .attr('y', y)
           .attr('width', `${blockWidth}px`)
           .attr('height', `${blockWidth}px`)
@@ -169,9 +155,10 @@ export default {
           .attr('y', y + blockWidth / 2)
           .text(
             i < clusters.length - 1
-              ? `${clusters[i]} a ${clusters[i + 1]}`
+              ? `${clusters[i]} - ${clusters[i + 1]}`
               : `más de ${clusters[i]}`
-          );
+          )
+          .style('fill', '#444');
       }
     },
 
@@ -201,9 +188,6 @@ export default {
   computed: {
     ...mapState({
       states: state => state.stats.states,
-      statesAsArray: state => state.stats.statesAsArray,
-      maxConfirmedByState: state =>
-        Math.max(...state.stats.statesAsArray.map(data => data.confirmed)),
       geojson: state => state.geojson
     })
   }
