@@ -1,37 +1,37 @@
 <template>
   <v-row>
     <v-col cols="12" sm="6" md="2" v-for="(v, i) in values" :key="`value-${i}`">
-      <v-tooltip bottom max-width="350" :disabled="!v.help">
+      <v-tooltip bottom max-width="300" :disabled="!v.help">
         <template v-slot:activator="{ on }">
-          <v-hover v-slot:default="{ hover }" :disabled="!v.help">
-            <v-card
-              v-on="on"
-              :elevation="hover ? 5 : 0"
-              outlined
-              :style="{ borderTop: `6px solid ${getColor(v)}` }"
+          <!-- <v-hover v-slot:default="{ hover }" :disabled="!v.help"> -->
+          <v-card
+            v-on="on"
+            elevation="0"
+            outlined
+            :style="{ borderTop: `6px solid ${getColor(v)}` }"
+          >
+            <v-icon
+              v-if="!!v.help"
+              style="position: absolute; right: 10px; top: 10px"
+              color="grey"
             >
-              <v-icon
-                v-if="!!v.help"
-                style="position: absolute; right: 10px; top: 10px"
-                color="grey"
-              >
-                mdi-information-outline
-              </v-icon>
-              <v-list-item two-line class="text-center">
-                <v-list-item-content class="py-4">
-                  <v-list-item-title
-                    class="display-1 mb-2"
-                    :style="{ color: getColor(v) }"
-                  >
-                    {{ getValue(v) }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="text-uppercase subtitle-2">
-                    {{ v.title }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-card>
-          </v-hover>
+              mdi-information-outline
+            </v-icon>
+            <v-list-item two-line class="text-center">
+              <v-list-item-content class="py-4">
+                <v-list-item-title
+                  class="display-1 mb-2"
+                  :style="{ color: getColor(v) }"
+                >
+                  {{ getValue(v) }}
+                </v-list-item-title>
+                <v-list-item-subtitle class="text-uppercase subtitle-2">
+                  {{ v.title }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+          <!-- </v-hover> -->
         </template>
         <span>{{ v.help }}</span>
       </v-tooltip>
