@@ -21,7 +21,7 @@
         {{ source }}
       </a>
       <a v-else :href="source" target="_blank"
-        >Prensa de la Secretaría de Salud</a
+        >Datos Abiertos — Secretaría de Salud</a
       >
     </div>
   </v-alert>
@@ -33,7 +33,7 @@ export default {
   name: 'Disclaimer',
   data() {
     return {
-      source: 'hhttps://www.gob.mx/salud/documentos/datos-abiertos-152127'
+      source: 'https://www.gob.mx/salud/documentos/datos-abiertos-152127'
     };
   },
   methods: {
