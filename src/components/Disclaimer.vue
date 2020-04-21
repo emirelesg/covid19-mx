@@ -11,10 +11,15 @@
     @input="CLOSE_DISCLAIMER"
   >
     <div>
+      La manera en la que Secretaría de Salud proporciona los datos sobre el
+      COVID-19 ha cambiado. La actualización del día de hoy 20 de abril demorará
+      unas horas más.
+    </div>
+    <!-- <div>
       Este es un sitio no oficial que presenta <strong>únicamente</strong> los
       datos oficiales de la Secretaría de Salud de México —
       <a href="https://twitter.com/SSalud_mx" target="_blank">@SSalud_mx</a>.
-    </div>
+    </div> -->
     <div>
       Fuente:
       <a v-if="$vuetify.breakpoint.smAndUp" :href="source" target="_blank">
