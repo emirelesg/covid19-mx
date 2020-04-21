@@ -33,8 +33,7 @@ export default {
   name: 'Disclaimer',
   data() {
     return {
-      source:
-        'https://www.gob.mx/salud/documentos/coronavirus-covid-19-comunicado-tecnico-diario-238449'
+      source: 'hhttps://www.gob.mx/salud/documentos/datos-abiertos-152127'
     };
   },
   methods: {
