@@ -34,9 +34,10 @@
 
 import {
   select,
-  interpolateReds,
-  interpolateOranges,
-  interpolateBlues
+  interpolateOrRd,
+  interpolateYlOrBr,
+  interpolatePuBu,
+  interpolateBuPu
 } from 'd3';
 import { geoPath, geoMercator } from 'd3-geo';
 import { mapState } from 'vuex';
@@ -45,16 +46,18 @@ import StateInfo from '@/components/charts/StateInfo';
 import scaleCluster from 'd3-scale-cluster';
 
 const schemes = {
-  confirmed: interpolateReds,
-  suspected: interpolateOranges,
-  deaths: interpolateBlues
+  confirmed: interpolateOrRd,
+  suspected: interpolateYlOrBr,
+  deaths: interpolatePuBu,
+  active: interpolateBuPu
 };
 
 const texts = {
   title: {
     confirmed: 'Confirmados por Entidad',
     suspected: 'Sospechosos por Entidad',
-    deaths: 'Fallecidos por Entidad'
+    deaths: 'Fallecidos por Entidad',
+    active: 'Casos Activos por Entidad'
   }
 };
 

@@ -67,7 +67,10 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart) => ({
         type: 'time',
         offset: xOffset || false,
         time: {
-          tooltipFormat: 'LL'
+          tooltipFormat: 'LL',
+          displayFormats: {
+            distribution: 'series'
+          }
         },
         gridLines: {
           color: 'rgba(0,0,0,0)'
@@ -113,6 +116,13 @@ export const readableLog = value => {
 export const round = (num, dec) => +(Math.round(num + `e+${dec}`) + `e-${dec}`);
 
 function getValue(latest, prev, prop) {
+  if (prev[prop] === 0) {
+    return {
+      value: latest[prop],
+      delta: 0,
+      growthFactor: 0
+    };
+  }
   return {
     value: latest[prop],
     delta: latest[prop] - prev[prop],
@@ -134,6 +144,7 @@ export const processTimeseries = timeseries => {
       date: moment(data.date),
       confirmed: getValue(data, prev, 'confirmed'),
       suspected: getValue(data, prev, 'suspected'),
+      active: getValue(data, prev, 'active'),
       deaths: {
         ...getValue(data, prev, 'deaths'),
         letality: `${round((data.deaths / data.confirmed) * 100, 1)}%`
@@ -209,6 +220,13 @@ export const modes = [
     key: 'deaths',
     colorHex: colors.blueGrey.base,
     colorStr: 'blueGrey',
+    colorShade: 'base'
+  },
+  {
+    title: 'Activos',
+    key: 'active',
+    colorHex: colors.purple.base,
+    colorStr: 'purple',
     colorShade: 'base'
   }
 ];

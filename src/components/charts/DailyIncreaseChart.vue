@@ -26,17 +26,20 @@ const texts = {
   title: {
     confirmed: 'Confirmados por Día',
     suspected: 'Sospechosos por Día',
-    deaths: 'Fallecidos por Día'
+    deaths: 'Fallecidos por Día',
+    active: 'Casos Activos por Día'
   },
   subtitle: {
     confirmed: 'El incremento de los casos confirmados por día',
     suspected: 'El incremento de los casos sospechosos por día',
-    deaths: 'El incremento de fallecidos por día'
+    deaths: 'El incremento de fallecidos por día',
+    active: 'El incremento de casos activos por día'
   },
   yLabel: {
     confirmed: '# de Confirmados',
     suspected: '# de Sospechosos',
-    deaths: '# de Fallecidos'
+    deaths: '# de Fallecidos',
+    active: '# de Personas'
   }
 };
 

@@ -31,10 +31,9 @@ export default {
     return {
       questions: [
         {
-          title:
-            '¿Dónde está el número de recuperados y de pruebas realizadas?',
+          title: '¿Dónde está el número de pruebas realizadas?',
           answer:
-            'La Secretaría de Salud no publica estos números en sus informes. Ya que el objetivo del sitio es utilizar solamente los datos de la Secretaría de Salud, hacer un estimado no es posible.'
+            'La Secretaría de Salud no publica este número en sus informes. Ya que el objetivo del sitio es utilizar solamente los datos de la Secretaría de Salud, hacer un estimado no es posible.'
         },
         {
           title: '¿Cada cuándo se actualiza el sitio?',

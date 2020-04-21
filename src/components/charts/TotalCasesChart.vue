@@ -11,6 +11,7 @@
         <v-tab>Logarítmico</v-tab>
         <v-spacer></v-spacer>
         <v-checkbox
+          v-if="predictionEnabled"
           hide-details
           dense
           class="ma-0 pa-0 my-auto"
@@ -19,6 +20,7 @@
         ></v-checkbox>
       </v-tabs>
       <v-alert
+        v-if="predictionEnabled"
         class="ma-0 mt-4 body-2"
         :value="prediction"
         transition="fade-transition"
@@ -56,17 +58,21 @@ const texts = {
   title: {
     confirmed: 'Acumulado de Confirmados',
     suspected: 'Acumulado de Sospechosos',
-    deaths: 'Acumulado de Fallecidos'
+    deaths: 'Acumulado de Fallecidos',
+    active: 'Casos Activos'
   },
   subtitle: {
     confirmed: 'El total de casos confirmados reportado',
     suspected: 'El total de casos sospechosos reportado',
-    deaths: 'El total de casos fallecidos reportado'
+    deaths: 'El total de casos fallecidos reportado',
+    active:
+      'El número de personas que presentaron sintomas en los últimos 14 días.'
   },
   yLabel: {
     confirmed: '# de Confirmados',
     suspected: '# de Sospechosos',
-    deaths: '# de Fallecidos'
+    deaths: '# de Fallecidos',
+    active: '# de Personas'
   }
 };
 
@@ -175,7 +181,8 @@ export default {
     ...mapState({
       timeseries: state => state.timeseries,
       latest: state => state.latest,
-      mode: state => state.mode
+      mode: state => state.mode,
+      predictionEnabled: state => state.mode.key !== 'active'
     })
   }
 };

@@ -1,25 +1,40 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="6" md="3" v-for="(v, i) in values" :key="`value-${i}`">
-      <v-card
-        elevation="0"
-        outlined
-        :style="{ borderTop: `6px solid ${getColor(v)}` }"
-      >
-        <v-list-item two-line class="text-center">
-          <v-list-item-content class="py-4">
-            <v-list-item-title
-              class="display-1 mb-2"
-              :style="{ color: getColor(v) }"
+    <v-col cols="12" sm="6" md="2" v-for="(v, i) in values" :key="`value-${i}`">
+      <v-tooltip bottom max-width="350" :disabled="!v.help">
+        <template v-slot:activator="{ on }">
+          <v-hover v-slot:default="{ hover }" :disabled="!v.help">
+            <v-card
+              v-on="on"
+              :elevation="hover ? 5 : 0"
+              outlined
+              :style="{ borderTop: `6px solid ${getColor(v)}` }"
             >
-              {{ getValue(v) }}
-            </v-list-item-title>
-            <v-list-item-subtitle class="text-uppercase subtitle-2">
-              {{ v.title }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-card>
+              <v-icon
+                v-if="!!v.help"
+                style="position: absolute; right: 10px; top: 10px"
+                color="grey"
+              >
+                mdi-information-outline
+              </v-icon>
+              <v-list-item two-line class="text-center">
+                <v-list-item-content class="py-4">
+                  <v-list-item-title
+                    class="display-1 mb-2"
+                    :style="{ color: getColor(v) }"
+                  >
+                    {{ getValue(v) }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle class="text-uppercase subtitle-2">
+                    {{ v.title }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-hover>
+        </template>
+        <span>{{ v.help }}</span>
+      </v-tooltip>
     </v-col>
   </v-row>
 </template>
@@ -51,20 +66,30 @@ export default {
           delta: true
         },
         {
+          title: 'Casos Activos',
+          value: v => v.active.value,
+          color: colors.purple.base,
+          help:
+            'Número de personas que han presentado sintomas en los últimos 14 días.'
+        },
+        {
           title: 'Sospechosos',
           value: v => v.suspected.value,
-          color: colors.orange.base
+          color: colors.orange.base,
+          help:
+            'Número de personas en espera del resultado de la prueba de COVID-19.'
         },
         {
           title: 'Fallecidos',
           value: v => v.deaths.value,
           color: colors.blueGrey.base
+        },
+        {
+          title: 'Letalidad',
+          value: v => v.deaths.letality,
+          color: colors.blueGrey.base,
+          help: 'Porcentaje de personas con COVID-19 que han fallecido.'
         }
-        // {
-        //   title: 'Letalidad',
-        //   value: v => v.deaths.letality,
-        //   color: colors.blueGrey.base
-        // }
       ]
     };
   },

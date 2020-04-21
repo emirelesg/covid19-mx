@@ -78,7 +78,8 @@ export default new Vuex.Store({
         date,
         confirmed: selectedState.confirmed[i],
         suspected: selectedState.suspected[i],
-        deaths: selectedState.deaths[i]
+        deaths: selectedState.deaths[i],
+        active: selectedState.active[i]
       }));
       const processed = processTimeseries(timeseries);
       commit('SET_ACTIVE_TIMESERIES', processed);

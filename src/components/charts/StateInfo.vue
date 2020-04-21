@@ -21,6 +21,12 @@
               </td>
               <td>Fallecidos</td>
             </tr>
+            <tr>
+              <td class="purple--text">
+                {{ state.active }}
+              </td>
+              <td>Activos</td>
+            </tr>
           </tbody>
         </template>
       </v-simple-table>
