@@ -11,8 +11,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     // Urls for source data.
-    statsUrl: '/api/latest.json',
-    statsByStateUrl: '/api/latestByState.json',
+    statsUrl: '/api/stats.json',
+    statsByStateUrl: '/api/statsByState.json',
     geojsonUrl: '/maps/mexico.json',
     // What property is used to display charts.
     mode: modes[0],
