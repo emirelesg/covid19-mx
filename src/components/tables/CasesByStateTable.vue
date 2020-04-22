@@ -45,6 +45,9 @@
               {{ getDeltaLabel(latest.confirmed.delta) }}
             </td>
             <td class="text-center font-weight-bold">
+              {{ latest.active.value }}
+            </td>
+            <td class="text-center font-weight-bold">
               {{ latest.suspected.value }}
             </td>
             <td class="text-center font-weight-bold">
@@ -80,6 +83,11 @@ export default {
         {
           text: 'Confirmados Hoy',
           value: 'confirmedDelta',
+          align: 'center'
+        },
+        {
+          text: 'Casos Activos',
+          value: 'active',
           align: 'center'
         },
         { text: 'Sospechosos', value: 'suspected', align: 'center' },
