@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'DownloadStats',
   data() {
@@ -24,13 +26,19 @@ export default {
   },
   methods: {
     stats() {
-      const popupWindow = window.open('/api/stats.json', '_blank');
+      const popupWindow = window.open(this.statsUrl, '_blank');
       popupWindow.focus();
     },
     statsByState() {
-      const popupWindow = window.open('/api/statsByState.json', '_blank');
+      const popupWindow = window.open(this.statsByStateUrl, '_blank');
       popupWindow.focus();
     }
+  },
+  computed: {
+    ...mapState({
+      statsUrl: state => state.statsUrl,
+      statsByStateUrl: state => state.statsByStateUrl
+    })
   }
 };
 </script>
