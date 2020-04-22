@@ -1,10 +1,11 @@
 <template>
   <v-alert
+    id="update-alert"
     class="v-card v-card--outlined my-3"
     border="left"
     colored-border
-    type="info"
-    color="purple"
+    type="error"
+    color="primary"
     dismissible
     transition="fade-transition"
     :value="!isClosed"
