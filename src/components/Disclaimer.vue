@@ -1,19 +1,19 @@
 <template>
   <v-alert
+    class="v-card v-card--outlined mb-3"
     border="left"
     colored-border
     type="info"
     color="primary"
     dismissible
     transition="fade-transition"
-    style="border: thin solid rgba(98, 0, 234, 0.2)"
-    :value="!disclaimerClosed"
+    :value="!isClosed"
     @input="CLOSE_DISCLAIMER"
   >
     <div>
-      Este es un sitio no oficial que presenta <strong>únicamente</strong> los
-      datos oficiales de la Secretaría de Salud de México —
-      <a href="https://twitter.com/SSalud_mx" target="_blank">@SSalud_mx</a>.
+      Este es un sitio no oficial que presenta
+      <strong>únicamente</strong> los datos oficiales de la Secretaría de Salud
+      de México. Los datos en el sitio se actualizan diario a las 19:00 horas.
     </div>
     <div>
       Fuente:
@@ -29,6 +29,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+
 export default {
   name: 'Disclaimer',
   data() {
@@ -41,7 +42,7 @@ export default {
   },
   computed: {
     ...mapState({
-      disclaimerClosed: state => state.disclaimerClosed
+      isClosed: state => state.disclaimerClosed
     })
   }
 };
