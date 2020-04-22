@@ -86,7 +86,7 @@ export default {
           align: 'center'
         },
         {
-          text: 'Casos Activos',
+          text: 'Activos',
           value: 'active',
           align: 'center'
         },

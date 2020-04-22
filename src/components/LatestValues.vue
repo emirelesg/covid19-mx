@@ -66,7 +66,7 @@ export default {
           delta: true
         },
         {
-          title: 'Casos Activos',
+          title: 'Activos',
           value: v => v.active.value,
           color: colors.purple.base,
           help:

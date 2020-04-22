@@ -57,7 +57,7 @@ const texts = {
     confirmed: 'Confirmados por Entidad',
     suspected: 'Sospechosos por Entidad',
     deaths: 'Fallecidos por Entidad',
-    active: 'Casos Activos por Entidad'
+    active: 'Activos por Entidad'
   }
 };
 

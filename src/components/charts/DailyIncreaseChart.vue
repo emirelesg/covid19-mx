@@ -27,7 +27,7 @@ const texts = {
     confirmed: 'Confirmados por Día',
     suspected: 'Sospechosos por Día',
     deaths: 'Fallecidos por Día',
-    active: 'Casos Activos por Día'
+    active: 'Activos por Día'
   },
   subtitle: {
     confirmed: 'El incremento de los casos confirmados por día',
@@ -39,7 +39,7 @@ const texts = {
     confirmed: '# de Confirmados',
     suspected: '# de Sospechosos',
     deaths: '# de Fallecidos',
-    active: '# de Personas'
+    active: '# de Activos'
   }
 };
 

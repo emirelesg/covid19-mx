@@ -59,7 +59,7 @@ const texts = {
     confirmed: 'Acumulado de Confirmados',
     suspected: 'Acumulado de Sospechosos',
     deaths: 'Acumulado de Fallecidos',
-    active: 'Casos Activos'
+    active: 'Acumulado de Activos'
   },
   subtitle: {
     confirmed: 'El total de casos confirmados reportado',
@@ -72,7 +72,7 @@ const texts = {
     confirmed: '# de Confirmados',
     suspected: '# de Sospechosos',
     deaths: '# de Fallecidos',
-    active: '# de Personas'
+    active: '# de Activos'
   }
 };
 
