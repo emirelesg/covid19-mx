@@ -6,6 +6,10 @@ module.exports = {
       '^/api': {
         target: 'https://covid19.newtondreams.com',
         changeOrigin: true
+      },
+      '^/static': {
+        target: 'https://covid19.newtondreams.com',
+        changeOrigin: true
       }
     }
   },

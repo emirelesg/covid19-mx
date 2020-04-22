@@ -10,13 +10,18 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // Urls for source data.
+    statsUrl: '/api/latest.json',
+    statsByStateUrl: '/api/latestByState.json',
+    geojsonUrl: '/maps/mexico.json',
     // What property is used to display charts.
     mode: modes[0],
     modeIdx: 0,
     // Navigation drawer.
     drawer: false,
-    // Once dismissed, the disclaimer remains closed.
+    // Used for saving the state of closed alerts.
     disclaimerClosed: false,
+    updateAlertClosed: false,
     // Data for drawing the map of Mexico.
     geojson: null,
     // Contains totals about the pandemic.
@@ -38,6 +43,9 @@ export default new Vuex.Store({
     },
     TOGGLE_DRAWER(state) {
       state.drawer = !state.drawer;
+    },
+    CLOSE_UPDATE_ALERT(state) {
+      state.updateAlertClosed = true;
     },
     CLOSE_DISCLAIMER(state) {
       state.disclaimerClosed = true;
@@ -64,10 +72,7 @@ export default new Vuex.Store({
     loadStatsByState: async ({ state, dispatch, commit }, stateKey) => {
       // Only load stats by state for the first time.
       if (!state.statsByState) {
-        const statsByState = await dispatch(
-          'getJSON',
-          '/api/statsByState.json'
-        );
+        const statsByState = await dispatch('getJSON', state.statsByStateUrl);
         commit('SET_STATS_BY_STATE', statsByState);
       }
 
@@ -90,13 +95,13 @@ export default new Vuex.Store({
     loadStats: async ({ state, dispatch, commit }) => {
       // Only load geojson for the first time.
       if (!state.geojson) {
-        const geojson = await dispatch('getJSON', '/maps/mexico.json');
+        const geojson = await dispatch('getJSON', state.geojsonUrl);
         commit('SET_GEOJSON', geojson);
       }
 
       // Only load stats for the first time.
       if (!state.stats) {
-        const stats = await dispatch('getJSON', '/api/stats.json');
+        const stats = await dispatch('getJSON', state.statsUrl);
         commit('SET_STATS', stats);
       }
 

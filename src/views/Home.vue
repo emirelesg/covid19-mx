@@ -17,6 +17,7 @@
     </v-row>
     <disclaimer />
     <latest-values :loaded="loaded" />
+    <update-alert />
     <v-row>
       <v-col cols="12" md="6">
         <map-card :loaded="loaded" />
@@ -54,6 +55,7 @@ import Faq from '@/components/Faq';
 import DownloadStats from '@/components/DownloadStats';
 import LatestValues from '@/components/LatestValues';
 import Donations from '@/components/Donations';
+import UpdateAlert from '@/components/UpdateAlert';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -61,6 +63,7 @@ export default {
   components: {
     Faq,
     MapCard,
+    UpdateAlert,
     LatestValues,
     TotalCasesChart,
     Disclaimer,

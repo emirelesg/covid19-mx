@@ -16,6 +16,7 @@
     </v-row>
     <disclaimer />
     <latest-values :loaded="loaded" />
+    <update-alert />
     <v-row>
       <v-col cols="12" md="6">
         <total-cases-chart :loaded="loaded" />
@@ -38,6 +39,7 @@ import DailyIncreaseChart from '@/components/charts/DailyIncreaseChart';
 import GrowthFactorChart from '@/components/charts/GrowthFactorChart';
 import TotalCasesChart from '@/components/charts/TotalCasesChart';
 import Disclaimer from '@/components/Disclaimer';
+import UpdateAlert from '@/components/UpdateAlert';
 import LatestValues from '@/components/LatestValues';
 import { stateNames } from '@/plugins/helper';
 import Donations from '@/components/Donations';
@@ -51,6 +53,7 @@ export default {
     LatestValues,
     TotalCasesChart,
     GrowthFactorChart,
+    UpdateAlert,
     DailyIncreaseChart
   },
   data() {
