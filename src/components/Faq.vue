@@ -33,22 +33,21 @@ export default {
         {
           title: '¿Dónde está el número de pruebas realizadas?',
           answer:
-            'La Secretaría de Salud no publica este número en sus informes. Ya que el objetivo del sitio es utilizar solamente los datos de la Secretaría de Salud, hacer un estimado no es posible.'
+            'Estoy trabajando para obtener el número de una manera confiable.'
         },
         {
           title: '¿Cada cuándo se actualiza el sitio?',
-          answer:
-            'Todos los días poco después del informe diario de las 19 horas.'
+          answer: 'Todos los días poco después de las 19 horas.'
         },
         {
           title: 'Los datos de mi estado están mal.',
           answer:
-            'La Secretaría de Salud hace el corte de datos a las 13 horas. Es probable que los casos sean reportados en el informe del día siguiente. Aunque se hacen pruebas para verificar que los datos presentados en el sitio sean iguales a los de la Secretaría de Salud, puede haber una discrepancia. Si encuentras un error te agradezco me contactes para revisarlo lo antes posible. Los datos de contacto están en la pregunta sobre contacto.'
+            'La Secretaría de Salud hace el corte de datos a las 13 horas y no considera los casos de hospitales privados. Aunque se hacen pruebas para verificar que los datos presentados en el sitio sean iguales a los de la Secretaría de Salud, puede haber una discrepancia. Si encuentras un error te agradezco me contactes para revisarlo lo antes posible. Los datos de contacto están en la pregunta sobre contacto.'
         },
         {
           title: '¿Cómo te puedo contactar?',
           answer:
-            'Puedes enviarme un mensaje directo por Twitter a <a href="https://twitter.com/emirelesg">@emirelesg</a> o un correo a <a href="mailto:enrique.mireles@udem.edu">enrique.mireles@udem.edu</a>.'
+            'Puedes enviarme un mensaje directo por Twitter a <a href="https://twitter.com/emirelesg">@emirelesg</a>.'
         }
       ]
     };
