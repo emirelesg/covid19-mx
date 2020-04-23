@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment';
-import { processTimeseries, modes } from '@/plugins/helper';
+import {
+  processTimeseries,
+  processTimeseriesBySymptoms,
+  modes
+} from '@/plugins/helper';
 
 // Choose the default locale for momentjs.
 moment.locale('es');
@@ -30,6 +34,8 @@ export default new Vuex.Store({
     statsByState: null,
     // Currently selected timeseries.
     timeseries: [],
+    // Currently selected timeseries of cases by date of start of symptoms.
+    timeseriesBySymptoms: [],
     // Most recent value of the timeseries.
     latest: {}
   },
@@ -56,9 +62,10 @@ export default new Vuex.Store({
     SET_STATS_BY_STATE(state, statsByState) {
       state.statsByState = statsByState;
     },
-    SET_ACTIVE_TIMESERIES(state, { timeseries, latest }) {
+    SET_ACTIVE(state, { timeseries, timeseriesBySymptoms, latest }) {
       state.timeseries = timeseries;
       state.latest = latest;
+      state.timeseriesBySymptoms = timeseriesBySymptoms;
     },
     SET_STATS(state, stats) {
       state.stats = stats;
@@ -66,7 +73,11 @@ export default new Vuex.Store({
   },
   actions: {
     clear: ({ commit }) => {
-      commit('SET_ACTIVE_TIMESERIES', { timeseries: [], latest: {} });
+      commit('SET_ACTIVE', {
+        timeseries: [],
+        timeseriesBySymptoms: [],
+        latest: {}
+      });
     },
 
     loadStatsByState: async ({ state, dispatch, commit }, stateKey) => {
@@ -79,15 +90,29 @@ export default new Vuex.Store({
       // Convert data to a timeseries format. Then process it
       // to obtain the extended timeseries and latest data.
       const selectedState = state.statsByState.states[stateKey.toUpperCase()];
-      let timeseries = state.statsByState.dates.map((date, i) => ({
-        date,
-        confirmed: selectedState.confirmed[i],
-        suspected: selectedState.suspected[i],
-        deaths: selectedState.deaths[i],
-        active: selectedState.active[i]
-      }));
-      const processed = processTimeseries(timeseries);
-      commit('SET_ACTIVE_TIMESERIES', processed);
+      const { timeseries, latest } = processTimeseries(
+        state.statsByState.dates.map((date, i) => ({
+          date,
+          confirmed: selectedState.confirmed[i],
+          suspected: selectedState.suspected[i],
+          deaths: selectedState.deaths[i],
+          active: selectedState.active[i]
+        }))
+      );
+
+      // Set the timeseries for cases by start of symptoms.
+      const timeseriesBySymptoms = processTimeseriesBySymptoms(
+        state.statsByState.datesBySymptoms.map((date, i) => ({
+          date,
+          cases: selectedState.bySymptoms[i]
+        }))
+      );
+
+      commit('SET_ACTIVE', {
+        timeseries,
+        timeseriesBySymptoms,
+        latest
+      });
 
       return true;
     },
@@ -106,8 +131,18 @@ export default new Vuex.Store({
       }
 
       // Process the timeseries data.
-      const processed = processTimeseries(state.stats.timeseries);
-      commit('SET_ACTIVE_TIMESERIES', processed);
+      const { timeseries, latest } = processTimeseries(state.stats.timeseries);
+
+      // Set the timeseries for cases by start of symptoms.
+      const timeseriesBySymptoms = processTimeseriesBySymptoms(
+        state.stats.timeseriesBySymptoms
+      );
+
+      commit('SET_ACTIVE', {
+        timeseries,
+        timeseriesBySymptoms,
+        latest
+      });
 
       return true;
     },

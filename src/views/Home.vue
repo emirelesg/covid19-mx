@@ -31,7 +31,10 @@
       <v-col cols="12" md="6">
         <daily-increase-chart :loaded="loaded" />
       </v-col>
-      <v-col cols="12" md="12">
+      <v-col cols="12">
+        <start-of-symptoms :loaded="loaded" />
+      </v-col>
+      <v-col cols="12">
         <growth-factor-chart :skip="14" :loaded="loaded" />
       </v-col>
       <v-col cols="12">
@@ -48,6 +51,7 @@
 import MapCard from '@/components/charts/MapChart';
 import TotalCasesChart from '@/components/charts/TotalCasesChart';
 import DailyIncreaseChart from '@/components/charts/DailyIncreaseChart';
+import StartOfSymptoms from '@/components/charts/StartOfSymptomsChart';
 import Disclaimer from '@/components/Disclaimer';
 import CasesByStateTable from '@/components/tables/CasesByStateTable';
 import GrowthFactorChart from '@/components/charts/GrowthFactorChart';
@@ -66,6 +70,7 @@ export default {
     UpdateAlert,
     LatestValues,
     TotalCasesChart,
+    StartOfSymptoms,
     Disclaimer,
     CasesByStateTable,
     DailyIncreaseChart,

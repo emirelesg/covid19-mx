@@ -24,7 +24,10 @@
       <v-col cols="12" md="6">
         <daily-increase-chart :loaded="loaded" />
       </v-col>
-      <v-col cols="12" md="12">
+      <v-col cols="12">
+        <start-of-symptoms :loaded="loaded" />
+      </v-col>
+      <v-col cols="12">
         <growth-factor-chart :loaded="loaded" />
       </v-col>
       <v-col cols="12">
@@ -38,6 +41,7 @@
 import DailyIncreaseChart from '@/components/charts/DailyIncreaseChart';
 import GrowthFactorChart from '@/components/charts/GrowthFactorChart';
 import TotalCasesChart from '@/components/charts/TotalCasesChart';
+import StartOfSymptoms from '@/components/charts/StartOfSymptomsChart';
 import Disclaimer from '@/components/Disclaimer';
 import UpdateAlert from '@/components/UpdateAlert';
 import LatestValues from '@/components/LatestValues';
@@ -49,6 +53,7 @@ export default {
   name: 'State',
   components: {
     Disclaimer,
+    StartOfSymptoms,
     Donations,
     LatestValues,
     TotalCasesChart,

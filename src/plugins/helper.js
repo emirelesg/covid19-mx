@@ -19,6 +19,7 @@ export const baseBarOptions = (color, shade, label) => ({
   label,
   type: 'bar',
   barPercentage: 0.7,
+  categoryPercentage: 0.8,
   borderWidth: 1,
   data: [],
   ...barColor(color, shade)
@@ -131,6 +132,12 @@ function getValue(latest, prev, prop) {
     growthFactor: round(latest[prop] / prev[prop], 4)
   };
 }
+
+export const processTimeseriesBySymptoms = timeseries =>
+  timeseries.map(data => ({
+    ...data,
+    date: moment(data.date)
+  }));
 
 export const processTimeseries = timeseries => {
   // Timeseries is an array, where each element is an object with the following properties:
