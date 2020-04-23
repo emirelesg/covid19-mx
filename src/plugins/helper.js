@@ -15,7 +15,8 @@ export const barColor = (color, shade) => ({
   backgroundColor: hex2rgba(colors[color][shade || 'base'], 0.3)
 });
 
-export const baseBarOptions = (color, shade) => ({
+export const baseBarOptions = (color, shade, label) => ({
+  label,
   type: 'bar',
   barPercentage: 0.7,
   borderWidth: 1,
@@ -29,7 +30,8 @@ export const lineColor = (color, shade) => ({
   pointBackgroundColor: colors[color][shade || 'base']
 });
 
-export const baseLineOptions = (color, shade, dashed) => ({
+export const baseLineOptions = (color, shade, dashed, label) => ({
+  label,
   type: 'line',
   borderWidth: 2,
   borderDash: dashed ? [4, 4] : [0, 0],
@@ -39,11 +41,11 @@ export const baseLineOptions = (color, shade, dashed) => ({
   ...lineColor(color, shade)
 });
 
-export const baseChartOptions = (xLabel, yLabel, xOffset, yStart) => ({
+export const baseChartOptions = (xLabel, yLabel, xOffset, yStart, legend) => ({
   maintainAspectRatio: false,
   responsive: true,
   legend: {
-    display: false
+    display: !!legend
   },
   tooltips: {
     enabled: true
