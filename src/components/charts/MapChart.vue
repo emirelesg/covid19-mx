@@ -1,6 +1,6 @@
 <template>
   <card
-    :title="texts.title[mode.key]"
+    :title="labels.title[mode.key]"
     subtitle="Mueve el cursor sobre una entidad para conocer más"
     loadingMessage="Cargando Mapa..."
     :loaded="loaded"
@@ -37,27 +37,26 @@ import {
   interpolateOrRd,
   interpolateYlOrBr,
   interpolatePuBu,
-  interpolateBuPu
+  interpolateBuPu,
+  interpolateBlues,
+  hsl
 } from 'd3';
 import { geoPath, geoMercator } from 'd3-geo';
 import { mapState } from 'vuex';
 import Card from '@/components/Card';
 import StateInfo from '@/components/charts/StateInfo';
 import scaleCluster from 'd3-scale-cluster';
+import { labels } from '@/plugins/helper';
 
 const schemes = {
   confirmed: interpolateOrRd,
   suspected: interpolateYlOrBr,
   deaths: interpolatePuBu,
-  active: interpolateBuPu
-};
-
-const texts = {
-  title: {
-    confirmed: 'Confirmados por Entidad',
-    suspected: 'Sospechosos por Entidad',
-    deaths: 'Fallecidos por Entidad',
-    active: 'Activos por Entidad'
+  active: interpolateBuPu,
+  tests: v => {
+    const color = hsl(interpolateBlues(v));
+    color.h = 190;
+    return color;
   }
 };
 
@@ -75,7 +74,7 @@ export default {
   },
   data() {
     return {
-      texts,
+      labels: labels.map,
       w: 500,
       h: 400,
       legend: null,

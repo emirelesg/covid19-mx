@@ -1,7 +1,7 @@
 <template>
   <card
-    :title="texts.title[mode.key]"
-    :subtitle="texts.subtitle[mode.key]"
+    :title="labels.title[mode.key]"
+    :subtitle="labels.subtitle[mode.key]"
     loadingMessage="Cargando Gráfica..."
     :loaded="loaded"
   >
@@ -20,28 +20,12 @@
 import { mapState } from 'vuex';
 import Card from '@/components/Card';
 import Chart from '@/components/charts/BaseChart';
-import { baseBarOptions, baseChartOptions, barColor } from '@/plugins/helper';
-
-const texts = {
-  title: {
-    confirmed: 'Confirmados por Día',
-    suspected: 'Sospechosos por Día',
-    deaths: 'Fallecidos por Día',
-    active: 'Activos por Día'
-  },
-  subtitle: {
-    confirmed: 'El incremento de los casos confirmados por día',
-    suspected: 'El incremento de los casos sospechosos por día',
-    deaths: 'El incremento de fallecidos por día',
-    active: 'El incremento de casos activos por día'
-  },
-  yLabel: {
-    confirmed: '# de Confirmados',
-    suspected: '# de Sospechosos',
-    deaths: '# de Fallecidos',
-    active: '# de Activos'
-  }
-};
+import {
+  baseBarOptions,
+  baseChartOptions,
+  barColor,
+  labels
+} from '@/plugins/helper';
 
 export default {
   name: 'DailyIncreaseChart',
@@ -57,7 +41,7 @@ export default {
   },
   data() {
     return {
-      texts,
+      labels: labels.dailyIncrease,
       data: {
         datasets: [baseBarOptions('red')]
       },
@@ -87,10 +71,11 @@ export default {
   methods: {
     update() {
       if (this.$refs.chart) {
-        this.$refs.chart.update(0, texts.yLabel[this.mode.key]);
+        this.$refs.chart.update(0, this.labels.yLabel[this.mode.key]);
       } else {
-        this.options.scales.yAxes[0].scaleLabel.labelString =
-          texts.yLabel[this.mode.key];
+        this.options.scales.yAxes[0].scaleLabel.labelString = this.labels.yLabel[
+          this.mode.key
+        ];
       }
     },
     reset() {
@@ -99,10 +84,14 @@ export default {
         ...this.data.datasets[0],
         ...barColor(this.mode.colorStr, this.mode.colorShade)
       };
-      this.data.datasets[0].data = this.timeseries.map(data => ({
-        t: data.date,
-        y: data[this.mode.key].delta
-      }));
+      this.data.datasets[0].data = this.timeseries
+        .filter(({ date }) =>
+          this.mode.startDate ? date.isSameOrAfter(this.mode.startDate) : true
+        )
+        .map(data => ({
+          t: data.date,
+          y: data[this.mode.key].delta
+        }));
     }
   },
   computed: {

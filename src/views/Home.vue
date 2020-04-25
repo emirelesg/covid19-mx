@@ -17,7 +17,7 @@
     </v-row>
     <disclaimer />
     <latest-values :loaded="loaded" />
-    <update-alert />
+    <!-- <update-alert /> -->
     <v-row>
       <v-col cols="12" md="6">
         <map-card :loaded="loaded" />
@@ -26,13 +26,13 @@
         <total-cases-chart :loaded="loaded" />
       </v-col>
       <v-col cols="12" md="6">
-        <cases-by-state-table :loaded="loaded" />
+        <start-of-symptoms :loaded="loaded" />
       </v-col>
       <v-col cols="12" md="6">
         <daily-increase-chart :loaded="loaded" />
       </v-col>
       <v-col cols="12">
-        <start-of-symptoms :loaded="loaded" />
+        <cases-by-state-table :loaded="loaded" />
       </v-col>
       <v-col cols="12">
         <growth-factor-chart :skip="14" :loaded="loaded" />
@@ -59,7 +59,7 @@ import Faq from '@/components/Faq';
 import DownloadStats from '@/components/DownloadStats';
 import LatestValues from '@/components/LatestValues';
 import Donations from '@/components/Donations';
-import UpdateAlert from '@/components/UpdateAlert';
+// import UpdateAlert from '@/components/UpdateAlert';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -67,7 +67,7 @@ export default {
   components: {
     Faq,
     MapCard,
-    UpdateAlert,
+    // UpdateAlert,
     LatestValues,
     TotalCasesChart,
     StartOfSymptoms,

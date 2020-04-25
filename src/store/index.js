@@ -96,7 +96,8 @@ export default new Vuex.Store({
           confirmed: selectedState.confirmed[i],
           suspected: selectedState.suspected[i],
           deaths: selectedState.deaths[i],
-          active: selectedState.active[i]
+          active: selectedState.active[i],
+          tests: selectedState.tests[i]
         }))
       );
 

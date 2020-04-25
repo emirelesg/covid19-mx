@@ -88,7 +88,12 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart, legend) => ({
       {
         ticks: {
           beginAtZero: yStart === undefined,
-          min: yStart
+          min: yStart,
+          callback: (value, _, values) => {
+            if (Math.max(...values) >= 1e4 && Math.abs(value) >= 1e3)
+              return `${value / 1e3}K`;
+            return value;
+          }
         },
         scaleLabel: {
           display: true,
@@ -157,7 +162,8 @@ export const processTimeseries = timeseries => {
       deaths: {
         ...getValue(data, prev, 'deaths'),
         letality: `${round((data.deaths / data.confirmed) * 100, 1)}%`
-      }
+      },
+      tests: getValue(data, prev, 'tests')
     };
   });
 
@@ -215,27 +221,157 @@ export const modes = [
     key: 'confirmed',
     colorHex: colors.red.base,
     colorStr: 'red',
-    colorShade: 'base'
+    colorShade: 'base',
+    prediction: true,
+    startDate: undefined
   },
   {
     title: 'Sospechosos',
     key: 'suspected',
     colorHex: colors.orange.base,
     colorStr: 'orange',
-    colorShade: 'base'
+    colorShade: 'base',
+    prediction: false,
+    startDate: undefined
   },
   {
     title: 'Fallecidos',
     key: 'deaths',
     colorHex: colors.blueGrey.base,
     colorStr: 'blueGrey',
-    colorShade: 'base'
+    colorShade: 'base',
+    prediction: true,
+    startDate: undefined
   },
   {
     title: 'Activos',
     key: 'active',
     colorHex: colors.purple.base,
     colorStr: 'purple',
-    colorShade: 'base'
+    colorShade: 'base',
+    prediction: false,
+    startDate: moment('2020-04-12')
+  },
+  {
+    title: 'Pruebas',
+    key: 'tests',
+    colorHex: colors.cyan.darken1,
+    colorStr: 'cyan',
+    colorShade: 'darken1',
+    prediction: false,
+    startDate: moment('2020-04-12')
   }
 ];
+
+function getModeColor(key) {
+  return modes.find(mode => mode.key === key).colorHex;
+}
+
+export const values = [
+  {
+    title: 'Confirmados',
+    value: v => v.confirmed.value,
+    color: getModeColor('confirmed')
+  },
+  {
+    title: 'Confirmados Hoy',
+    value: v => v.confirmed.delta,
+    delta: true
+  },
+  {
+    title: 'Activos',
+    value: v => v.active.value,
+    color: getModeColor('active'),
+    help:
+      'Personas estimadas que iniciaron con sintomas en los últimos 14 días.'
+  },
+  {
+    title: 'Recuperados',
+    value: v => v.confirmed.value - v.active.value - v.deaths.value,
+    color: colors.green.base,
+    help:
+      'Personas estimadas que presentaron sintomas hace más de 14 días. Es igual a confirmados - activos - fallecidos.'
+  },
+  {
+    title: 'Fallecidos',
+    value: v => v.deaths.value,
+    color: getModeColor('deaths')
+  },
+  {
+    title: 'Letalidad',
+    value: v => v.deaths.letality,
+    color: getModeColor('deaths'),
+    help: 'Porcentaje de personas con COVID-19 que han fallecido.'
+  },
+  {
+    title: 'Sospechosos',
+    value: v => v.suspected.value,
+    color: getModeColor('suspected'),
+    help: 'Personas en espera del resultado de la prueba de COVID-19.'
+  },
+  {
+    title: 'Pruebas',
+    value: v => v.tests.value,
+    color: getModeColor('tests'),
+    help: 'Personas que han hecho la prueba de COVID-19.'
+  }
+];
+
+export const labels = {
+  totalCases: {
+    title: {
+      confirmed: 'Acumulado de Confirmados',
+      suspected: 'Acumulado de Sospechosos',
+      deaths: 'Acumulado de Fallecidos',
+      active: 'Acumulado de Activos',
+      tests: 'Acumulado de Pruebas'
+    },
+    subtitle: {
+      confirmed: 'Total de casos confirmados reportado',
+      suspected: 'Total de casos sospechosos reportado',
+      deaths: 'Total de casos fallecidos reportado',
+      active:
+        'Total de personas que presentaron sintomas en los últimos 14 días',
+      tests: ' Total de personas estudiadas'
+    },
+    yLabel: {
+      confirmed: '# de Confirmados',
+      suspected: '# de Sospechosos',
+      deaths: '# de Fallecidos',
+      active: '# de Activos',
+      tests: '# de Pruebas'
+    }
+  },
+  dailyIncrease: {
+    title: {
+      confirmed: 'Confirmados por Día',
+      suspected: 'Sospechosos por Día',
+      deaths: 'Fallecidos por Día',
+      active: 'Activos por Día',
+      tests: 'Pruebas por Día'
+    },
+    subtitle: {
+      confirmed: 'El incremento de los casos confirmados por día',
+      suspected: 'El incremento de los casos sospechosos por día',
+      deaths: 'El incremento de fallecidos por día',
+      active: 'El incremento de casos activos por día',
+      tests: 'El incremento de pruebas por día'
+    },
+    yLabel: {
+      confirmed: '# de Confirmados',
+      suspected: '# de Sospechosos',
+      deaths: '# de Fallecidos',
+      active: '# de Activos',
+      tests: '# de Pruebas'
+    }
+  },
+  map: {
+    title: {
+      confirmed: 'Confirmados por Entidad',
+      suspected: 'Sospechosos por Entidad',
+      deaths: 'Fallecidos por Entidad',
+      active: 'Activos por Entidad',
+      tests: 'Pruebas por Entidad'
+    }
+  }
+};

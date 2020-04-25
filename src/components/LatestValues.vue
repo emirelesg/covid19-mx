@@ -1,7 +1,12 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="6" md="2" v-for="(v, i) in values" :key="`value-${i}`">
-      <v-tooltip bottom max-width="300" :disabled="!v.help">
+    <v-col cols="6" sm="3" md="3" v-for="(v, i) in values" :key="`value-${i}`">
+      <v-tooltip
+        bottom
+        max-width="300"
+        :disabled="!v.help"
+        color="rgba(50, 50, 50, 0.9)"
+      >
         <template v-slot:activator="{ on }">
           <!-- <v-hover v-slot:default="{ hover }" :disabled="!v.help"> -->
           <v-card
@@ -41,6 +46,7 @@
 
 <script>
 import colors from 'vuetify/es5/util/colors';
+import { values } from '@/plugins/helper';
 import { mapState } from 'vuex';
 
 export default {
@@ -53,44 +59,7 @@ export default {
   },
   data() {
     return {
-      values: [
-        {
-          title: 'Confirmados',
-          value: v => v.confirmed.value,
-          color: colors.red.base
-        },
-        {
-          title: 'Confirmados Hoy',
-          value: v => v.confirmed.delta,
-          color: colors.red.base,
-          delta: true
-        },
-        {
-          title: 'Activos',
-          value: v => v.active.value,
-          color: colors.purple.base,
-          help:
-            'Número de personas que han presentado sintomas en los últimos 14 días.'
-        },
-        {
-          title: 'Sospechosos',
-          value: v => v.suspected.value,
-          color: colors.orange.base,
-          help:
-            'Número de personas en espera del resultado de la prueba de COVID-19.'
-        },
-        {
-          title: 'Fallecidos',
-          value: v => v.deaths.value,
-          color: colors.blueGrey.base
-        },
-        {
-          title: 'Letalidad',
-          value: v => v.deaths.letality,
-          color: colors.blueGrey.base,
-          help: 'Porcentaje de personas con COVID-19 que han fallecido.'
-        }
-      ]
+      values
     };
   },
   methods: {

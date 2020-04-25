@@ -7,25 +7,9 @@
       <v-simple-table dense>
         <template v-slot:default>
           <tbody>
-            <tr>
-              <td class="red--text">{{ state.confirmed }}</td>
-              <td>Confirmados</td>
-            </tr>
-            <tr>
-              <td class="orange--text">{{ state.suspected }}</td>
-              <td>Sospechosos</td>
-            </tr>
-            <tr>
-              <td class="blue-grey--text text--darken-3">
-                {{ state.deaths }}
-              </td>
-              <td>Fallecidos</td>
-            </tr>
-            <tr>
-              <td class="purple--text">
-                {{ state.active }}
-              </td>
-              <td>Activos</td>
+            <tr v-for="mode in modes" :key="mode.key">
+              <td :style="{ color: mode.colorHex }">{{ state[mode.key] }}</td>
+              <td>{{ mode.title }}</td>
             </tr>
           </tbody>
         </template>
@@ -35,11 +19,15 @@
 </template>
 
 <script>
+import { modes } from '@/plugins/helper';
+
 export default {
   name: 'StateInfo',
   props: ['state'],
   data() {
-    return {};
+    return {
+      modes
+    };
   }
 };
 </script>

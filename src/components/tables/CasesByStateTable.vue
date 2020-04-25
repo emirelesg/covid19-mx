@@ -1,7 +1,7 @@
 <template>
   <card
     title="Entidades"
-    subtitle="Conoce los tipos de casos por entidad"
+    subtitle="Compara la situación actual por entidades"
     loadingMessage="Cargando Datos..."
     :loaded="loaded"
   >
@@ -53,6 +53,9 @@
             <td class="text-center font-weight-bold">
               {{ latest.deaths.value }}
             </td>
+            <td class="text-center font-weight-bold">
+              {{ latest.tests.value }}
+            </td>
           </tr>
         </template>
       </v-data-table>
@@ -64,6 +67,7 @@
 import Card from '@/components/Card';
 import colors from 'vuetify/lib/util/colors';
 import { mapState } from 'vuex';
+
 export default {
   name: 'CasesBystateTable',
   components: {
@@ -91,7 +95,8 @@ export default {
           align: 'center'
         },
         { text: 'Sospechosos', value: 'suspected', align: 'center' },
-        { text: 'Fallecidos', value: 'deaths', align: 'center' }
+        { text: 'Fallecidos', value: 'deaths', align: 'center' },
+        { text: 'Pruebas', value: 'tests', align: 'center' }
       ]
     };
   },

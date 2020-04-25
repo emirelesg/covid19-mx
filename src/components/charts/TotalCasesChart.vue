@@ -1,7 +1,7 @@
 <template>
   <card
-    :title="texts.title[mode.key]"
-    :subtitle="texts.subtitle[mode.key]"
+    :title="labels.title[mode.key]"
+    :subtitle="labels.subtitle[mode.key]"
     loadingMessage="Cargando Gráfica..."
     :loaded="loaded"
   >
@@ -11,7 +11,7 @@
         <v-tab>Logarítmico</v-tab>
         <v-spacer></v-spacer>
         <v-checkbox
-          v-if="predictionEnabled"
+          v-if="mode.prediction"
           hide-details
           dense
           class="ma-0 pa-0 my-auto"
@@ -20,7 +20,7 @@
         ></v-checkbox>
       </v-tabs>
       <v-alert
-        v-if="predictionEnabled"
+        v-if="mode.prediction"
         class="ma-0 mt-4 body-2"
         :value="prediction"
         transition="fade-transition"
@@ -51,30 +51,9 @@ import {
   baseLineOptions,
   baseChartOptions,
   round,
-  lineColor
+  lineColor,
+  labels
 } from '@/plugins/helper';
-
-const texts = {
-  title: {
-    confirmed: 'Acumulado de Confirmados',
-    suspected: 'Acumulado de Sospechosos',
-    deaths: 'Acumulado de Fallecidos',
-    active: 'Acumulado de Activos'
-  },
-  subtitle: {
-    confirmed: 'El total de casos confirmados reportado',
-    suspected: 'El total de casos sospechosos reportado',
-    deaths: 'El total de casos fallecidos reportado',
-    active:
-      'El número de personas que presentaron sintomas en los últimos 14 días.'
-  },
-  yLabel: {
-    confirmed: '# de Confirmados',
-    suspected: '# de Sospechosos',
-    deaths: '# de Fallecidos',
-    active: '# de Activos'
-  }
-};
 
 export default {
   name: 'TotalCasesChart',
@@ -90,7 +69,7 @@ export default {
   },
   data() {
     return {
-      texts,
+      labels: labels.totalCases,
       meanGrowthFactor: null,
       meanGrowthFactorDays: 5,
       prediction: false,
@@ -134,10 +113,14 @@ export default {
     update() {
       this.data.datasets[1].hidden = !this.prediction;
       if (this.$refs.chart) {
-        this.$refs.chart.update(this.tab === 1, texts.yLabel[this.mode.key]);
+        this.$refs.chart.update(
+          this.tab === 1,
+          this.labels.yLabel[this.mode.key]
+        );
       } else {
-        this.options.scales.yAxes[0].scaleLabel.labelString =
-          texts.yLabel[this.mode.key];
+        this.options.scales.yAxes[0].scaleLabel.labelString = this.labels.yLabel[
+          this.mode.key
+        ];
       }
     },
     reset() {
@@ -152,10 +135,16 @@ export default {
         ...this.data.datasets[0],
         ...lineColor(this.mode.colorStr, this.mode.colorShade)
       };
-      this.data.datasets[0].data = this.timeseries.map(data => ({
-        t: data.date,
-        y: data[this.mode.key].value
-      }));
+      this.data.datasets[0].data = this.timeseries
+        .filter(data =>
+          this.mode.startDate
+            ? data.date.isSameOrAfter(this.mode.startDate)
+            : true
+        )
+        .map(data => ({
+          t: data.date,
+          y: data[this.mode.key].value
+        }));
 
       // Prediction plot data.
       this.meanGrowthFactor = round(
@@ -181,8 +170,7 @@ export default {
     ...mapState({
       timeseries: state => state.timeseries,
       latest: state => state.latest,
-      mode: state => state.mode,
-      predictionEnabled: state => state.mode.key !== 'active'
+      mode: state => state.mode
     })
   }
 };
