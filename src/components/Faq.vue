@@ -31,11 +31,6 @@ export default {
     return {
       questions: [
         {
-          title: '¿Dónde está el número de pruebas realizadas?',
-          answer:
-            'Estoy trabajando para obtener el número de una manera confiable.'
-        },
-        {
           title: '¿Cada cuándo se actualiza el sitio?',
           answer: 'Todos los días poco después de las 19 horas.'
         },
@@ -43,6 +38,11 @@ export default {
           title: 'Los datos de mi estado están mal.',
           answer:
             'La Secretaría de Salud hace el corte de datos a las 13 horas y no considera los casos de hospitales privados. Aunque se hacen pruebas para verificar que los datos presentados en el sitio sean iguales a los de la Secretaría de Salud, puede haber una discrepancia. Si encuentras un error te agradezco me contactes para revisarlo lo antes posible. Los datos de contacto están en la pregunta sobre contacto.'
+        },
+        {
+          title: '¿Qué factor utilizas para el mapeo de casos?',
+          answer:
+            'Por declaración de la Fase 3, el mapeo de casos se realiza en base a la entidad de residencia del paciente (antes entidad de la unidad médica). Esto es valido para todos los datos a partir del 21 de abril de 2020.'
         },
         {
           title: '¿Cómo te puedo contactar?',
