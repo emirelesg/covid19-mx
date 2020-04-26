@@ -223,7 +223,7 @@ export const modes = [
     colorStr: 'red',
     colorShade: 'base',
     prediction: true,
-    startDate: undefined
+    filterStartOfData: false
   },
   {
     title: 'Sospechosos',
@@ -232,7 +232,7 @@ export const modes = [
     colorStr: 'orange',
     colorShade: 'base',
     prediction: false,
-    startDate: undefined
+    filterStartOfData: false
   },
   {
     title: 'Fallecidos',
@@ -241,7 +241,7 @@ export const modes = [
     colorStr: 'blueGrey',
     colorShade: 'base',
     prediction: true,
-    startDate: undefined
+    filterStartOfData: false
   },
   {
     title: 'Activos',
@@ -250,7 +250,7 @@ export const modes = [
     colorStr: 'purple',
     colorShade: 'base',
     prediction: false,
-    startDate: moment('2020-04-12')
+    filterStartOfData: true
   },
   {
     title: 'Pruebas',
@@ -259,7 +259,7 @@ export const modes = [
     colorStr: 'cyan',
     colorShade: 'darken1',
     prediction: false,
-    startDate: moment('2020-04-12')
+    filterStartOfData: true
   }
 ];
 

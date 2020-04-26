@@ -130,17 +130,26 @@ export default {
       this.tab = 0;
       this.prediction = false;
 
+      // Index that defines the start of the timeseries data.
+      let startOfData = 0;
+
+      // If flag, remove all values until the first positive value.
+      if (this.mode.filterStartOfData) {
+        for (let i = 0; i < this.timeseries.length; i += 1) {
+          if (this.timeseries[i][this.mode.key].delta > 0) {
+            startOfData = i - 1;
+            break;
+          }
+        }
+      }
+
       // Plot data.
       this.data.datasets[0] = {
         ...this.data.datasets[0],
         ...lineColor(this.mode.colorStr, this.mode.colorShade)
       };
       this.data.datasets[0].data = this.timeseries
-        .filter(data =>
-          this.mode.startDate
-            ? data.date.isSameOrAfter(this.mode.startDate)
-            : true
-        )
+        .slice(startOfData)
         .map(data => ({
           t: data.date,
           y: data[this.mode.key].value
