@@ -89,7 +89,7 @@ export default new Vuex.Store({
 
       // Convert data to a timeseries format. Then process it
       // to obtain the extended timeseries and latest data.
-      const selectedState = state.statsByState.states[stateKey.toUpperCase()];
+      const selectedState = state.statsByState.states[stateKey];
       const { timeseries, latest } = processTimeseries(
         state.statsByState.dates.map((date, i) => ({
           date,

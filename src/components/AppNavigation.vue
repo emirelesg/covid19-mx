@@ -9,7 +9,7 @@
       <v-list-item-group color="primary">
         <v-list-item
           link
-          :to="{ name: 'State', params: { stateKey } }"
+          :to="{ name: 'State', params: { stateKey: stateKey.toLowerCase() } }"
           v-for="[stateKey, stateName] in states"
           :key="stateKey"
           exact

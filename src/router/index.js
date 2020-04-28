@@ -23,7 +23,7 @@ const routes = [
     name: 'State',
     component: State,
     beforeEnter: (to, from, next) => {
-      if (stateNames[to.params.stateKey.toLowerCase()]) {
+      if (stateNames[to.params.stateKey.toUpperCase()]) {
         next();
       } else {
         next({ name: 'NotFound' });

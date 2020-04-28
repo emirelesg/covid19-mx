@@ -72,7 +72,7 @@ export default {
     async init() {
       this.loaded = false;
 
-      const stateKey = this.$route.params.stateKey.toLowerCase();
+      const stateKey = this.$route.params.stateKey.toUpperCase();
       this.stateName = stateNames[stateKey];
       if (this.stateName === 'México') this.stateName = `Estado de México`;
 
@@ -85,7 +85,7 @@ export default {
   },
   watch: {
     '$route.params.stateKey': function() {
-      if (stateNames[this.$route.params.stateKey.toLowerCase()]) {
+      if (stateNames[this.$route.params.stateKey.toUpperCase()]) {
         this.init();
       } else {
         this.$router.push({ name: 'NotFound' });
