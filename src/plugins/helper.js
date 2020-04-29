@@ -138,6 +138,13 @@ function getValue(latest, prev, prop) {
   };
 }
 
+export const processStatsBySymptoms = ({ dates, cases }) => ({
+  dates: dates.map(d => moment(d)),
+  dateKeys: Object.keys(cases),
+  maxCases: Math.max(...Object.values(cases).flat()),
+  cases
+});
+
 export const processTimeseriesBySymptoms = timeseries =>
   timeseries.map(data => ({
     ...data,

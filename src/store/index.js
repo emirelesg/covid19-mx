@@ -4,6 +4,7 @@ import moment from 'moment';
 import {
   processTimeseries,
   processTimeseriesBySymptoms,
+  processStatsBySymptoms,
   modes,
   round,
   statePopulation
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     // Urls for source data.
     statsUrl: '/api/stats.json',
     statsByStateUrl: '/api/statsByState.json',
+    statsBySymptomsUrl: '/api/statsBySymptoms.json',
     geojsonUrl: '/maps/mexico.json',
     // What property is used to display charts.
     mode: modes[0],
@@ -34,6 +36,8 @@ export default new Vuex.Store({
     stats: null,
     // Contains info about each state.
     statsByState: null,
+    // Contains timeseries data about the changes in start of symptoms.
+    statsBySymptoms: null,
     // Currently selected timeseries.
     timeseries: [],
     // Currently selected timeseries of cases by date of start of symptoms.
@@ -64,6 +68,9 @@ export default new Vuex.Store({
     SET_STATS_BY_STATE(state, statsByState) {
       state.statsByState = statsByState;
     },
+    SET_STATS_BY_SYMPTOMS(state, statsBySymptoms) {
+      state.statsBySymptoms = statsBySymptoms;
+    },
     SET_ACTIVE(state, { timeseries, timeseriesBySymptoms, latest }) {
       state.timeseries = timeseries;
       state.latest = latest;
@@ -80,6 +87,18 @@ export default new Vuex.Store({
         timeseriesBySymptoms: [],
         latest: {}
       });
+    },
+
+    loadStatsBySymptoms: async ({ state, dispatch, commit }) => {
+      if (!state.statsBySymptoms) {
+        const statsBySymptoms = await dispatch(
+          'getJSON',
+          state.statsBySymptomsUrl
+        );
+        const processed = processStatsBySymptoms(statsBySymptoms);
+        commit('SET_STATS_BY_SYMPTOMS', processed);
+      }
+      return true;
     },
 
     loadStatsByState: async ({ state, dispatch, commit }, stateKey) => {

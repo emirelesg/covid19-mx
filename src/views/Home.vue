@@ -35,6 +35,9 @@
         <cases-by-state-table :loaded="loaded" />
       </v-col>
       <v-col cols="12">
+        <symptoms-evolution-chart :loaded="loaded" />
+      </v-col>
+      <v-col cols="12">
         <growth-factor-chart :skip="14" :loaded="loaded" />
       </v-col>
       <v-col cols="12">
@@ -55,6 +58,7 @@ import StartOfSymptoms from '@/components/charts/StartOfSymptomsChart';
 import Disclaimer from '@/components/Disclaimer';
 import CasesByStateTable from '@/components/tables/CasesByStateTable';
 import GrowthFactorChart from '@/components/charts/GrowthFactorChart';
+import SymptomsEvolutionChart from '@/components/charts/SymptomsEvolutionChart';
 import Faq from '@/components/Faq';
 import DownloadStats from '@/components/DownloadStats';
 import LatestValues from '@/components/LatestValues';
@@ -71,6 +75,7 @@ export default {
     LatestValues,
     TotalCasesChart,
     StartOfSymptoms,
+    SymptomsEvolutionChart,
     Disclaimer,
     CasesByStateTable,
     DailyIncreaseChart,

@@ -1,6 +1,8 @@
 <script>
 import { Line } from 'vue-chartjs';
 import { readableLog, afterBuildTicks } from '@/plugins/helper';
+// eslint-disable-next-line
+import chartjsPluginAnnotation from 'chartjs-plugin-annotation';
 
 export default {
   name: 'Chart',
@@ -12,9 +14,17 @@ export default {
     };
   },
   methods: {
-    update(isLog, yLabel) {
+    update(isLog, yLabel, annotations) {
       // Get the y-axis from the chart object.
       const yAxis = this.$data._chart.options.scales.yAxes[0];
+
+      // Update annotations if provided.
+      if (annotations) {
+        if (!this.$data._chart.options.annotation) {
+          this.$data._chart.options.annotation = { annotations: [] };
+        }
+        this.$data._chart.options.annotation.annotations = annotations;
+      }
 
       // Change the type of the graph.
       yAxis.type = isLog ? 'logarithmic' : 'linear';
