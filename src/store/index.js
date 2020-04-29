@@ -4,7 +4,9 @@ import moment from 'moment';
 import {
   processTimeseries,
   processTimeseriesBySymptoms,
-  modes
+  modes,
+  round,
+  statePopulation
 } from '@/plugins/helper';
 
 // Choose the default locale for momentjs.
@@ -128,6 +130,10 @@ export default new Vuex.Store({
       // Only load stats for the first time.
       if (!state.stats) {
         const stats = await dispatch('getJSON', state.statsUrl);
+        stats.statesAsArray = stats.statesAsArray.map(obj => ({
+          ...obj,
+          testsRatio: round((obj.tests * 10000) / statePopulation[obj.key], 1)
+        }));
         commit('SET_STATS', stats);
       }
 

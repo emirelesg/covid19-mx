@@ -7,7 +7,7 @@
   >
     <template v-slot:content>
       <v-data-table
-        class="fixed-footer-table"
+        class="fixed-footer-table mb-2"
         fixed-header
         hide-default-footer
         disable-pagination
@@ -36,29 +36,44 @@
           >
         </template>
         <template v-slot:body.append>
-          <tr v-show="$vuetify.breakpoint.smAndUp">
-            <td class="font-weight-bold caption">Total</td>
-            <td class="text-center font-weight-bold">
+          <tr
+            v-show="$vuetify.breakpoint.smAndUp"
+            class="text-center font-weight-bold"
+          >
+            <td class="text-left">Total</td>
+            <td>
               {{ latest.confirmed.value }}
             </td>
-            <td class="text-center font-weight-bold">
+            <td>
               {{ getDeltaLabel(latest.confirmed.delta) }}
             </td>
-            <td class="text-center font-weight-bold">
+            <td>
               {{ latest.active.value }}
             </td>
-            <td class="text-center font-weight-bold">
+            <td>
               {{ latest.suspected.value }}
             </td>
-            <td class="text-center font-weight-bold">
+            <td>
               {{ latest.deaths.value }}
             </td>
-            <td class="text-center font-weight-bold">
+            <td>
               {{ latest.tests.value }}
+            </td>
+            <td>
+              -
             </td>
           </tr>
         </template>
       </v-data-table>
+      <div>
+        Fuente para población:
+        <a
+          target="_blank"
+          href="http://cuentame.inegi.org.mx/poblacion/habitantes.aspx"
+        >
+          INEGI (2015)
+        </a>
+      </div>
     </template>
   </card>
 </template>
@@ -96,7 +111,12 @@ export default {
         },
         { text: 'Sospechosos', value: 'suspected', align: 'center' },
         { text: 'Fallecidos', value: 'deaths', align: 'center' },
-        { text: 'Pruebas', value: 'tests', align: 'center' }
+        { text: 'Pruebas', value: 'tests', align: 'center' },
+        {
+          text: 'Pruebas / 10 mil Hab.',
+          value: 'testsRatio',
+          align: 'center'
+        }
       ]
     };
   },
