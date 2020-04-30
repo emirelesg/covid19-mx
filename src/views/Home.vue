@@ -34,10 +34,10 @@
       <v-col cols="12">
         <cases-by-state-table :loaded="loaded" />
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" md="6">
         <symptoms-evolution-chart :loaded="loaded" />
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" md="6">
         <growth-factor-chart :skip="14" :loaded="loaded" />
       </v-col>
       <v-col cols="12">

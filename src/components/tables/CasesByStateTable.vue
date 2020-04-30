@@ -12,7 +12,7 @@
         hide-default-footer
         disable-pagination
         dense
-        height="400px"
+        height="370px"
         sort-by="confirmed"
         :sort-desc="true"
         :headers="headers"

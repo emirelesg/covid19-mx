@@ -69,7 +69,7 @@ export default {
       options: baseChartOptions('Fecha', '# de Personas', true),
       style: {
         paddingTop: '16px',
-        height: '400px'
+        height: `${400 - 48}px`
       }
     };
   },

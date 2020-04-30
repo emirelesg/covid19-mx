@@ -57,7 +57,7 @@ export default {
       ),
       style: {
         paddingTop: '16px',
-        height: `${400 - 48}px`
+        height: `${400 - 72}px`
       }
     };
   },

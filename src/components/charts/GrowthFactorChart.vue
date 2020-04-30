@@ -55,7 +55,7 @@ export default {
       options: baseChartOptions('Fecha', 'Factor', false, 1),
       style: {
         paddingTop: '16px',
-        height: `${400 - 72}px`
+        height: `${400 - 92}px`
       }
     };
   },
