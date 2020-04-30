@@ -76,7 +76,7 @@ export default {
   methods: {
     update() {
       if (this.$refs.chart) {
-        this.$refs.chart.update(0, '');
+        this.$refs.chart.update(0);
       }
     },
     reset() {

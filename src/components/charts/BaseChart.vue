@@ -14,23 +14,24 @@ export default {
     };
   },
   methods: {
-    update(isLog, yLabel, annotations) {
+    yMax(value) {
+      this.$data._chart.options.scales.yAxes[0].ticks.max = value;
+    },
+    yLabel(value) {
+      this.$data._chart.options.scales.yAxes[0].scaleLabel.labelString = value;
+    },
+    annotations(arr) {
+      if (!this.$data._chart.options.annotation) {
+        this.$data._chart.options.annotation = { annotations: [] };
+      }
+      this.$data._chart.options.annotation.annotations = arr;
+    },
+    update(isLog) {
       // Get the y-axis from the chart object.
       const yAxis = this.$data._chart.options.scales.yAxes[0];
 
-      // Update annotations if provided.
-      if (annotations) {
-        if (!this.$data._chart.options.annotation) {
-          this.$data._chart.options.annotation = { annotations: [] };
-        }
-        this.$data._chart.options.annotation.annotations = annotations;
-      }
-
       // Change the type of the graph.
       yAxis.type = isLog ? 'logarithmic' : 'linear';
-
-      // Change the y label of the chart.
-      if (yLabel) yAxis.scaleLabel.labelString = yLabel;
 
       // Store the default tick algorithm.
       if (this.defaultTickCallback === undefined) {

@@ -71,7 +71,8 @@ export default {
   methods: {
     update() {
       if (this.$refs.chart) {
-        this.$refs.chart.update(0, this.labels.yLabel[this.mode.key]);
+        this.$refs.chart.yLabel(this.labels.yLabel[this.mode.key]);
+        this.$refs.chart.update(0);
       } else {
         this.options.scales.yAxes[0].scaleLabel.labelString = this.labels.yLabel[
           this.mode.key

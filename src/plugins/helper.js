@@ -138,12 +138,19 @@ function getValue(latest, prev, prop) {
   };
 }
 
-export const processStatsBySymptoms = ({ dates, cases }) => ({
-  dates: dates.map(d => moment(d)),
-  dateKeys: Object.keys(cases),
-  maxCases: Math.max(...Object.values(cases).flat()),
-  cases
-});
+export const processStatsBySymptoms = ({ dates, cases }) => {
+  const dateKeys = Object.keys(cases);
+  return {
+    dates: dates.map(d => moment(d)),
+    datesIdxKeys: dates.map(d => dateKeys.indexOf(d)),
+    dateKeys,
+    maxCases: Math.max(...Object.values(cases).flat()),
+    totalCases: Object.values(cases)
+      .map(x => x[dates.length - 1])
+      .reduce((a, o) => a + o, 0),
+    cases
+  };
+};
 
 export const processTimeseriesBySymptoms = timeseries =>
   timeseries.map(data => ({
