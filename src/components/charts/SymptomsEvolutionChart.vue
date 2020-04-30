@@ -1,6 +1,6 @@
 <template>
   <card
-    title="Evolución del Inicio de Sintomas"
+    title="Evolución del Inicio de Síntomas"
     subtitle="Animación de los datos reportados para cada día desde el 12 de abril"
     loadingMessage="Cargando Gráfica..."
     :loaded="loaded"

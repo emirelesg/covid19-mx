@@ -325,14 +325,14 @@ export const values = [
     value: v => v.active.value,
     color: getModeColor('active'),
     help:
-      'Personas estimadas que iniciaron con sintomas en los últimos 14 días.'
+      'Personas estimadas que iniciaron con síntomas en los últimos 14 días.'
   },
   {
     title: 'Recuperados',
     value: v => v.confirmed.value - v.active.value - v.deaths.value,
     color: colors.green.base,
     help:
-      'Personas estimadas que presentaron sintomas hace más de 14 días. Es igual a confirmados - activos - fallecidos.'
+      'Personas estimadas que presentaron síntomas hace más de 14 días. Es igual a confirmados - activos - fallecidos.'
   },
   {
     title: 'Fallecidos',
@@ -373,7 +373,7 @@ export const labels = {
       suspected: 'Total de casos sospechosos reportado',
       deaths: 'Total de casos fallecidos reportado',
       active:
-        'Total de personas que presentaron sintomas en los últimos 14 días',
+        'Total de personas que presentaron síntomas en los últimos 14 días',
       tests: ' Total de personas estudiadas'
     },
     yLabel: {

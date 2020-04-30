@@ -1,15 +1,15 @@
 <template>
   <card
-    title="Inicio de Sintomas"
-    subtitle="El número de personas que comenzaron con sintomas por día"
+    title="Inicio de Síntomas"
+    subtitle="El número de personas que comenzaron con síntomas por día"
     loadingMessage="Cargando Gráfica..."
     :loaded="loaded"
   >
     <template v-slot:content>
       <v-alert class="ma-0 body-2" type="info" color="blue" text>
         Debido al tiempo de espera de un diangostico de COVID-19, existe un
-        retraso entre el inicio de los sintomas y el conteo del caso. La gráfica
-        por inicio de sintomas muestra el <b>verdadero</b> número de infectados
+        retraso entre el inicio de los síntomas y el conteo del caso. La gráfica
+        por inicio de síntomas muestra el <b>verdadero</b> número de infectados
         por día.
       </v-alert>
       <chart
@@ -44,7 +44,7 @@ export default {
     return {
       data: {
         datasets: [
-          baseBarOptions('blue', 'base', 'Por fecha de sintomas'),
+          baseBarOptions('blue', 'base', 'Por fecha de síntomas'),
           baseBarOptions('red', 'base', 'Por fecha de conteo')
         ]
       },
