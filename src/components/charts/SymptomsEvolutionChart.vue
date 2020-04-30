@@ -91,7 +91,9 @@ export default {
         y: this.stats.cases[d][this.idx]
       }));
       this.annotations[0].value = this.stats.dates[this.idx];
-      this.annotations[0].label.content = this.stats.dates[this.idx].fromNow();
+      this.annotations[0].label.content = this.stats.dates[this.idx].format(
+        'll'
+      );
       if (this.$refs.chart) {
         this.$refs.chart.update(0, undefined, this.annotations);
       }
