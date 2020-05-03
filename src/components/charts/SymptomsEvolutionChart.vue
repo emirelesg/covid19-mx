@@ -45,7 +45,7 @@ export default {
       timeout: null,
       annotations: [
         {
-          drawTime: 'afterDatasetsDraw',
+          drawTime: 'beforeDatasetsDraw',
           type: 'line',
           mode: 'vertical',
           scaleID: 'x-axis-0',
@@ -55,7 +55,8 @@ export default {
           label: {
             content: 'Hoy',
             enabled: true,
-            position: 'top'
+            position: 'top',
+            yAdjust: 20
           }
         }
       ],
