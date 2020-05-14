@@ -49,7 +49,14 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart, legend) => ({
     display: !!legend
   },
   tooltips: {
-    enabled: true
+    enabled: true,
+    callbacks: {
+      label: function(tooltipItem, data) {
+        return data.datasets[tooltipItem.datasetIndex].data[
+          tooltipItem.index
+        ].y.toLocaleString();
+      }
+    }
   },
   hover: {
     axis: 'xy',
@@ -92,7 +99,7 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart, legend) => ({
           callback: (value, _, values) => {
             if (Math.max(...values) >= 1e4 && Math.abs(value) >= 1e3)
               return `${value / 1e3}K`;
-            return value;
+            return value.toLocaleString();
           }
         },
         scaleLabel: {
