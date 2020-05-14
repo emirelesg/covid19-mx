@@ -25,8 +25,13 @@
             <v-list-item two-line class="text-center">
               <v-list-item-content class="py-4">
                 <v-list-item-title
-                  class="display-1 mb-2"
-                  :style="{ color: getColor(v) }"
+                  class="mb-2"
+                  :style="{
+                    color: getColor(v),
+                    'font-size': $vuetify.breakpoint.xsOnly
+                      ? '1.875rem'
+                      : '2.125rem'
+                  }"
                 >
                   {{ getValue(v) }}
                 </v-list-item-title>
@@ -66,8 +71,8 @@ export default {
     getValue(v) {
       if (this.loaded) {
         const val = v.value(this.latest);
-        if (v.delta && val > 0) return `+${val}`;
-        return val;
+        if (v.delta && val > 0) return `+${val.toLocaleString()}`;
+        return val.toLocaleString();
       }
       return '-';
     },
