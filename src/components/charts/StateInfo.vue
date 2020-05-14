@@ -8,7 +8,9 @@
         <template v-slot:default>
           <tbody>
             <tr v-for="mode in modes" :key="mode.key">
-              <td :style="{ color: mode.colorHex }">{{ state[mode.key] }}</td>
+              <td :style="{ color: mode.colorHex }">
+                {{ state[mode.key].toLocaleString() }}
+              </td>
               <td>{{ mode.title }}</td>
             </tr>
           </tbody>

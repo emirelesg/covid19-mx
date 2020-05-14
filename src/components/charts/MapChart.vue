@@ -182,8 +182,8 @@ export default {
           .attr('y', y + blockWidth / 2)
           .text(
             i < clusters.length - 1
-              ? `${c} - ${clusters[i + 1]}`
-              : `más de ${c}`
+              ? `${c.toLocaleString()} - ${clusters[i + 1].toLocaleString()}`
+              : `más de ${c.toLocaleString()}`
           )
           .style('fill', '#444');
       });
