@@ -19,59 +19,68 @@
         :items="data"
         item-key="name"
       >
-        <template v-slot:body="{ items }">
-          <tbody class="text-center">
-            <tr v-for="item in items" :key="item.name">
-              <td class="text-left">
-                <router-link
-                  :to="{
-                    name: 'State',
-                    params: { stateKey: item.key.toLowerCase() }
-                  }"
-                  >{{ item.name }}</router-link
-                >
-              </td>
-              <td>{{ item.confirmed.toLocaleString() }}</td>
-              <td>
-                <span
-                  v-if="
-                    isFinite(item.confirmedDelta) && item.confirmedDelta !== 0
-                  "
-                  :style="getDeltaStyle(item.confirmedDelta)"
-                  >{{ getDeltaLabel(item.confirmedDelta) }}</span
-                >
-              </td>
-              <td>{{ item.active.toLocaleString() }}</td>
-              <td>{{ item.suspected.toLocaleString() }}</td>
-              <td>{{ item.deaths.toLocaleString() }}</td>
-              <td>{{ item.tests.toLocaleString() }}</td>
-              <td>{{ item.testsRatio.toLocaleString() }}</td>
-            </tr>
-            <tr v-show="$vuetify.breakpoint.smAndUp" class="font-weight-bold">
-              <td class="text-left">Total</td>
-              <td>
-                {{ latest.confirmed.value.toLocaleString() }}
-              </td>
-              <td>
-                {{ getDeltaLabel(latest.confirmed.delta) }}
-              </td>
-              <td>
-                {{ latest.active.value.toLocaleString() }}
-              </td>
-              <td>
-                {{ latest.suspected.value.toLocaleString() }}
-              </td>
-              <td>
-                {{ latest.deaths.value.toLocaleString() }}
-              </td>
-              <td>
-                {{ latest.tests.value.toLocaleString() }}
-              </td>
-              <td>
-                -
-              </td>
-            </tr>
-          </tbody>
+        <template v-slot:item.name="{ item }">
+          <router-link
+            :to="{
+              name: 'State',
+              params: { stateKey: item.key.toLowerCase() }
+            }"
+            >{{ item.name }}</router-link
+          >
+        </template>
+        <template v-slot:item.confirmed="{ item }">
+          {{ item.confirmed.toLocaleString() }}
+        </template>
+        <template v-slot:item.confirmedDelta="{ item }">
+          <span
+            v-if="isFinite(item.confirmedDelta) && item.confirmedDelta !== 0"
+            :style="getDeltaStyle(item.confirmedDelta)"
+            >{{ getDeltaLabel(item.confirmedDelta) }}</span
+          >
+        </template>
+        <template v-slot:item.active="{ item }">
+          {{ item.active.toLocaleString() }}
+        </template>
+        <template v-slot:item.suspected="{ item }">
+          {{ item.suspected.toLocaleString() }}
+        </template>
+        <template v-slot:item.deaths="{ item }">
+          {{ item.deaths.toLocaleString() }}
+        </template>
+        <template v-slot:item.tests="{ item }">
+          {{ item.tests.toLocaleString() }}
+        </template>
+        <template v-slot:item.testsRatio="{ item }">
+          {{ item.testsRatio.toLocaleString() }}
+        </template>
+        <template v-slot:body.append>
+          <tr
+            v-show="$vuetify.breakpoint.smAndUp"
+            class="text-center font-weight-bold"
+          >
+            <td class="text-left">Total</td>
+            <td>
+              {{ latest.confirmed.value.toLocaleString() }}
+            </td>
+            <td>
+              {{ getDeltaLabel(latest.confirmed.delta) }}
+            </td>
+            <td>
+              {{ latest.active.value.toLocaleString() }}
+            </td>
+            <td>
+              {{ latest.suspected.value.toLocaleString() }}
+            </td>
+            <td>
+              {{ latest.deaths.value.toLocaleString() }}
+            </td>
+            <td>
+              {{ latest.tests.value.toLocaleString() }}
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
         </template>
       </v-data-table>
       <div>
