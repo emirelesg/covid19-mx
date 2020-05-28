@@ -39,4 +39,4 @@ jobs:
           remoteDir: 'covid19'
         env:
           FORCE_COLOR: 1
-          DRY_RUN: true
+          # DRY_RUN: true
