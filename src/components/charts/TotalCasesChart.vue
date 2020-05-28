@@ -31,7 +31,8 @@
         crecimiento de los casos totales acumulados de los últimos
         <strong>{{ meanGrowthFactorDays }} días.</strong>
         Este factor es de
-        <strong>{{ meanGrowthFactor }}</strong>
+        <strong>{{ meanGrowthFactor }}</strong
+        >.
       </v-alert>
       <chart
         ref="chart"
