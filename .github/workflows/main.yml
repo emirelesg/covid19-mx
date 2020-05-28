@@ -1,15 +1,13 @@
-name: Deploy Website
-
+name: Build and Deploy via FTP
 on:
   push:
     branches: [master]
-
 jobs:
-  build:
-    runs-on: ubuntu-18.04
-
+  main:
+    name: Main
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
@@ -31,8 +29,14 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
-      - name: Deploy
-        run: npm run deploy
+      - name: FTP sync
+        uses: emirelesg/action-ftp-sync@master
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: 'dist'
+          remoteDir: 'covid19'
         env:
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FORCE_COLOR: 1
+          DRY_RUN: true
