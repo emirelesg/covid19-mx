@@ -192,13 +192,24 @@ export const processTimeseries = timeseries => {
   // Also change the hour to 13h since at that hour the data is updated.
   const latest = extendedTimeseries[extendedTimeseries.length - 1];
   latest.updateDate = moment(latest.date)
-    .add('13', 'hour')
+    .add('19', 'hour')
     .fromNow();
 
   return {
     timeseries: extendedTimeseries,
     latest
   };
+};
+
+export const isDateExpired = date => {
+  const updateDate = moment(date).add('19', 'hour');
+  const delta = moment().diff(updateDate, 'hours');
+  if (delta >= 24) {
+    console.log('Forcing update, data has expired.');
+  } else {
+    console.log('Not expired');
+  }
+  return delta >= 24;
 };
 
 export const stateNames = {

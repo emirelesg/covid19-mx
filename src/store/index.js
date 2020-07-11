@@ -7,6 +7,7 @@ import {
   processStatsBySymptoms,
   modes,
   round,
+  isDateExpired,
   statePopulation
 } from '@/plugins/helper';
 
@@ -90,7 +91,10 @@ export default new Vuex.Store({
     },
 
     loadStatsBySymptoms: async ({ state, dispatch, commit }) => {
-      if (!state.statsBySymptoms) {
+      if (
+        !state.statsBySymptoms ||
+        isDateExpired(state.statsBySymptoms.dates.slice(-1)[0])
+      ) {
         const statsBySymptoms = await dispatch(
           'getJSON',
           state.statsBySymptomsUrl
@@ -102,8 +106,11 @@ export default new Vuex.Store({
     },
 
     loadStatsByState: async ({ state, dispatch, commit }, stateKey) => {
-      // Only load stats by state for the first time.
-      if (!state.statsByState) {
+      // Only load stats by state for the first time or if data is expired.
+      if (
+        !state.statsByState ||
+        isDateExpired(state.statsByState.dates.slice(-1)[0])
+      ) {
         const statsByState = await dispatch('getJSON', state.statsByStateUrl);
         commit('SET_STATS_BY_STATE', statsByState);
       }
@@ -147,7 +154,10 @@ export default new Vuex.Store({
       }
 
       // Only load stats for the first time.
-      if (!state.stats) {
+      if (
+        !state.stats ||
+        isDateExpired(state.stats.timeseries.slice(-1)[0].date)
+      ) {
         const stats = await dispatch('getJSON', state.statsUrl);
         stats.statesAsArray = stats.statesAsArray.map(obj => ({
           ...obj,
