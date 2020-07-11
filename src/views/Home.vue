@@ -38,7 +38,7 @@
         <symptoms-evolution-chart :loaded="loaded" />
       </v-col>
       <v-col cols="12" md="6">
-        <growth-factor-chart :skip="14" :loaded="loaded" />
+        <growth-factor-chart :skip="50" :loaded="loaded" />
       </v-col>
       <v-col cols="12">
         <Faq />

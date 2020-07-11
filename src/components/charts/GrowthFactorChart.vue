@@ -41,10 +41,6 @@ export default {
     loaded: {
       type: Boolean,
       required: true
-    },
-    skip: {
-      type: Number,
-      default: 0
     }
   },
   data() {
@@ -78,7 +74,7 @@ export default {
     reset() {
       if (this.timeseries.length === 0) return;
       this.data.datasets[0].data = this.timeseries
-        .slice(this.skip)
+        .slice(this.timeseries.length - 90)
         .map(data => ({
           t: data.date,
           y: data.confirmed.growthFactor
