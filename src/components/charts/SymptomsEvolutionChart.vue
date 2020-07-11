@@ -41,7 +41,7 @@ export default {
     return {
       tab: 0,
       loaded: false,
-      stepDuration: 300,
+      stepDuration: 100,
       timeout: null,
       annotations: [
         {
