@@ -78,8 +78,8 @@ export default {
     },
     getColor(v) {
       if (this.loaded) {
-        if (v.delta)
-          return v.value(this.latest) > 0 ? colors.red.base : colors.green.base;
+        // if (v.delta)
+        // return v.value(this.latest) > 0 ? colors.red.base : colors.green.base;
         return v.color;
       }
       return colors.grey.base;

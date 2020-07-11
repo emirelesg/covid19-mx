@@ -332,21 +332,28 @@ export const values = [
   {
     title: 'Confirmados Hoy',
     value: v => v.confirmed.delta,
+    color: getModeColor('confirmed'),
     delta: true
   },
   {
-    title: 'Activos',
+    title: 'Activos Estimados',
     value: v => v.active.value,
     color: getModeColor('active'),
     help:
       'Personas estimadas que iniciaron con síntomas en los últimos 14 días.'
   },
+  // {
+  //   title: 'Recuperados',
+  //   value: v => v.confirmed.value - v.active.value - v.deaths.value,
+  //   color: colors.green.base,
+  //   help:
+  //     'Personas estimadas que presentaron síntomas hace más de 14 días. Es igual a confirmados - activos - fallecidos.'
+  // },
   {
-    title: 'Recuperados',
-    value: v => v.confirmed.value - v.active.value - v.deaths.value,
-    color: colors.green.base,
-    help:
-      'Personas estimadas que presentaron síntomas hace más de 14 días. Es igual a confirmados - activos - fallecidos.'
+    title: 'Sospechosos',
+    value: v => v.suspected.value,
+    color: getModeColor('suspected'),
+    help: 'Personas en espera del resultado de la prueba de COVID-19.'
   },
   {
     title: 'Fallecidos',
@@ -354,16 +361,16 @@ export const values = [
     color: getModeColor('deaths')
   },
   {
+    title: 'Fallecidos Hoy',
+    value: v => v.deaths.delta,
+    color: getModeColor('deaths'),
+    delta: true
+  },
+  {
     title: 'Letalidad',
     value: v => v.deaths.letality,
     color: getModeColor('deaths'),
     help: 'Porcentaje de personas con COVID-19 que han fallecido.'
-  },
-  {
-    title: 'Sospechosos',
-    value: v => v.suspected.value,
-    color: getModeColor('suspected'),
-    help: 'Personas en espera del resultado de la prueba de COVID-19.'
   },
   {
     title: 'Pruebas',
