@@ -65,7 +65,7 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart, legend) => ({
   elements: {
     point: {
       pointStyle: 'circle',
-      radius: 2
+      radius: 1
     },
     line: {
       tension: 0
