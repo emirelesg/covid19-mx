@@ -46,7 +46,10 @@ export const baseChartOptions = (xLabel, yLabel, xOffset, yStart, legend) => ({
   maintainAspectRatio: false,
   responsive: true,
   legend: {
-    display: !!legend
+    display: !!legend,
+    labels: {
+      filter: item => item.text !== undefined
+    }
   },
   tooltips: {
     enabled: true,
@@ -210,6 +213,38 @@ export const isDateExpired = date => {
     console.log('Not expired');
   }
   return delta >= 24;
+};
+
+export const rollingAvg = (data, n, doRound) => {
+  let dataAvg = [];
+
+  // Implementation with 1 for loop.
+  let sums = [];
+  if (data.length > n) {
+    for (let i = 0; i < data.length; i += 1) {
+      sums.push((sums[sums.length - 1] || 0) + data[i].y);
+      if (i >= n) {
+        const avg = (sums[i] - sums[i - n]) / n;
+        dataAvg.push({
+          t: data[i].t,
+          y: doRound ? round(avg, 0) : avg
+        });
+      }
+    }
+
+    // Implementation with 2 for loops.
+    // for (let i = n; i < data.length; i += 1) {
+    //   let avg = 0;
+    //   for (let j = 0; j < n; j += 1) avg += data[i - j].y;
+    //   avg /= n;
+    //   dataAvg.push({
+    //     t: data[i].t,
+    //     y: avg
+    //   });
+    // }
+  }
+
+  return dataAvg;
 };
 
 export const stateNames = {

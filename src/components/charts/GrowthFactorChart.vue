@@ -29,7 +29,11 @@
 import Card from '@/components/Card';
 import { mapState } from 'vuex';
 import Chart from '@/components/charts/BaseChart';
-import { baseLineOptions, baseChartOptions } from '@/plugins/helper';
+import {
+  baseLineOptions,
+  baseChartOptions,
+  rollingAvg
+} from '@/plugins/helper';
 
 export default {
   name: 'GrowthFactorChart',
@@ -46,9 +50,20 @@ export default {
   data() {
     return {
       data: {
-        datasets: [baseLineOptions('teal', 'base')]
+        datasets: [
+          {
+            ...baseLineOptions(
+              'brown',
+              'lighten1',
+              undefined,
+              'Promedio 7-días'
+            ),
+            hidden: true
+          },
+          baseLineOptions('teal', 'base')
+        ]
       },
-      options: baseChartOptions('Fecha', 'Factor', false, 1),
+      options: baseChartOptions('Fecha', 'Factor', false, 1, true),
       style: {
         paddingTop: '16px',
         height: `${400 - 92}px`
@@ -73,12 +88,13 @@ export default {
     },
     reset() {
       if (this.timeseries.length === 0) return;
-      this.data.datasets[0].data = this.timeseries
+      this.data.datasets[1].data = this.timeseries
         .slice(this.timeseries.length - 90)
         .map(data => ({
           t: data.date,
           y: data.confirmed.growthFactor
         }));
+      this.data.datasets[0].data = rollingAvg(this.data.datasets[1].data, 7);
     }
   },
   computed: {

@@ -22,9 +22,11 @@ import Card from '@/components/Card';
 import Chart from '@/components/charts/BaseChart';
 import {
   baseBarOptions,
+  baseLineOptions,
   baseChartOptions,
   barColor,
-  labels
+  labels,
+  rollingAvg
 } from '@/plugins/helper';
 
 export default {
@@ -43,9 +45,20 @@ export default {
     return {
       labels: labels.dailyIncrease,
       data: {
-        datasets: [baseBarOptions('red')]
+        datasets: [
+          {
+            ...baseLineOptions(
+              'brown',
+              'lighten1',
+              undefined,
+              'Promedio 7-días'
+            ),
+            hidden: true
+          },
+          baseBarOptions('red', 'base')
+        ]
       },
-      options: baseChartOptions('Fecha', '', true),
+      options: baseChartOptions('Fecha', '', true, undefined, true),
       style: {
         paddingTop: '0px',
         height: '400px'
@@ -96,16 +109,23 @@ export default {
       }
 
       // Plot data.
-      this.data.datasets[0] = {
-        ...this.data.datasets[0],
+      this.data.datasets[1] = {
+        ...this.data.datasets[1],
         ...barColor(this.mode.colorStr, this.mode.colorShade)
       };
-      this.data.datasets[0].data = this.timeseries
+      this.data.datasets[1].data = this.timeseries
         .slice(startOfData)
         .map(data => ({
           t: data.date,
           y: data[this.mode.key].delta
         }));
+
+      // Average data.
+      this.data.datasets[0].data = rollingAvg(
+        this.data.datasets[1].data,
+        7,
+        true
+      );
     }
   },
   computed: {
